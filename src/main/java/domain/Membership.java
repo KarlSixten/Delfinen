@@ -3,16 +3,16 @@ package domain;
 import java.time.LocalDate;
 
 public class Membership {
-private boolean active;
-private boolean senior;
-private boolean competitive;
-private boolean coach;
+private boolean isActive;
+private boolean isSenior;
+private boolean isCompetetive;
+private boolean isCoach;
 
-public Membership(boolean active, boolean senior, boolean competitive, boolean coach) {
-    this.active = active;
-    this.senior = senior;
-    this.competitive = competitive;
-    this.coach = coach;
+public Membership(boolean isActive, boolean isSenior, boolean isCompetitive, boolean isCoach) {
+    this.isActive = isActive;
+    this.isSenior = isSenior;
+    this.isCompetetive = isCompetitive;
+    this.isCoach = isCoach;
 
 }
 }

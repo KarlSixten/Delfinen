@@ -10,8 +10,17 @@ import java.util.Random;
 public class Database {
     private ArrayList<Member> membersArrayList = new ArrayList<>();
 
-    private void createNewUser(String fullName, LocalDate birthDate, String email, int phoneNumber, String address, String gender, Membership membership) {
+    private void createNewUser(String fullName,
+                               LocalDate birthDate,
+                               String email, int phoneNumber,
+                               String address,
+                               String gender,
+                               boolean isActive,
+                               boolean isSenior,
+                               boolean isCompetitive,
+                               boolean isCoach) {
         String userID = createUserID(fullName);
+        Membership membership = new Membership(isActive, isSenior, isCompetitive, isCoach);
         membersArrayList.add(new Member(fullName, userID, birthDate, email, phoneNumber, address, gender, membership));
 
     }
@@ -30,5 +39,13 @@ public class Database {
             }
         }
         return userID;
+    }
+
+    public String getAllMemberNames() {
+        StringBuilder stringBuilder = new StringBuilder();
+        for (Member member : membersArrayList) {
+            stringBuilder.append(member.getFullName() + "\n");
+        }
+        return stringBuilder.toString();
     }
 }

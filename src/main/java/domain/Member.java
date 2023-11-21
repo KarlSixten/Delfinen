@@ -7,6 +7,8 @@ import java.util.Random;
 
 public class Member {
 
+
+
     private String fullName;
     private String userID;
     private LocalDate birthDate;
@@ -27,21 +29,12 @@ public class Member {
         this.membership = membership;
     }
 
+    public String getFullName() {
+        return fullName;
+    }
+
     public String getUserID() {
         return userID;
-    }
-
-    public boolean validUserID() {
-        return userID.matches("^[a-z]{4}\\d{4}$");
-    }
-
-    public String createUserID() {
-        String[] names = fullName.split("\\s+");
-        String userIDLetters = names[0].substring(0, 2).toLowerCase() +
-                names[names.length - 1].substring(0, 2).toLowerCase();
-        Random random = new Random();
-        int numbers = random.nextInt(10000);
-        return userID = String.format("%s%04d", userIDLetters, numbers);
     }
 
     @Override

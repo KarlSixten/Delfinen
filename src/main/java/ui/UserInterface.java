@@ -65,7 +65,7 @@ public class UserInterface {
     }
 
     private void showAllMembers() {
-
+        System.out.println(controller.getAllMemberNames());
     }
 
     private void createMember() {
