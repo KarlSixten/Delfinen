@@ -2,14 +2,17 @@ package domain;
 
 import data.Database;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 import java.time.LocalDate;
 
-import java.io.IOException;
-
 public class Controller {
     private final Database database;
+
+    public Controller() throws IOException {
+        this.database =  new Database();
+    }
 
 
     public void createNewUser(String fullName,
