@@ -3,6 +3,7 @@ package ui;
 import domain.Controller;
 
 import java.time.LocalDate;
+import java.time.Month;
 import java.util.Scanner;
 
 public class UserInterface {
@@ -74,16 +75,16 @@ public class UserInterface {
 
     private void createMember() {
         //Test
-        controller.createNewUser("Karl Bjarnø",
-                LocalDate.ofEpochDay(19990619),
-                "karlsixten@gmail.com",
-                60626656,
-                "Ungarnsgade 72, 3.tv",
+        controller.createNewUser("Aleksander Gregersen",
+                LocalDate.of(1993, Month.OCTOBER,7),
+                "agregersen0@gmail.com",
+                42755293,
+                "Mågevej 51, 2tv",
                 "Male",
                 true,
-                false,
-                false,
-                false);
+                true,
+                true,
+                true);
 
     }
 

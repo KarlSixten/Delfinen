@@ -7,7 +7,7 @@ import java.time.LocalDate;
 import java.io.IOException;
 
 public class Controller {
-    private final Database database = new Database();
+    private Database database;
 
     public void createNewUser(String fullName,
                               LocalDate birthDate,

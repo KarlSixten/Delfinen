@@ -12,7 +12,6 @@ public class Database {
     Filehandler filehandler = new Filehandler();
     private final ArrayList<Member> membersArrayList = new ArrayList<>(1);
 
-    public void createNewUser(String fullName,
     public Database() throws IOException{
         setMembersArrayList(filehandler.loadData());
 

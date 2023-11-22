@@ -32,7 +32,8 @@ public class Filehandler {
                         Membership.parse(values[7])));
             }
 
-        }return memberFileList;
+        }
+        return memberFileList;
     }
     public void saveMembers (ArrayList<Member> database){
         ArrayList<Member> members = database;
