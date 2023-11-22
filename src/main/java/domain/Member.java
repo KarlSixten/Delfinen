@@ -54,6 +54,6 @@ public class Member {
                 '}';
     }
     public String toCSVString(){
-        return fullName + ";" + userID + ";" + birthDate + ";" + birthDate + ";" + email + ";" + phoneNumber + ";" + address + ";" + gender + ";";
+        return fullName + ";" + userID + ";"  + birthDate + ";" + email + ";" + phoneNumber + ";" + address + ";" + gender + ";" + membership.toCSVString();
     }
 }
