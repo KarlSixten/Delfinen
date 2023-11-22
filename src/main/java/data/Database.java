@@ -10,9 +10,10 @@ import java.util.Random;
 public class Database {
     private ArrayList<Member> membersArrayList = new ArrayList<>();
 
-    private void createNewUser(String fullName,
+    public void createNewUser(String fullName,
                                LocalDate birthDate,
-                               String email, int phoneNumber,
+                               String email,
+                               int phoneNumber,
                                String address,
                                String gender,
                                boolean isActive,
@@ -25,7 +26,7 @@ public class Database {
 
     }
 
-    public String createUserID(String fullName) {
+    private String createUserID(String fullName) {
         String userID;
         String[] names = fullName.split("\\s+");
         String userIDLetters = names[0].substring(0, 2).toLowerCase() +

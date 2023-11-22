@@ -1,6 +1,8 @@
 package ui;
 
 import domain.Controller;
+
+import java.time.LocalDate;
 import java.util.Scanner;
 
 public class UserInterface {
@@ -69,6 +71,17 @@ public class UserInterface {
     }
 
     private void createMember() {
+        //Test
+        controller.createNewUser("Karl Bjarnø",
+                LocalDate.ofEpochDay(19990619),
+                "karlsixten@gmail.com",
+                60626656,
+                "Ungarnsgade 72, 3.tv",
+                "Male",
+                true,
+                false,
+                false,
+                false);
 
     }
 
