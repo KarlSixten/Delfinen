@@ -37,6 +37,10 @@ public class Member {
         return userID;
     }
 
+    public int getPhoneNumber() {
+        return phoneNumber;
+    }
+
     @Override
     public String toString() {
         return "Member{" +

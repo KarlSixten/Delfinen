@@ -1,6 +1,9 @@
 package ui;
 
 import domain.Controller;
+import domain.Member;
+
+import java.util.ArrayList;
 
 import java.time.LocalDate;
 import java.time.Month;
@@ -22,7 +25,7 @@ public class UserInterface {
             switch (takeIntUserInput()) {
                 case 1 -> createMember();
                 case 2 -> showAllMembers();
-                case 3 -> findMember();
+                case 3 -> findMembers();
                 case 4 -> deleteMember();
                 case 5 -> editMember();
                 case 6 -> controller.loadData();
@@ -65,8 +68,20 @@ public class UserInterface {
 
     }
 
-    private void findMember() {
-
+    private void findMembers() {
+        System.out.println("Search by Name, user-ID or phone number");
+        String search = scanner.nextLine();
+        ArrayList<Member> foundMembers = controller.findMembers(search);
+        int index = 1;
+        for (Member member: foundMembers) {
+            System.out.println(index + ". " + controller.getMemberName(member));
+            index += 1;
+        }
+        System.out.println("This is your search result. Please choose a member by their number");
+        int choice = scanner.nextInt();
+        Member selectedMember = controller.getMemberFromIndex(choice, foundMembers);
+        System.out.println("This is your selected member:");
+        System.out.println(selectedMember);
     }
 
     private void showAllMembers() {

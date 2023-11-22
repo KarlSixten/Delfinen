@@ -2,12 +2,15 @@ package domain;
 
 import data.Database;
 
+import java.util.ArrayList;
+
 import java.time.LocalDate;
 
 import java.io.IOException;
 
 public class Controller {
-    private Database database;
+    private final Database database;
+
 
     public void createNewUser(String fullName,
                               LocalDate birthDate,
@@ -26,10 +29,19 @@ public class Controller {
     public String getAllMemberNames() {
         return database.getAllMemberNames();
     }
-    public Controller() throws IOException{
-        this.database = new Database();
+
+    public ArrayList<Member> findMembers(String search){
+       return database.findMembers(search);
+    }
+
+    public Member getMemberFromIndex(int choice, ArrayList<Member> foundMembers){
+        return database.getMemberFromIndex(choice, foundMembers);
     }
     public void loadData(){
         database.saveMembers();
+    }
+
+    public String getMemberName(Member member){
+        return member.getFullName();
     }
 }
