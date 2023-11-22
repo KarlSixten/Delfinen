@@ -48,4 +48,8 @@ public class Database {
         }
         return stringBuilder.toString();
     }
+    public void saveMembers(){
+        filehandler.saveMembers(membersArrayList);
+    }
+
 }

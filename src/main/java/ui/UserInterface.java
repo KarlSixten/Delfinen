@@ -22,6 +22,7 @@ public class UserInterface {
                 case 3 -> findMember();
                 case 4 -> deleteMember();
                 case 5 -> editMember();
+                case 6 -> controller.loadData();
                 case 9 -> exitProgram();
                 default -> System.out.println("Invalid selection! Try agan:\n");
             }
@@ -36,6 +37,7 @@ public class UserInterface {
                 3. Find a specific member.
                 4. Delete a member.
                 5. Edit a member.
+                
                 """);
     }
 
