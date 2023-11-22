@@ -20,7 +20,7 @@ public class Database {
 public void setMembersArrayList(ArrayList<Member> liste){
         membersArrayList.addAll(liste);
 }
-    private void createNewUser(String fullName,
+    public void createNewUser(String fullName,
                                LocalDate birthDate,
                                String email,
                                int phoneNumber,

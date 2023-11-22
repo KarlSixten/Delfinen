@@ -9,7 +9,8 @@ private boolean isSenior;
 private boolean isCompetetive;
 private boolean isCoach;
 
-public Membership(boolean isActive, boolean isSenior, boolean isCompetitive, boolean isCoach) {
+
+    public Membership(boolean isActive, boolean isSenior, boolean isCompetitive, boolean isCoach) {
     this.isActive = isActive;
     this.isSenior = isSenior;
     this.isCompetetive = isCompetitive;
@@ -19,4 +20,14 @@ public Membership(boolean isActive, boolean isSenior, boolean isCompetitive, boo
 
     public static Membership parse(String value) {
    return parse; }
+
+    public String toCSVString() {
+        return
+                "isActive=" + isActive +
+                ", isSenior=" + isSenior +
+                ", isCompetetive=" + isCompetetive +
+                ", isCoach=" + isCoach;
+    }
+
 }
+
