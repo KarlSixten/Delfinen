@@ -9,7 +9,10 @@ import java.time.LocalDate;
 import java.io.IOException;
 
 public class Controller {
-    private final Database database = new Database();
+    private final Database database;
+    public Controller() throws IOException{
+        this.database = new Database();
+    }
 
     public void createNewUser(String fullName,
                               LocalDate birthDate,
@@ -35,9 +38,6 @@ public class Controller {
 
     public Member getMemberFromIndex(int choice, ArrayList<Member> foundMembers){
         return database.getMemberFromIndex(choice, foundMembers);
-    }
-    public Controller() throws IOException{
-        this.database = new Database();
     }
     public void loadData(){
         database.saveMembers();

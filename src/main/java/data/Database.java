@@ -12,15 +12,13 @@ public class Database {
     Filehandler filehandler = new Filehandler();
     private final ArrayList<Member> membersArrayList = new ArrayList<>(1);
 
-    public void createNewUser(String fullName,
     public Database() throws IOException{
         setMembersArrayList(filehandler.loadData());
-
     }
 public void setMembersArrayList(ArrayList<Member> liste){
         membersArrayList.addAll(liste);
 }
-    private void createNewUser(String fullName,
+    public void createNewUser(String fullName,
                                LocalDate birthDate,
                                String email,
                                int phoneNumber,
