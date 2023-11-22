@@ -12,6 +12,7 @@ public class Database {
     Filehandler filehandler = new Filehandler();
     private final ArrayList<Member> membersArrayList = new ArrayList<>(1);
 
+    public void createNewUser(String fullName,
     public Database() throws IOException{
         setMembersArrayList(filehandler.loadData());
 
@@ -21,7 +22,8 @@ public void setMembersArrayList(ArrayList<Member> liste){
 }
     private void createNewUser(String fullName,
                                LocalDate birthDate,
-                               String email, int phoneNumber,
+                               String email,
+                               int phoneNumber,
                                String address,
                                String gender,
                                boolean isActive,
@@ -34,7 +36,7 @@ public void setMembersArrayList(ArrayList<Member> liste){
 
     }
 
-    public String createUserID(String fullName) {
+    private String createUserID(String fullName) {
         String userID;
         String[] names = fullName.split("\\s+");
         String userIDLetters = names[0].substring(0, 2).toLowerCase() +
