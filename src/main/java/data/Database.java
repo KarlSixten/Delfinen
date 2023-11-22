@@ -3,16 +3,27 @@ package data;
 import domain.Member;
 import domain.Membership;
 
+import java.io.IOException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Random;
 
 public class Database {
-    private ArrayList<Member> membersArrayList = new ArrayList<>();
+    Filehandler filehandler = new Filehandler();
+    private final ArrayList<Member> membersArrayList = new ArrayList<>(1);
 
+    public void createNewUser(String fullName,
+    public Database() throws IOException{
+        setMembersArrayList(filehandler.loadData());
+
+    }
+public void setMembersArrayList(ArrayList<Member> liste){
+        membersArrayList.addAll(liste);
+}
     private void createNewUser(String fullName,
                                LocalDate birthDate,
-                               String email, int phoneNumber,
+                               String email,
+                               int phoneNumber,
                                String address,
                                String gender,
                                boolean isActive,
@@ -25,7 +36,7 @@ public class Database {
 
     }
 
-    public String createUserID(String fullName) {
+    private String createUserID(String fullName) {
         String userID;
         String[] names = fullName.split("\\s+");
         String userIDLetters = names[0].substring(0, 2).toLowerCase() +
@@ -65,6 +76,10 @@ public class Database {
             selectedMember = foundMembers.get(choice-1);
         }
         return selectedMember;
+    }
+
+    public void saveMembers(){
+        filehandler.saveMembers(membersArrayList);
     }
 
 }

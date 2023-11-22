@@ -4,6 +4,8 @@ import domain.Controller;
 import domain.Member;
 
 import java.util.ArrayList;
+
+import java.time.LocalDate;
 import java.util.Scanner;
 
 public class UserInterface {
@@ -25,6 +27,7 @@ public class UserInterface {
                 case 3 -> findMembers();
                 case 4 -> deleteMember();
                 case 5 -> editMember();
+                case 6 -> controller.loadData();
                 case 9 -> exitProgram();
                 default -> System.out.println("Invalid selection! Try agan:\n");
             }
@@ -39,6 +42,7 @@ public class UserInterface {
                 3. Find a specific member.
                 4. Delete a member.
                 5. Edit a member.
+                
                 """);
     }
 
@@ -84,6 +88,17 @@ public class UserInterface {
     }
 
     private void createMember() {
+        //Test
+        controller.createNewUser("Karl Bjarnø",
+                LocalDate.ofEpochDay(19990619),
+                "karlsixten@gmail.com",
+                60626656,
+                "Ungarnsgade 72, 3.tv",
+                "Male",
+                true,
+                false,
+                false,
+                false);
 
     }
 
