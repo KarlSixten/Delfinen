@@ -3,13 +3,22 @@ package data;
 import domain.Member;
 import domain.Membership;
 
+import java.io.IOException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Random;
 
 public class Database {
-    private ArrayList<Member> membersArrayList = new ArrayList<>();
+    Filehandler filehandler = new Filehandler();
+    private final ArrayList<Member> membersArrayList = new ArrayList<>(1);
 
+    public Database() throws IOException{
+        setMembersArrayList(filehandler.loadData());
+
+    }
+public void setMembersArrayList(ArrayList<Member> liste){
+        membersArrayList.addAll(liste);
+}
     private void createNewUser(String fullName,
                                LocalDate birthDate,
                                String email, int phoneNumber,
