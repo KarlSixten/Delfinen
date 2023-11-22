@@ -84,12 +84,12 @@ public class Filehandler {
                 boolean isActive = Boolean.parseBoolean(values[7]);
                 boolean isSenior = Boolean.parseBoolean(values[8]);
                 boolean isCompetitive = Boolean.parseBoolean(values[9]);
-                boolean isCoach = Boolean.parseBoolean(values [10]);
+                boolean isCoach = Boolean.parseBoolean(values [10]);*/
 
-                Membership membership = new Membership( isActive,  isSenior,  isCompetitive,  isCoach);
+               /* Membership membership = new Membership( isActive,  isSenior,  isCompetitive,  isCoach);
 
                 Member member = new Member(fullName, userID,birthDate,email,phoneNumber,address,gender,membership);
-                database.add(member);
+                database.add(member);*/
             }
 
         }return memberArrayList;

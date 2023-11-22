@@ -3,7 +3,8 @@ package domain;
 import java.time.LocalDate;
 
 public class Membership {
-private boolean isActive;
+    public static Membership parse;
+    private boolean isActive;
 private boolean isSenior;
 private boolean isCompetetive;
 private boolean isCoach;
@@ -15,4 +16,7 @@ public Membership(boolean isActive, boolean isSenior, boolean isCompetitive, boo
     this.isCoach = isCoach;
 
 }
+
+    public static Membership parse(String value) {
+   return parse; }
 }
