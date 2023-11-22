@@ -42,4 +42,8 @@ public class Controller {
     public void loadData(){
         database.saveMembers();
     }
+
+    public String getMemberName(Member member){
+        return member.getFullName();
+    }
 }

@@ -71,9 +71,9 @@ public class UserInterface {
         System.out.println("Search by Name, user-ID or phone number");
         String search = scanner.nextLine();
         ArrayList<Member> foundMembers = controller.findMembers(search);
+        int index = 1;
         for (Member member: foundMembers) {
-            int index = 1;
-            System.out.println(index + ". " + member.getFullName());
+            System.out.println(index + ". " + controller.getMemberName(member));
             index += 1;
         }
         System.out.println("This is your search result. Please choose a member by their number");
