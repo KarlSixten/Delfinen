@@ -12,7 +12,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Filehandler {
-    private File memberArrayList = new File("memberlist.csv");
+    private File memberArrayList = new File("Datasheet.csv");
 
 
     public void saveMembers (ArrayList<Member> database){
@@ -53,22 +53,34 @@ public class Filehandler {
         return dataArraylist;
 
     }*/
-    public void loadMembers (ArrayList<Member> database){
-    Scanner scanner;
-    try {
-        scanner = new Scanner(memberArrayList);
+    public ArrayList<Member> loadData() throws  IOException{
+            ArrayList<Member> memberArrayList = new ArrayList<>();
+            Scanner scanner = new Scanner(new File("Datasheet.csv"));
+
         while (scanner.hasNextLine()){
             String line = scanner.nextLine();
             String[] values = line.split(";");
-            if (values.length == 11){
-                String fullName = values [0];
-                String userID = values [1];
-                LocalDate birthDate = LocalDate.parse(values[2]);
-                String email = values [3];
-                int phoneNumber = Integer.parseInt(values[4]);
-                String address = values [5];
-                String gender = values [6];
 
+         {
+                memberArrayList.add(new Member(values[0],
+                        values[1],
+                        LocalDate.parse(values[2]),
+                        values[3],
+                        Integer.parseInt(values[4]),
+                        values[5],
+                        values[6],
+                        Membership.parse(values[7])));
+
+
+               /*         String fullName = values [0],
+             String userID = values [1],
+             LocalDate birthDate = LocalDate.parse(values[2]),
+             String email = values [3],
+             int phoneNumber = Integer.parseInt(values[4]),
+             String address = values [5],
+             String gender = values [6];))*/
+
+/*
                 boolean isActive = Boolean.parseBoolean(values[7]);
                 boolean isSenior = Boolean.parseBoolean(values[8]);
                 boolean isCompetitive = Boolean.parseBoolean(values[9]);
@@ -80,12 +92,10 @@ public class Filehandler {
                 database.add(member);
             }
 
-        }
-    }catch (IOException e){
-        e.printStackTrace();
+        }return memberArrayList;
     }
 
-}
+
 /*    public void loadSuperheros(ArrayList<Superhero> database) {
         Scanner scanner;
         try {
