@@ -48,4 +48,23 @@ public class Database {
         }
         return stringBuilder.toString();
     }
+
+    public ArrayList<Member> findMembers(String search){
+        ArrayList<Member> foundMembers = new ArrayList<>();
+        for (Member member: membersArrayList) {
+            if (search.contains(member.getFullName()) || search.contains(member.getUserID()) || search.contains(Integer.toString(member.getPhoneNumber()))){
+              foundMembers.add(member);
+            }
+        }
+    return foundMembers;
+    }
+
+    public Member getMemberFromIndex(int choice, ArrayList<Member> foundMembers){
+        Member selectedMember = null;
+        if (0 < choice && choice <= foundMembers.size()){
+            selectedMember = foundMembers.get(choice-1);
+        }
+        return selectedMember;
+    }
+
 }
