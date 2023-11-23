@@ -168,7 +168,7 @@ public class UserInterface {
                 case 5 ->{
                     boolean validInput = false;
                     while (!validInput) {
-                        System.out.print("is member as active? [y/n]: ");
+                        System.out.print("is member active? [y/n]: ");
                         String input = scanner.next().trim().toLowerCase();
 
                         if (input.equals("y")) {
