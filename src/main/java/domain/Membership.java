@@ -25,10 +25,10 @@ private boolean isCoach;
 
     public String toCSVString() {
         return
-                "isActive=" + isActive +
-                ", isSenior=" + isSenior +
-                ", isCompetetive=" + isCompetetive +
-                ", isCoach=" + isCoach;
+                isActive + ";" +
+                isSenior + ";" +
+                isCompetetive + ";" +
+                isCoach;
     }
 
     public boolean isActive() {

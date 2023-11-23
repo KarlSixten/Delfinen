@@ -29,7 +29,7 @@ public class Filehandler {
                         Integer.parseInt(values[4]),
                         values[5],
                         values[6],
-                        Membership.parse(values[7])));
+                        new Membership(Boolean.parseBoolean(values[7]), Boolean.parseBoolean(values[8]), Boolean.parseBoolean(values [9]), Boolean.parseBoolean(values[10]))));
             }
 
         }
