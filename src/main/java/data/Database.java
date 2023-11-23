@@ -1,5 +1,6 @@
 package data;
 
+import domain.CompetitionSwimmer;
 import domain.Member;
 import domain.Membership;
 
@@ -30,7 +31,10 @@ public void setMembersArrayList(ArrayList<Member> liste){
                                boolean isCoach) {
         String userID = createUserID(fullName);
         Membership membership = new Membership(isActive, isSenior, isCompetitive, isCoach);
-        membersArrayList.add(new Member(fullName, userID, birthDate, email, phoneNumber, address, gender, membership));
+        if (!membership.isCompetetive()) {
+            membersArrayList.add(new Member(fullName, userID, birthDate, email, phoneNumber, address, gender, membership));
+        }
+        else membersArrayList.add(new CompetitionSwimmer(fullName, userID, birthDate, email, phoneNumber,address,gender,isActive, isSenior));
 
     }
 

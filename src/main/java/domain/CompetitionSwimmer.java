@@ -20,8 +20,9 @@ public class CompetitionSwimmer extends Member {
     }
 
     public void registerPerformance(String category, double performanceTime, boolean timeMadeInCompetition, int year, int month, int dayOfMonth ){
-        performances.add(new Performance(category, performanceTime, timeMadeInCompetition, LocalDate.of(year,month,dayOfMonth)));
+            performances.add(new Performance(category, performanceTime, timeMadeInCompetition, LocalDate.of(year, month, dayOfMonth)));
     }
+
 
 
 
