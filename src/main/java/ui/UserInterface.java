@@ -2,6 +2,7 @@ package ui;
 
 import domain.Controller;
 
+import java.sql.SQLOutput;
 import java.time.LocalDate;
 import java.util.Scanner;
 
@@ -74,10 +75,7 @@ public class UserInterface {
         System.out.println("Indtast fulde navn:");
         String fullName = scanner.nextLine();
 
-        //HER KAN MAN KUN VÆRE FØDT I OKTOBER ELLER EFTER
-        System.out.println("Indtast fødselsdato (ååååmmdd):");
-        String birthdateString = scanner.nextLine();
-        LocalDate birthDate = LocalDate.of(Integer.parseInt(birthdateString.substring(0, 3)), Integer.parseInt(birthdateString.substring(4, 5)), Integer.parseInt(birthdateString.substring(6, 7)));
+        LocalDate birthDate = createBirthdate();
 
         System.out.println("Indtast e-mail:");
         String email = scanner.nextLine();
@@ -159,6 +157,35 @@ public class UserInterface {
         }
 
         controller.createNewUser(fullName, birthDate, email, phoneNumber, address, gender, isActive, isSenior, isCompetitive, isCoach);
+    }
+
+    private LocalDate createBirthdate() {
+        int birthYear = 0000;
+        int birthMonth = 0;
+        int birthDay = 0;
+
+        System.out.println("Indtast fødselsår:");
+        birthYear = takeIntUserInput();
+        while (!(birthYear >= 1920 && birthYear <= LocalDate.EPOCH.getYear())) {
+            System.out.println("Ugyldigt valg! Prøv igen:");
+            birthYear = takeIntUserInput();
+        }
+
+        System.out.println("Indtast fødselsmåned:");
+        birthMonth = takeIntUserInput();
+        while (!(birthMonth >= 1 && birthMonth <= 12)) {
+            System.out.println("Ugyldigt valg! Prøv igen:");
+            birthMonth = takeIntUserInput();
+        }
+
+        System.out.println("Indtast fødselsdag:");
+        birthDay = takeIntUserInput();
+        while (!(birthDay >= 1 && birthDay <= 31)) {
+            System.out.println("Ugyldigt valg! Prøv igen:");
+            birthDay = takeIntUserInput();
+        }
+
+        return LocalDate.of(birthYear, birthMonth, birthDay);
     }
 
     private void exitProgram() {
