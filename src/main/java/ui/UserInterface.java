@@ -28,7 +28,7 @@ public class UserInterface {
                 case 3 -> findMembers();
                 case 4 -> deleteMember();
                 case 5 -> editMember();
-                case 6 -> controller.loadData();
+                case 6 -> controller.saveData();
                 case 9 -> exitProgram();
                 default -> System.out.println("Ugyldigt valg! Prøv igen:\n");
             }
@@ -64,8 +64,45 @@ public class UserInterface {
     }
 
     private void deleteMember() {
+        System.out.println("Please search for the member you would like to delete:");
+        String search = scanner.nextLine();
+        ArrayList<Member> foundMembers = controller.findMembers(search);
 
+        if (foundMembers.isEmpty()) {
+            System.out.println("No members have been found");
+            return;
+        }
+
+        System.out.println("Select a member to delete");
+        int index = 1;
+        for (Member member : foundMembers) {
+            System.out.println(index + ". " + controller.getMemberName(member));
+            index++;
+        }
+
+        int choice = scanner.nextInt();
+        scanner.nextLine();
+
+        if (choice < 1 || choice > foundMembers.size()) {
+            System.out.println("Invalid selection. Please select a valid member");
+            return;
+        }
+
+        Member selectedMember = foundMembers.get(choice - 1);
+        System.out.println(selectedMember);
+        System.out.println("Enter 'yes' to confirm");
+
+        String confirmation = scanner.nextLine().toLowerCase();
+
+        if (confirmation.equals("yes")) {
+                controller.deleteMember(choice);
+                System.out.println("Member deleted");
+                controller.saveData();
+
+        }
+        else System.out.println("Cancelled trying to delete a member");
     }
+
 
     private void findMembers() {
         System.out.println("Search by Name, user-ID or phone number");
