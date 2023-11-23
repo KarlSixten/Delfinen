@@ -15,30 +15,45 @@ public class UserInterface {
     private boolean uiIsRunning = true;
     private Scanner scanner = new Scanner(System.in);
     private Controller controller;
+    String userRole = "";
 
     public UserInterface(Controller controller) {
         this.controller = controller;
     }
 
     public void startProgram() {
-
         System.out.println("Velkommen til Delfinens database!\n");
+        while (userRole.isEmpty()) {
+            selectUserRole();
+        }
         while (uiIsRunning) {
             showMainMenu();
-            switch (takeIntUserInput()) {
-                case 1 -> createMember();
-                case 2 -> showAllMembers();
-                case 3 -> findMembers();
-                case 4 -> deleteMember();
-                case 5 -> editMember();
-                case 6 -> controller.saveData();
-                case 9 -> exitProgram();
-                default -> System.out.println("Ugyldigt valg! Prøv igen:\n");
-            }
+        }
+    }
+
+    private void selectUserRole() {
+        System.out.println("""
+                Vælg din rolle i Delfinen:
+                1. Formand
+                2. Kasser.
+                3. Træner""");
+        switch (takeIntUserInput()) {
+            case 1 -> userRole = "Chairman";
+            case 2 -> userRole = "Accountant";
+            case 3 -> userRole = "Coach";
+            default -> System.out.println("Ugyldigt valg! Prøv igen:");
         }
     }
 
     private void showMainMenu() {
+        switch (userRole) {
+            case "Chairman" -> chairmanSelection();
+            case "Accountant" -> accountantSelection();
+            case "Coach" -> coachSelection();
+        }
+    }
+
+    private void chairmanSelection() {
         System.out.println("""
                 Vælg den funktion du vil tilgå:
                 1. Opret nyt medlem.
@@ -46,7 +61,63 @@ public class UserInterface {
                 3. Find et specifikt medlem.
                 4. Slet et medlem.
                 5. Rediger et medlem.
+                6. Gem data.
+                8. Skift rolle.
+                9. Afslut program.
                 """);
+        switch (takeIntUserInput()) {
+            case 1 -> createMember();
+            case 2 -> showAllMembers();
+            case 3 -> findMembers();
+            case 4 -> deleteMember();
+            case 5 -> editMember();
+            case 6 -> controller.saveData();
+            case 8 -> selectUserRole();
+            case 9 -> exitProgram();
+            default -> System.out.println("Ugyldigt valg! Prøv igen:\n");
+        }
+    }
+
+    private void accountantSelection() {
+        System.out.println("""
+                    Vælg den funktion du vil tilgå:
+                    1. Kasser menuer
+                    2.
+                    3.
+                    4.
+                    8. Skift rolle.
+                    9. Afslut program.
+                    """);
+        switch (takeIntUserInput()) {
+            case 1 -> {}
+            case 2 -> {}
+            case 3 -> {}
+            case 4 -> {}
+            case 8 -> selectUserRole();
+            case 9 -> exitProgram();
+            default -> System.out.println("Ugyldigt valg! Prøv igen:\n");
+        }
+    }
+
+    private void coachSelection() {
+        System.out.println("""
+                    Vælg den funktion du vil tilgå:
+                    1. Træner menuer
+                    2.
+                    3.
+                    4.
+                    8. Skift rolle.
+                    9. Afslut program.
+                    """);
+        switch (takeIntUserInput()) {
+            case 1 -> {}
+            case 2 -> {}
+            case 3 -> {}
+            case 4 -> {}
+            case 8 -> selectUserRole();
+            case 9 -> exitProgram();
+            default -> System.out.println("Ugyldigt valg! Prøv igen:\n");
+        }
     }
 
     private int takeIntUserInput() {
