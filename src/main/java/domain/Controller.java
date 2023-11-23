@@ -40,7 +40,7 @@ public class Controller {
     public Member getMemberFromIndex(int choice, ArrayList<Member> foundMembers){
         return database.getMemberFromIndex(choice, foundMembers);
     }
-    public void loadData(){
+    public void saveData(){
         database.saveMembers();
     }
 

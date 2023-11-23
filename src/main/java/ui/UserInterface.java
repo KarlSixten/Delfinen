@@ -28,7 +28,7 @@ public class UserInterface {
                 case 3 -> findMembers();
                 case 4 -> deleteMember();
                 case 5 -> editMember();
-                case 6 -> controller.loadData();
+                case 6 -> controller.saveData();
                 case 9 -> exitProgram();
                 default -> System.out.println("Invalid selection! Try agan:\n");
             }
@@ -98,6 +98,7 @@ public class UserInterface {
         if (confirmation.equals("yes")) {
                 controller.deleteMember(choice);
                 System.out.println("Member deleted");
+                controller.saveData();
 
         }
         else System.out.println("Cancelled trying to delete a member");
