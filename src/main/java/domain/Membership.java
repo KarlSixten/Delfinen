@@ -22,7 +22,6 @@ private boolean isCoach;
    return parse; }
 
 
-
     public String toCSVString() {
         return
                 "isActive=" + isActive +
