@@ -30,20 +30,19 @@ public class UserInterface {
                 case 5 -> editMember();
                 case 6 -> controller.loadData();
                 case 9 -> exitProgram();
-                default -> System.out.println("Invalid selection! Try agan:\n");
+                default -> System.out.println("Ugyldigt valg! Prøv igen:\n");
             }
         }
     }
 
     private void showMainMenu() {
         System.out.println("""
-                Select the function you'd like to use:
-                1. Create new member.
-                2. Show all members.
-                3. Find a specific member.
-                4. Delete a member.
-                5. Edit a member.
-                
+                Vælg den funktion du vil tilgå:
+                1. Opret nyt medlem.
+                2. Vis alle medlemmer.
+                3. Find et specifikt medlem.
+                4. Slet et medlem.
+                5. Rediger et medlem.
                 """);
     }
 
@@ -54,7 +53,7 @@ public class UserInterface {
         try {
             inputInt = Integer.parseInt(input);
         } catch (NumberFormatException e) {
-            System.out.println("Invalid input! Try again:");
+            System.out.println("Ulgyldigt input! Prøv igen:");
             inputInt = takeIntUserInput();
         }
         return inputInt;
@@ -89,18 +88,120 @@ public class UserInterface {
     }
 
     private void createMember() {
-        //Test
-        controller.createNewUser("Aleksander Gregersen",
-                LocalDate.of(1993, Month.OCTOBER,7),
-                "agregersen0@gmail.com",
-                42755293,
-                "Mågevej 51, 2tv",
-                "Male",
-                true,
-                true,
-                true,
-                true);
+        System.out.println("Indtast fulde navn:");
+        String fullName = scanner.nextLine();
 
+        LocalDate birthDate = createBirthdate();
+
+        System.out.println("Indtast e-mail:");
+        String email = scanner.nextLine();
+
+        System.out.println("Indtast tlf. nr.:");
+        int phoneNumber = takeIntUserInput();
+
+        System.out.println("Indtast addresse:");
+        String address = scanner.nextLine();
+
+        System.out.println("""
+                Vælg køn:
+                1. Kvinde
+                2. Mand""");
+        String gender = "Male";
+        int userSelection = takeIntUserInput();
+
+        while (userSelection !=1 && userSelection !=2) {
+            System.out.println("Ugyldigt valg! Prøv igen:");
+            userSelection = takeIntUserInput();
+        }
+
+        if (userSelection == 1) {
+            gender = "Woman";
+        }
+
+        //This has been set to true since it doesn't make sense to create an inactive user
+        boolean isActive = true;
+
+        System.out.println("""
+                Er medlemmet senior?
+                1. Ja
+                2. Nej
+                """);
+        userSelection = takeIntUserInput();
+        boolean isSenior = false;
+
+        while (userSelection !=1 && userSelection !=2) {
+            System.out.println("Ugyldigt valg! Prøv igen:");
+            userSelection = takeIntUserInput();
+        }
+
+        if (userSelection == 1) {
+            isSenior = true;
+        }
+
+        System.out.println("""
+                Er medlemmet konkurrencesvømmer?
+                1. Ja
+                2. Nej
+                """);
+        userSelection = takeIntUserInput();
+        boolean isCompetitive = false;
+
+        while (userSelection !=1 && userSelection !=2) {
+            System.out.println("Ugyldigt valg! Prøv igen:");
+            userSelection = takeIntUserInput();
+        }
+
+        if (userSelection == 1) {
+            isCompetitive = true;
+        }
+
+        System.out.println("""
+                Er medlemmet træner?
+                1. Ja
+                2. Nej
+                """);
+        userSelection = takeIntUserInput();
+        boolean isCoach = false;
+
+        while (userSelection !=1 && userSelection !=2) {
+            System.out.println("Ugyldigt valg! Prøv igen:");
+            userSelection = takeIntUserInput();
+        }
+
+        if (userSelection == 1) {
+            isCoach = true;
+        }
+
+        controller.createNewUser(fullName, birthDate, email, phoneNumber, address, gender, isActive, isSenior, isCompetitive, isCoach);
+    }
+
+    private LocalDate createBirthdate() {
+        int birthYear = 0000;
+        int birthMonth = 0;
+        int birthDay = 0;
+
+        System.out.println("Indtast fødselsår:");
+        birthYear = takeIntUserInput();
+        while (!(birthYear >= 1920 && birthYear <= LocalDate.EPOCH.getYear())) {
+            System.out.println("Ugyldigt valg! Prøv igen:");
+            birthYear = takeIntUserInput();
+        }
+
+        System.out.println("Indtast fødselsmåned:");
+        birthMonth = takeIntUserInput();
+        while (!(birthMonth >= 1 && birthMonth <= 12)) {
+            System.out.println("Ugyldigt valg! Prøv igen:");
+            birthMonth = takeIntUserInput();
+        }
+
+        System.out.println("Indtast fødselsdag:");
+        birthDay = takeIntUserInput();
+        while (!(birthDay >= 1 && birthDay <= 31)) {
+            System.out.println("Ugyldigt valg! Prøv igen:");
+            birthDay = takeIntUserInput();
+        }
+
+        return LocalDate.of(birthYear, birthMonth, birthDay);
     }
 
     private void exitProgram() {
