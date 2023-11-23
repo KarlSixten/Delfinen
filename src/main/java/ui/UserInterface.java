@@ -4,6 +4,7 @@ import domain.Controller;
 import domain.Member;
 import domain.Membership;
 
+import java.time.Year;
 import java.util.ArrayList;
 
 import java.time.LocalDate;
@@ -20,6 +21,7 @@ public class UserInterface {
     }
 
     public void startProgram() {
+
         System.out.println("Velkommen til Delfinens database!\n");
         while (uiIsRunning) {
             showMainMenu();
@@ -208,6 +210,7 @@ public class UserInterface {
         }
 
         controller.createNewUser(fullName, birthDate, email, phoneNumber, address, gender, isActive, isSenior, isCompetitive, isCoach);
+        controller.saveData();
     }
 
     private LocalDate createBirthdate() {
@@ -217,7 +220,7 @@ public class UserInterface {
 
         System.out.println("Indtast fødselsår:");
         birthYear = takeIntUserInput();
-        while (!(birthYear >= 1920 && birthYear <= LocalDate.EPOCH.getYear())) {
+        while (!(birthYear >= 1920 && birthYear <= Year.now().getValue())) {
             System.out.println("Ugyldigt valg! Prøv igen:");
             birthYear = takeIntUserInput();
         }
