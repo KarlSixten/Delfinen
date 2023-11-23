@@ -99,7 +99,8 @@ public class UserInterface {
                 controller.deleteMember(choice);
                 System.out.println("Member deleted");
 
-        }else System.out.println("Cancelled trying to delete a member");
+        }
+        else System.out.println("Cancelled trying to delete a member");
     }
 
 
