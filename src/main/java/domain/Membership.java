@@ -25,17 +25,11 @@ private boolean isCoach;
         return isCompetetive;
     }
 
-    public void setCompetetive(boolean competetive) {
-        isCompetetive = competetive;
-    }
 
     public boolean isCoach() {
         return isCoach;
     }
 
-    public void setCoach(boolean coach) {
-        isCoach = coach;
-    }
 
     public String toCSVString() {
         return
@@ -53,13 +47,6 @@ private boolean isCoach;
         return isSenior;
     }
 
-    public boolean isCompetetive() {
-        return isCompetetive;
-    }
-
-    public boolean isCoach() {
-        return isCoach;
-    }
 
     public void setActive(boolean active) {
         isActive = active;
