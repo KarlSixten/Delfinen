@@ -11,6 +11,11 @@ import java.util.Random;
 
 public class Database {
     Filehandler filehandler = new Filehandler();
+
+    public ArrayList<Member> getMembersArrayList() {
+        return membersArrayList;
+    }
+
     private final ArrayList<Member> membersArrayList = new ArrayList<>(1);
 
     public Database() throws IOException{
@@ -37,6 +42,7 @@ public void setMembersArrayList(ArrayList<Member> liste){
         else membersArrayList.add(new CompetitionSwimmer(fullName, userID, birthDate, email, phoneNumber,address,gender,isActive, isSenior));
 
     }
+
 
     private String createUserID(String fullName) {
         String userID;
@@ -82,6 +88,9 @@ public void setMembersArrayList(ArrayList<Member> liste){
 
     public void saveMembers(){
         filehandler.saveMembers(membersArrayList);
+    }
+    public void deleteMember(int userSelection){
+membersArrayList.remove(userSelection - 1);
     }
 
 }

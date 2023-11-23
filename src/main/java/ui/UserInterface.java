@@ -2,6 +2,7 @@ package ui;
 
 import domain.Controller;
 import domain.Member;
+import domain.Membership;
 
 import java.util.ArrayList;
 
@@ -28,7 +29,7 @@ public class UserInterface {
                 case 3 -> findMembers();
                 case 4 -> deleteMember();
                 case 5 -> editMember();
-                case 6 -> controller.loadData();
+                case 6 -> controller.saveData();
                 case 9 -> exitProgram();
                 default -> System.out.println("Ugyldigt valg! Prøv igen:\n");
             }
@@ -59,13 +60,47 @@ public class UserInterface {
         return inputInt;
     }
 
-    private void editMember() {
-
-    }
 
     private void deleteMember() {
+        System.out.println("Please search for the member you would like to delete:");
+        String search = scanner.nextLine();
+        ArrayList<Member> foundMembers = controller.findMembers(search);
 
+        if (foundMembers.isEmpty()) {
+            System.out.println("No members have been found");
+            return;
+        }
+
+        System.out.println("Select a member to delete");
+        int index = 1;
+        for (Member member : foundMembers) {
+            System.out.println(index + ". " + controller.getMemberName(member));
+            index++;
+        }
+
+        int choice = scanner.nextInt();
+        scanner.nextLine();
+
+        if (choice < 1 || choice > foundMembers.size()) {
+            System.out.println("Invalid selection. Please select a valid member");
+            return;
+        }
+
+        Member selectedMember = foundMembers.get(choice - 1);
+        System.out.println(selectedMember);
+        System.out.println("Enter 'yes' to confirm");
+
+        String confirmation = scanner.nextLine().toLowerCase();
+
+        if (confirmation.equals("yes")) {
+                controller.deleteMember(choice);
+                System.out.println("Member deleted");
+                controller.saveData();
+
+        }
+        else System.out.println("Cancelled trying to delete a member");
     }
+
 
     private void findMembers() {
         System.out.println("Search by Name, user-ID or phone number");
@@ -208,4 +243,155 @@ public class UserInterface {
         System.out.println("Exiting...");
         uiIsRunning = false;
     }
-}
+    public void editMember(){
+        System.out.println("Search by Name, user-ID or phone number");
+        String search = scanner.nextLine();
+        ArrayList<Member> foundMembers = controller.findMembers(search);
+        int index = 1;
+        for (Member member: foundMembers) {
+            System.out.println(index + ". " + controller.getMemberName(member));
+            index += 1;
+        }
+        System.out.println("This is your search result. Please choose a member by their number");
+        int choice = scanner.nextInt();
+        Member selectedMember = controller.getMemberFromIndex(choice, foundMembers);
+        System.out.println("This is your selected member:");
+        System.out.println(selectedMember);
+        if (selectedMember != null){
+            System.out.println("""
+                        What do you want to edit?
+                        1. Fullname:
+                        2. Email:
+                        3. Tlf.Number:
+                        4. Address:
+                        5. Active/Passive:
+                        6. Senior/Junior:
+                        7. Competitive/non competitive:
+                        8. Is member a coach
+                        """);
+            int switchChoice = scanner.nextInt();
+            switch (switchChoice){
+                case 1->{
+                    System.out.println("Enter the new Fullname");
+                    scanner.nextLine();
+                    String newName = scanner.nextLine();
+                    selectedMember.setFullName(newName);
+                    System.out.println("Fullname is now updated to: " + newName);
+                    controller.saveData();
+                }
+                case 2->{
+                    System.out.println("Enter the new Email");
+                    scanner.nextLine();
+                    String newEmail = scanner.nextLine();
+                    selectedMember.setEmail(newEmail);
+                    System.out.println("Email is now updated to: " + newEmail);
+                    controller.saveData();
+                }
+                case 3->{
+                    System.out.println("Enter the new Tlf.Number");
+                    scanner.nextInt();
+                    int newNumber = scanner.nextInt();
+                    selectedMember.setPhoneNumber(newNumber);
+                    System.out.println("Tlf.number is now updated to: " + newNumber);
+                    controller.saveData();
+                }
+                case 4 -> {
+                    System.out.println("Enter the new Address");
+                    scanner.nextLine();
+                    String newAddress = scanner.nextLine();
+                    selectedMember.setAddress(newAddress);
+                    System.out.println("Address is now updated to: " + newAddress);
+                    controller.saveData();
+                }
+                case 5 ->{
+                    boolean validInput = false;
+                    while (!validInput) {
+                        System.out.print("is member active? [y/n]: ");
+                        String input = scanner.next().trim().toLowerCase();
+
+                        if (input.equals("y")) {
+                            selectedMember.getMembership().setActive(true);
+                            validInput = true;
+                        } else if (input.equals("n")) {
+                            selectedMember.getMembership().setActive(false);
+                            validInput = true;
+                        } else {
+                            System.out.println("Invalid choice. Please enter 'y' or 'n'.");
+                        }
+                    }
+                    System.out.println("Member status is now updated: ");
+                    controller.saveData();
+                }
+                case 6 ->{
+                    boolean validInput = false;
+                    while (!validInput) {
+                        System.out.print("is member a senior? [y/n]: ");
+                        String input = scanner.next().trim().toLowerCase();
+                        if (input.equals("y")) {
+                            selectedMember.getMembership().setSenior(true);
+                            validInput = true;
+                        } else if (input.equals("n")) {
+                            selectedMember.getMembership().setSenior(false);
+                            validInput = true;
+                        } else {
+                            System.out.println("Invalid choice. Please enter 'y' or 'n'.");
+                        }
+                    }
+                    System.out.println("Member status is now updated: ");
+                    controller.saveData();
+                }case 7 ->{
+                    boolean validInput = false;
+                    while (!validInput) {
+                        System.out.print("is member competitive? [y/n]: ");
+                        String input = scanner.next().trim().toLowerCase();
+                        if (input.equals("y")) {
+                            selectedMember.getMembership().setCompetetive(true);
+                            validInput = true;
+                        } else if (input.equals("n")) {
+                            selectedMember.getMembership().setCompetetive(false);
+                            validInput = true;
+                        } else {
+                            System.out.println("Invalid choice. Please enter 'y' or 'n'.");
+                        }
+                    }
+                    System.out.println("Member status is now updated: ");
+                    controller.saveData();
+                }case 8 ->{
+                    boolean validInput = false;
+                    while (!validInput) {
+                        System.out.print("is member a coach? [y/n]: ");
+                        String input = scanner.next().trim().toLowerCase();
+                        if (input.equals("y")) {
+                            selectedMember.getMembership().setCoach(true);
+                            validInput = true;
+                        } else if (input.equals("n")) {
+                            selectedMember.getMembership().setCoach(false);
+                            validInput = true;
+                        } else {
+                            System.out.println("Invalid choice. Please enter 'y' or 'n'.");
+                        }
+                    }
+                    System.out.println("Member status is now updated: ");
+                    controller.saveData();
+                }
+
+            }
+
+
+
+            }
+        }
+
+
+
+        }
+
+
+
+
+
+
+
+
+
+

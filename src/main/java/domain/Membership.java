@@ -45,5 +45,36 @@ private boolean isCoach;
                 ", isCoach=" + isCoach;
     }
 
+    public boolean isActive() {
+        return isActive;
+    }
+
+    public boolean isSenior() {
+        return isSenior;
+    }
+
+    public boolean isCompetetive() {
+        return isCompetetive;
+    }
+
+    public boolean isCoach() {
+        return isCoach;
+    }
+
+    public void setActive(boolean active) {
+        isActive = active;
+    }
+
+    public void setSenior(boolean senior) {
+        isSenior = senior;
+    }
+
+    public void setCompetetive(boolean competetive) {
+        isCompetetive = competetive;
+    }
+
+    public void setCoach(boolean coach) {
+        isCoach = coach;
+    }
 }
 
