@@ -61,7 +61,7 @@ public void setMembersArrayList(ArrayList<Member> liste){
     public ArrayList<Member> findMembers(String search){
         ArrayList<Member> foundMembers = new ArrayList<>();
         for (Member member: membersArrayList) {
-            if (search.contains(member.getFullName()) || search.contains(member.getUserID()) || search.contains(Integer.toString(member.getPhoneNumber()))){
+            if (member.getFullName().toLowerCase().contains(search.toLowerCase()) || search.contains(member.getUserID()) || search.contains(Integer.toString(member.getPhoneNumber()))){
               foundMembers.add(member);
             }
         }
