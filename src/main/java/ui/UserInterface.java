@@ -65,8 +65,46 @@ public class UserInterface {
     }
 
     private void deleteMember() {
+        System.out.println("Please search for the member you would like to delete:");
+        String search = scanner.nextLine();
+        ArrayList<Member> foundMembers = controller.findMembers(search);
 
-    }
+        if (foundMembers.isEmpty()) {
+            System.out.println("No members have been found");
+            return;
+        }
+
+        System.out.println("Select a member to delete");
+        int index = 1;
+        for (Member member : foundMembers) {
+            System.out.println(index + ". " + controller.getMemberName(member));
+            index++;
+        }
+
+        int choice = scanner.nextInt();
+        scanner.nextLine();
+
+        if (choice < 1 || choice > foundMembers.size()) {
+            System.out.println("Invalid selection. Please select a valid member");
+            return;
+        }
+
+        Member selectedMember = foundMembers.get(choice - 1);
+        System.out.println(selectedMember);
+        System.out.println("Enter 'yes' to confirm");
+
+        String confirmation = scanner.nextLine().toLowerCase();
+
+        if (confirmation.equals("yes")) {
+            if (controller.deleteMember(choice)) {
+                System.out.println("Member deleted");
+            } else {
+                System.out.println("Couldn't delete the member");
+            }
+        } else {
+            System.out.println("Cancelled trying to delete a member");
+        }}
+
 
     private void findMembers() {
         System.out.println("Search by Name, user-ID or phone number");

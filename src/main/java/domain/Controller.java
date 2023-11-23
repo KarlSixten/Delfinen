@@ -47,4 +47,8 @@ public class Controller {
     public String getMemberName(Member member){
         return member.getFullName();
     }
+    public boolean deleteMember(int userSelection){
+database.deleteMember(userSelection);
+        return false;
+    }
 }
