@@ -96,14 +96,11 @@ public class UserInterface {
         String confirmation = scanner.nextLine().toLowerCase();
 
         if (confirmation.equals("yes")) {
-            if (controller.deleteMember(choice)) {
+                controller.deleteMember(choice);
                 System.out.println("Member deleted");
-            } else {
-                System.out.println("Couldn't delete the member");
-            }
-        } else {
-            System.out.println("Cancelled trying to delete a member");
-        }}
+
+        }else System.out.println("Cancelled trying to delete a member");
+    }
 
 
     private void findMembers() {
