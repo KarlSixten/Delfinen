@@ -21,14 +21,6 @@ private boolean isCoach;
     public static Membership parse(String value) {
    return parse; }
 
-    public boolean isCompetetive() {
-        return isCompetetive;
-    }
-
-
-    public boolean isCoach() {
-        return isCoach;
-    }
 
 
     public String toCSVString() {
@@ -47,6 +39,13 @@ private boolean isCoach;
         return isSenior;
     }
 
+    public boolean isCompetetive() {
+        return isCompetetive;
+    }
+
+    public boolean isCoach() {
+        return isCoach;
+    }
 
     public void setActive(boolean active) {
         isActive = active;
