@@ -10,6 +10,11 @@ import java.util.Random;
 
 public class Database {
     Filehandler filehandler = new Filehandler();
+
+    public ArrayList<Member> getMembersArrayList() {
+        return membersArrayList;
+    }
+
     private final ArrayList<Member> membersArrayList = new ArrayList<>(1);
 
     public Database() throws IOException{
@@ -33,6 +38,7 @@ public void setMembersArrayList(ArrayList<Member> liste){
         membersArrayList.add(new Member(fullName, userID, birthDate, email, phoneNumber, address, gender, membership));
 
     }
+
 
     private String createUserID(String fullName) {
         String userID;
