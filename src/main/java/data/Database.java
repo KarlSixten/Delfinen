@@ -16,7 +16,7 @@ public class Database {
         return membersArrayList;
     }
 
-    private final ArrayList<Member> membersArrayList = new ArrayList<>(1);
+    private ArrayList<Member> membersArrayList = new ArrayList<>();
 
     public Database() throws IOException{
         setMembersArrayList(filehandler.loadData());
