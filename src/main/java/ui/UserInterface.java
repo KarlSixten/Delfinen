@@ -139,6 +139,7 @@ public class UserInterface {
                     String newName = scanner.nextLine();
                     selectedMember.setFullName(newName);
                     System.out.println("Fullname is now updated to: " + newName);
+                    controller.loadData();
                 }
                 case 2->{
                     System.out.println("Enter the new Email");
@@ -146,6 +147,7 @@ public class UserInterface {
                     String newEmail = scanner.nextLine();
                     selectedMember.setEmail(newEmail);
                     System.out.println("Email is now updated to: " + newEmail);
+                    controller.loadData();
                 }
                 case 3->{
                     System.out.println("Enter the new Tlf.Number");
@@ -153,6 +155,7 @@ public class UserInterface {
                     int newNumber = scanner.nextInt();
                     selectedMember.setPhoneNumber(newNumber);
                     System.out.println("Tlf.number is now updated to: " + newNumber);
+                    controller.loadData();
                 }
                 case 4 -> {
                     System.out.println("Enter the new Address");
@@ -160,6 +163,7 @@ public class UserInterface {
                     String newAddress = scanner.nextLine();
                     selectedMember.setAddress(newAddress);
                     System.out.println("Address is now updated to: " + newAddress);
+                    controller.loadData();
                 }
                 case 5 ->{
                     boolean validInput = false;
@@ -178,6 +182,7 @@ public class UserInterface {
                         }
                     }
                     System.out.println("Member status is now updated: ");
+                    controller.loadData();
                 }case 6 ->{
                     boolean validInput = false;
                     while (!validInput) {
@@ -194,6 +199,7 @@ public class UserInterface {
                         }
                     }
                     System.out.println("Member status is now updated: ");
+                    controller.loadData();
                 }case 7 ->{
                     boolean validInput = false;
                     while (!validInput) {
@@ -210,6 +216,7 @@ public class UserInterface {
                         }
                     }
                     System.out.println("Member status is now updated: ");
+                    controller.loadData();
                 }case 8 ->{
                     boolean validInput = false;
                     while (!validInput) {
@@ -226,7 +233,9 @@ public class UserInterface {
                         }
                     }
                     System.out.println("Member status is now updated: ");
+                    controller.loadData();
                 }
+
             }
 
 
