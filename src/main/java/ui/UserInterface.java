@@ -236,7 +236,18 @@ public class UserInterface {
         boolean isCompetitive = checkIfCompetitive();
         boolean isCoach = checkIfCoach();
 
-        controller.createNewUser(fullName, birthDate, email, phoneNumber, address, gender, isActive, isSenior, isCompetitive, isCoach);
+        MembershipType membershipType = controller.createNewUser(fullName, birthDate, email, phoneNumber, address, gender, isActive, isSenior, isCompetitive, isCoach);
+        if (membershipType == MembershipType.COMPETITIVE) {
+            System.out.println("Du har lavet en konkurrencesvømmer og skal derfor vælge en coach og et hold");
+            System.out.println("Her er en liste over coaches du kan vælge:");
+            System.out.println(controller.listOfCoaches());
+            System.out.println("Vælg en træner ved at skrive deres tal til venstre");
+            int index = scanner.nextInt();
+            controller.setCoachToMember(controller.findfirstMember(fullName, address), controller.getIndexInListOfCoaches(index));
+            System.out.println("Du har tilføjet en træner");
+        } else if (membershipType == MembershipType.COACH) {
+            System.out.println("Du har lavet en træner");
+        }
         controller.saveData();
     }
 
@@ -372,55 +383,7 @@ public class UserInterface {
             userSelection = takeIntUserInput();
         }
         return userSelection == 1;
-
-        if (userSelection == 1) {
-            isCoach = true;
         }
-
-        MembershipType membershipType = controller.createNewUser(fullName, birthDate, email, phoneNumber, address, gender, isActive, isSenior, isCompetitive, isCoach);
-        if (membershipType == MembershipType.COMPETITIVE) {
-            System.out.println("Du har lavet en konkurrencesvømmer og skal derfor vælge en coach og et hold");
-            System.out.println("Her er en liste over coaches du kan vælge:");
-            System.out.println(controller.listOfCoaches());
-            System.out.println("Vælg en træner ved at skrive deres tal til venstre");
-            int index = scanner.nextInt();
-            controller.setCoachToMember(controller.findfirstMember(fullName, address), controller.getIndexInListOfCoaches(index));
-            System.out.println("Du har tilføjet en træner");
-        } else if (membershipType == MembershipType.COACH) {
-            System.out.println("Du har lavet en træner");
-        }
-
-        controller.saveData();
-    }
-
-    private LocalDate createBirthdate() {
-        int birthYear = 0000;
-        int birthMonth = 0;
-        int birthDay = 0;
-
-        System.out.println("Indtast fødselsår:");
-        birthYear = takeIntUserInput();
-        while (!(birthYear >= 1920 && birthYear <= Year.now().getValue())) {
-            System.out.println("Ugyldigt valg! Prøv igen:");
-            birthYear = takeIntUserInput();
-        }
-
-        System.out.println("Indtast fødselsmåned:");
-        birthMonth = takeIntUserInput();
-        while (!(birthMonth >= 1 && birthMonth <= 12)) {
-            System.out.println("Ugyldigt valg! Prøv igen:");
-            birthMonth = takeIntUserInput();
-        }
-
-        System.out.println("Indtast fødselsdag:");
-        birthDay = takeIntUserInput();
-        while (!(birthDay >= 1 && birthDay <= 31)) {
-            System.out.println("Ugyldigt valg! Prøv igen:");
-            birthDay = takeIntUserInput();
-        }
-
-        return LocalDate.of(birthYear, birthMonth, birthDay);
-    }
 
     private void exitProgram() {
         System.out.println("Exiting...");
