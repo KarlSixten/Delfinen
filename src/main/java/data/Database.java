@@ -56,7 +56,7 @@ public class Database {
         int index = 1;
         for (Member member : membersArrayList) {
             if (member instanceof Coach) {
-                stringBuilder.append(index).append(" ").append(member);
+                stringBuilder.append(index).append(" ").append(member).append("\n");
                 index += 1;
             }
         }

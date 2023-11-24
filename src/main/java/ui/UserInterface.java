@@ -296,6 +296,7 @@ public class UserInterface {
             System.out.println("Vælg en træner ved at skrive deres tal til venstre");
             int index = scanner.nextInt();
             controller.setCoachToMember(controller.findfirstMember(fullName, address),controller.getIndexInListOfCoaches(index));
+            System.out.println("Du har tilføjet en træner");
         } else if (membershipType == MembershipType.COACH) {
             System.out.println("Du har lavet en træner og skal derfor vælge et hold");
             System.out.println("Her er en liste over hold du kan sætte træneren på");

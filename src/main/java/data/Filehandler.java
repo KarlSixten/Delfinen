@@ -1,5 +1,7 @@
 package data;
 
+import domain.Coach;
+import domain.CompetitionSwimmer;
 import domain.Member;
 import domain.Membership;
 
@@ -17,20 +19,49 @@ public class Filehandler {
         ArrayList<Member> memberFileList = new ArrayList<>();
         Scanner scanner = new Scanner(new File("Datasheet.csv"));
 
-        while (scanner.hasNextLine()){
+        while (scanner.hasNextLine()) {
             String line = scanner.nextLine();
             String[] values = line.split(";");
+            if (values[10].equals("true")) {
+                {
+                    memberFileList.add(new Coach(values[0],
+                            values[1],
+                            LocalDate.parse(values[2]),
+                            values[3],
+                            Integer.parseInt(values[4]),
+                            values[5],
+                            values[6],
+                            Boolean.parseBoolean(values[7]),
+                            Boolean.parseBoolean(values[8])));
+                }
+
+            } else if (values[9].equals("true")) {
+                {
+                    memberFileList.add(new CompetitionSwimmer(values[0],
+                            values[1],
+                            LocalDate.parse(values[2]),
+                            values[3],
+                            Integer.parseInt(values[4]),
+                            values[5],
+                            values[6],
+                            Boolean.parseBoolean(values[7]),
+                            Boolean.parseBoolean(values[8]),
+                            Boolean.parseBoolean(values[9]),
+                            Boolean.parseBoolean(values[10])));
+                }
+            } else
 
             {
-                memberFileList.add(new Member(values[0],
-                        values[1],
-                        LocalDate.parse(values[2]),
-                        values[3],
-                        Integer.parseInt(values[4]),
-                        values[5],
-                        values[6],
-                        new Membership(Boolean.parseBoolean(values[7]), Boolean.parseBoolean(values[8]), Boolean.parseBoolean(values [9]), Boolean.parseBoolean(values[10]))));
-            }
+                    memberFileList.add(new Member(values[0],
+                            values[1],
+                            LocalDate.parse(values[2]),
+                            values[3],
+                            Integer.parseInt(values[4]),
+                            values[5],
+                            values[6],
+                            new Membership(Boolean.parseBoolean(values[7]), Boolean.parseBoolean(values[8]), Boolean.parseBoolean(values[9]), Boolean.parseBoolean(values[10]))));
+                }
+
 
         }
         return memberFileList;
