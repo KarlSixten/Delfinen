@@ -3,6 +3,7 @@ package ui;
 import domain.Controller;
 import domain.Member;
 import domain.Membership;
+import domain.MembershipType;
 
 import java.time.Year;
 import java.util.ArrayList;
@@ -280,7 +281,15 @@ public class UserInterface {
             isCoach = true;
         }
 
-        controller.createNewUser(fullName, birthDate, email, phoneNumber, address, gender, isActive, isSenior, isCompetitive, isCoach);
+        MembershipType membershipType = controller.createNewUser(fullName, birthDate, email, phoneNumber, address, gender, isActive, isSenior, isCompetitive, isCoach);
+        if (membershipType == MembershipType.COMPETITIVE){
+            System.out.println("Du har lavet en konkurrencesvømmer og skal derfor vælge en coach og et hold");
+            System.out.println("Her er en liste over coaches du kan vælge:");
+        } else if (membershipType == MembershipType.COACH) {
+            System.out.println("Du har lavet en træner og skal derfor vælge et hold");
+            System.out.println("Her er en liste over hold du kan sætte træneren på");
+        }
+
         controller.saveData();
     }
 

@@ -1,8 +1,6 @@
 package data;
 
-import domain.CompetitionSwimmer;
-import domain.Member;
-import domain.Membership;
+import domain.*;
 
 import java.io.IOException;
 import java.time.LocalDate;
@@ -24,22 +22,29 @@ public class Database {
 public void setMembersArrayList(ArrayList<Member> liste){
         membersArrayList.addAll(liste);
 }
-    public void createNewUser(String fullName,
-                               LocalDate birthDate,
-                               String email,
-                               int phoneNumber,
-                               String address,
-                               String gender,
-                               boolean isActive,
-                               boolean isSenior,
-                               boolean isCompetitive,
-                               boolean isCoach) {
+    public MembershipType createNewUser(String fullName,
+                                        LocalDate birthDate,
+                                        String email,
+                                        int phoneNumber,
+                                        String address,
+                                        String gender,
+                                        boolean isActive,
+                                        boolean isSenior,
+                                        boolean isCompetitive,
+                                        boolean isCoach) {
         String userID = createUserID(fullName);
         Membership membership = new Membership(isActive, isSenior, isCompetitive, isCoach);
-        if (!membership.isCompetetive()) {
-            membersArrayList.add(new Member(fullName, userID, birthDate, email, phoneNumber, address, gender, membership));
+        if (!membership.isCoach()) {
+            if (!membership.isCompetetive()) {
+                membersArrayList.add(new Member(fullName, userID, birthDate, email, phoneNumber, address, gender, membership));
+                return MembershipType.MEMBER;
+            } else
+                membersArrayList.add(new CompetitionSwimmer(fullName, userID, birthDate, email, phoneNumber, address, gender, isActive, isSenior, isCompetitive, isCoach));
+            return MembershipType.COMPETITIVE;
+        } else {
+            membersArrayList.add(new Coach(fullName,userID,birthDate,email,phoneNumber,address,gender, isActive, isSenior));
+            return MembershipType.COACH;
         }
-        else membersArrayList.add(new CompetitionSwimmer(fullName, userID, birthDate, email, phoneNumber,address,gender,isActive, isSenior));
 
     }
 
