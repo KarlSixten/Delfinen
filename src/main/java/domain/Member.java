@@ -38,6 +38,9 @@ public class Member {
         return fullName;
     }
 
+    public LocalDate getBirthDate() {
+        return birthDate;
+    }
     public String getUserID() {
         return userID;
     }
@@ -80,5 +83,17 @@ public class Member {
 
     public void setAddress(String address) {
         this.address = address;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public String getGender() {
+        return gender;
     }
 }
