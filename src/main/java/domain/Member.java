@@ -85,12 +85,12 @@ public class Member {
         this.address = address;
     }
 
-    public String getEmail() {
-        return email;
-    }
-
     public String getAddress() {
         return address;
+    }
+
+    public String getEmail() {
+        return email;
     }
 
     public String getGender() {
