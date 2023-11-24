@@ -2,19 +2,16 @@ package ui;
 
 import domain.Controller;
 import domain.Member;
-import domain.Membership;
 
-import java.time.Year;
+import java.time.*;
 import java.util.ArrayList;
 
-import java.time.LocalDate;
-import java.time.Month;
 import java.util.Scanner;
 
 public class UserInterface {
     private boolean uiIsRunning = true;
-    private Scanner scanner = new Scanner(System.in);
-    private Controller controller;
+    private final Scanner scanner = new Scanner(System.in);
+    private final Controller controller;
     String userRole = "";
 
     public UserInterface(Controller controller) {
@@ -127,7 +124,7 @@ public class UserInterface {
         try {
             inputInt = Integer.parseInt(input);
         } catch (NumberFormatException e) {
-            System.out.println("Ulgyldigt input! Prøv igen:");
+            System.out.println("Ugyldigt input! Prøv igen:");
             inputInt = takeIntUserInput();
         }
         return inputInt;
@@ -178,6 +175,7 @@ public class UserInterface {
     private void findMembers() {
         System.out.println("Search by Name, user-ID or phone number");
         String search = scanner.nextLine();
+
         ArrayList<Member> foundMembers = controller.findMembers(search);
         int index = 1;
         for (Member member: foundMembers) {
@@ -196,98 +194,35 @@ public class UserInterface {
     }
 
     private void createMember() {
-        System.out.println("Indtast fulde navn:");
-        String fullName = scanner.nextLine();
-
+        String fullName = createName();
         LocalDate birthDate = createBirthdate();
-
-        System.out.println("Indtast e-mail:");
-        String email = scanner.nextLine();
-
-        System.out.println("Indtast tlf. nr.:");
-        int phoneNumber = takeIntUserInput();
-
-        System.out.println("Indtast addresse:");
-        String address = scanner.nextLine();
-
-        System.out.println("""
-                Vælg køn:
-                1. Kvinde
-                2. Mand""");
-        String gender = "Male";
-        int userSelection = takeIntUserInput();
-
-        while (userSelection !=1 && userSelection !=2) {
-            System.out.println("Ugyldigt valg! Prøv igen:");
-            userSelection = takeIntUserInput();
-        }
-
-        if (userSelection == 1) {
-            gender = "Woman";
-        }
-
-        //This has been set to true since it doesn't make sense to create an inactive user
+        String email = createEmail();
+        int phoneNumber = createPhoneNumber();
+        String address = createAddress();
+        String gender = createGender();
         boolean isActive = true;
-
-        System.out.println("""
-                Er medlemmet senior?
-                1. Ja
-                2. Nej
-                """);
-        userSelection = takeIntUserInput();
-        boolean isSenior = false;
-
-        while (userSelection !=1 && userSelection !=2) {
-            System.out.println("Ugyldigt valg! Prøv igen:");
-            userSelection = takeIntUserInput();
-        }
-
-        if (userSelection == 1) {
-            isSenior = true;
-        }
-
-        System.out.println("""
-                Er medlemmet konkurrencesvømmer?
-                1. Ja
-                2. Nej
-                """);
-        userSelection = takeIntUserInput();
-        boolean isCompetitive = false;
-
-        while (userSelection !=1 && userSelection !=2) {
-            System.out.println("Ugyldigt valg! Prøv igen:");
-            userSelection = takeIntUserInput();
-        }
-
-        if (userSelection == 1) {
-            isCompetitive = true;
-        }
-
-        System.out.println("""
-                Er medlemmet træner?
-                1. Ja
-                2. Nej
-                """);
-        userSelection = takeIntUserInput();
-        boolean isCoach = false;
-
-        while (userSelection !=1 && userSelection !=2) {
-            System.out.println("Ugyldigt valg! Prøv igen:");
-            userSelection = takeIntUserInput();
-        }
-
-        if (userSelection == 1) {
-            isCoach = true;
-        }
+        boolean isSenior = checkIfSenior(birthDate);
+        boolean isCompetitive = checkIfCompetitive();
+        boolean isCoach = checkIfCoach();
 
         controller.createNewUser(fullName, birthDate, email, phoneNumber, address, gender, isActive, isSenior, isCompetitive, isCoach);
         controller.saveData();
     }
 
+    private String createName() {
+        System.out.println("Indtast fulde navn:");
+        String fullName = scanner.nextLine();
+        while (!nameIsValid(fullName)) {
+            System.out.println("Ugyldigt navn! Prøv igen:");
+            fullName = scanner.nextLine();
+        }
+        return fullName;
+    }
+
     private LocalDate createBirthdate() {
-        int birthYear = 0000;
-        int birthMonth = 0;
-        int birthDay = 0;
+        int birthYear;
+        int birthMonth;
+        int birthDay;
 
         System.out.println("Indtast fødselsår:");
         birthYear = takeIntUserInput();
@@ -305,12 +240,107 @@ public class UserInterface {
 
         System.out.println("Indtast fødselsdag:");
         birthDay = takeIntUserInput();
-        while (!(birthDay >= 1 && birthDay <= 31)) {
+        while (!(birthDay >= 1 && birthDay <= YearMonth.of(birthYear, birthMonth).lengthOfMonth())) {
             System.out.println("Ugyldigt valg! Prøv igen:");
             birthDay = takeIntUserInput();
         }
-
         return LocalDate.of(birthYear, birthMonth, birthDay);
+    }
+
+    private String createEmail() {
+        System.out.println("Indtast e-mail:");
+        String email = scanner.nextLine();
+        while (!emailIsValid(email)) {
+            System.out.println("Ugyldig email! Prøv igen:");
+            email = scanner.nextLine();
+        }
+        return email;
+    }
+
+    private int createPhoneNumber() {
+        System.out.println("Indtast tlf. nr.:");
+        int phoneNumber = takeIntUserInput();
+        while (!(phoneNumber >= 10000000 && phoneNumber <= 99999999)) {
+            System.out.println("Ugyldigt telefonnummer! Prøv igen:");
+            phoneNumber = takeIntUserInput();
+        }
+        return phoneNumber;
+    }
+
+    private String createAddress() {
+        System.out.println("Indtast addresse:");
+        return scanner.nextLine();
+    }
+
+    private String createGender() {
+        System.out.println("""
+                Vælg køn:
+                1. Kvinde
+                2. Mand""");
+
+        int userSelection = takeIntUserInput();
+        while (userSelection !=1 && userSelection !=2) {
+            System.out.println("Ugyldigt valg! Prøv igen:");
+            userSelection = takeIntUserInput();
+        }
+        if (userSelection == 1) {
+            return "Woman";
+        } else {
+            return "Male";
+        }
+    }
+
+    private boolean checkIfSenior(LocalDate birthDate) {
+        return Period.between(birthDate, LocalDate.now()).getYears() >= 18;
+    }
+
+    private boolean nameIsValid(String stringToTest) {
+        return stringToTest.matches("^[^0-9]+\\s[^0-9]+$");
+    }
+
+    private boolean emailIsValid(String stringToTest) {
+        return stringToTest.matches("^[a-zA-Z0-9_+&*-]+(?:\\.[a-zA-Z0-9_+&*-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,7}$");
+    }
+
+    private boolean checkIfCompetitive() {
+        System.out.println("""
+                Er medlemmet konkurrencesvømmer?
+                1. Ja
+                2. Nej""");
+
+        int userSelection = takeIntUserInput();
+        while (userSelection !=1 && userSelection !=2) {
+            System.out.println("Ugyldigt valg! Prøv igen:");
+            userSelection = takeIntUserInput();
+        }
+        return userSelection == 1;
+    }
+
+    private boolean checkIfCoach() {
+        System.out.println("""
+                Er medlemmet træner?
+                1. Ja
+                2. Nej""");
+
+        int userSelection = takeIntUserInput();
+        while (userSelection !=1 && userSelection !=2) {
+            System.out.println("Ugyldigt valg! Prøv igen:");
+            userSelection = takeIntUserInput();
+        }
+        return userSelection == 1;
+    }
+
+    private boolean checkIfActive() {
+        System.out.println("""
+                Er medlemmet aktivt?
+                1. Ja
+                2. Nej""");
+        int userSelection = takeIntUserInput();
+        while (userSelection !=1 && userSelection !=2) {
+            System.out.println("Ugyldigt valg! Prøv igen:");
+            userSelection = takeIntUserInput();
+        }
+        return userSelection == 1;
     }
 
     private void exitProgram() {
@@ -327,145 +357,55 @@ public class UserInterface {
             index += 1;
         }
         System.out.println("This is your search result. Please choose a member by their number");
-        int choice = scanner.nextInt();
+        int choice = takeIntUserInput();
         Member selectedMember = controller.getMemberFromIndex(choice, foundMembers);
         System.out.println("This is your selected member:");
         System.out.println(selectedMember);
         if (selectedMember != null){
             System.out.println("""
                         What do you want to edit?
-                        1. Fullname:
+                        1. Full name:
                         2. Email:
                         3. Tlf.Number:
                         4. Address:
                         5. Active/Passive:
-                        6. Senior/Junior:
-                        7. Competitive/non competitive:
-                        8. Is member a coach
+                        6. Competitive/non competitive:
+                        7. Is member a coach
                         """);
-            int switchChoice = scanner.nextInt();
-            switch (switchChoice){
+            switch (takeIntUserInput()){
                 case 1->{
-                    System.out.println("Enter the new Fullname");
-                    scanner.nextLine();
-                    String newName = scanner.nextLine();
-                    selectedMember.setFullName(newName);
-                    System.out.println("Fullname is now updated to: " + newName);
-                    controller.saveData();
+                    selectedMember.setFullName(createName());
+                    System.out.println("Fulde navn er blevet opdateret til: " + selectedMember.getFullName());
                 }
                 case 2->{
-                    System.out.println("Enter the new Email");
-                    scanner.nextLine();
-                    String newEmail = scanner.nextLine();
-                    selectedMember.setEmail(newEmail);
-                    System.out.println("Email is now updated to: " + newEmail);
-                    controller.saveData();
+                    selectedMember.setEmail(createEmail());
+                    System.out.println("Email is now updated to: " + selectedMember.getEmail());
                 }
                 case 3->{
-                    System.out.println("Enter the new Tlf.Number");
-                    scanner.nextInt();
-                    int newNumber = scanner.nextInt();
-                    selectedMember.setPhoneNumber(newNumber);
-                    System.out.println("Tlf.number is now updated to: " + newNumber);
-                    controller.saveData();
+                    selectedMember.setPhoneNumber(createPhoneNumber());
+                    System.out.println("Tlf.number is now updated to: " + selectedMember.getPhoneNumber());
                 }
                 case 4 -> {
-                    System.out.println("Enter the new Address");
-                    scanner.nextLine();
-                    String newAddress = scanner.nextLine();
-                    selectedMember.setAddress(newAddress);
-                    System.out.println("Address is now updated to: " + newAddress);
-                    controller.saveData();
+                    selectedMember.setAddress(createAddress());
+                    System.out.println("Address is now updated to: " + selectedMember.getAddress());
                 }
                 case 5 ->{
-                    boolean validInput = false;
-                    while (!validInput) {
-                        System.out.print("is member active? [y/n]: ");
-                        String input = scanner.next().trim().toLowerCase();
-
-                        if (input.equals("y")) {
-                            selectedMember.getMembership().setActive(true);
-                            validInput = true;
-                        } else if (input.equals("n")) {
-                            selectedMember.getMembership().setActive(false);
-                            validInput = true;
-                        } else {
-                            System.out.println("Invalid choice. Please enter 'y' or 'n'.");
-                        }
-                    }
-                    System.out.println("Member status is now updated: ");
-                    controller.saveData();
+                    selectedMember.getMembership().setActive(checkIfActive());
+                    System.out.println("Medlemsstatus opdateret.");
                 }
                 case 6 ->{
-                    boolean validInput = false;
-                    while (!validInput) {
-                        System.out.print("is member a senior? [y/n]: ");
-                        String input = scanner.next().trim().toLowerCase();
-                        if (input.equals("y")) {
-                            selectedMember.getMembership().setSenior(true);
-                            validInput = true;
-                        } else if (input.equals("n")) {
-                            selectedMember.getMembership().setSenior(false);
-                            validInput = true;
-                        } else {
-                            System.out.println("Invalid choice. Please enter 'y' or 'n'.");
-                        }
-                    }
-                    System.out.println("Member status is now updated: ");
-                    controller.saveData();
-                }case 7 ->{
-                    boolean validInput = false;
-                    while (!validInput) {
-                        System.out.print("is member competitive? [y/n]: ");
-                        String input = scanner.next().trim().toLowerCase();
-                        if (input.equals("y")) {
-                            selectedMember.getMembership().setCompetetive(true);
-                            validInput = true;
-                        } else if (input.equals("n")) {
-                            selectedMember.getMembership().setCompetetive(false);
-                            validInput = true;
-                        } else {
-                            System.out.println("Invalid choice. Please enter 'y' or 'n'.");
-                        }
-                    }
-                    System.out.println("Member status is now updated: ");
-                    controller.saveData();
-                }case 8 ->{
-                    boolean validInput = false;
-                    while (!validInput) {
-                        System.out.print("is member a coach? [y/n]: ");
-                        String input = scanner.next().trim().toLowerCase();
-                        if (input.equals("y")) {
-                            selectedMember.getMembership().setCoach(true);
-                            validInput = true;
-                        } else if (input.equals("n")) {
-                            selectedMember.getMembership().setCoach(false);
-                            validInput = true;
-                        } else {
-                            System.out.println("Invalid choice. Please enter 'y' or 'n'.");
-                        }
-                    }
-                    System.out.println("Member status is now updated: ");
-                    controller.saveData();
+                    selectedMember.getMembership().setCompetetive(checkIfCompetitive());
+                    System.out.println("Medlemsstatus opdateret.");
                 }
-
+                case 7 ->{
+                    selectedMember.getMembership().setCoach(checkIfCoach());
+                    System.out.println("Medlemsstatus opdateret.");
+                }
+                default -> System.out.println("Ugyldigt valg!");
             }
-
-
-
-            }
+            controller.saveData();
         }
+    }
 
 
-
-        }
-
-
-
-
-
-
-
-
-
-
+}

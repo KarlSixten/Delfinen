@@ -81,4 +81,12 @@ public class Member {
     public void setAddress(String address) {
         this.address = address;
     }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public String getAddress() {
+        return address;
+    }
 }
