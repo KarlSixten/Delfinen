@@ -128,7 +128,7 @@ public class UserInterface {
         try {
             inputInt = Integer.parseInt(input);
         } catch (NumberFormatException e) {
-            System.out.println("Ulgyldigt input! Prøv igen:");
+            System.out.println("Ugyldigt input! Prøv igen:");
             inputInt = takeIntUserInput();
         }
         return inputInt;
@@ -291,8 +291,7 @@ public class UserInterface {
             controller.setCoachToMember(controller.findfirstMember(fullName, address),controller.getIndexInListOfCoaches(index));
             System.out.println("Du har tilføjet en træner");
         } else if (membershipType == MembershipType.COACH) {
-            System.out.println("Du har lavet en træner og skal derfor vælge et hold");
-            System.out.println("Her er en liste over hold du kan sætte træneren på");
+            System.out.println("Du har lavet en træner");
         }
 
         controller.saveData();
