@@ -89,8 +89,9 @@ public void setMembersArrayList(ArrayList<Member> liste){
     public void saveMembers(){
         filehandler.saveMembers(membersArrayList);
     }
-    public void deleteMember(int userSelection){
-membersArrayList.remove(userSelection - 1);
+    public void deleteMember(Member member){
+        int index = membersArrayList.indexOf(member);
+        membersArrayList.remove(index);
     }
 
 }

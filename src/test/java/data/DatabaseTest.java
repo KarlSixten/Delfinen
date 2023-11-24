@@ -36,4 +36,17 @@ database = new Database();
 
         assertEquals(expectedSize,actualSize);
     }
+    @Test
+    void findMember(){
+        member1 = new Member("Aleksander", "Alek0617", LocalDate.of(1993,10,7), "aleks@gmail.com", 42755293, "Kanalvej 15","male", new Membership(true,true,true,true));
+        database.getMembersArrayList().add(member1);
+        //Arrange
+        String expectedName = "Aleksander";
+
+        //Act
+        String actualName = member1.getFullName();
+
+        //
+        assertEquals(expectedName,actualName);
+    }
 }

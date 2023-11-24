@@ -166,7 +166,7 @@ public class UserInterface {
         String confirmation = scanner.nextLine().toLowerCase();
 
         if (confirmation.equals("yes")) {
-                controller.deleteMember(choice);
+                controller.deleteMember(selectedMember);
                 System.out.println("Member deleted");
                 controller.saveData();
 
