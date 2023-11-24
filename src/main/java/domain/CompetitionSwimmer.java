@@ -7,12 +7,13 @@ import java.util.Map;
 
 public class CompetitionSwimmer extends Member {
     private Coach coach;
-
     private ArrayList<Performance> performances = new ArrayList<>();
+
+    private String team;
     public CompetitionSwimmer(String fullName, String userID, LocalDate birthDate, String email,
-                              int phoneNumber, String address, String gender,boolean isActive, boolean isSenior) {
+                              int phoneNumber, String address, String gender,boolean isActive, boolean isSenior, boolean isCompetitive, boolean isCoach) {
         super(fullName, userID, birthDate, email,
-                phoneNumber, address, gender, new Membership(isActive, isSenior,true,false));
+                phoneNumber, address, gender, new Membership(isActive, isSenior,isCompetitive,isCoach));
     }
 
     public void setCoach(Coach coach) {
@@ -23,10 +24,7 @@ public class CompetitionSwimmer extends Member {
             performances.add(new Performance(category, performanceTime, timeMadeInCompetition, LocalDate.of(year, month, dayOfMonth)));
     }
 
-
-
-
-
-
-
+    public void setTeam(String team) {
+        this.team = team;
+    }
 }

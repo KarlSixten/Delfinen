@@ -17,7 +17,7 @@ public ArrayList<Member> getArrayList (){
         return database.getMembersArrayList();
     }
 
-    public void createNewUser(String fullName,
+    public MembershipType createNewUser(String fullName,
                               LocalDate birthDate,
                               String email,
                               int phoneNumber,
@@ -27,7 +27,7 @@ public ArrayList<Member> getArrayList (){
                               boolean isSenior,
                               boolean isCompetitive,
                               boolean isCoach) {
-        database.createNewUser(fullName, birthDate, email, phoneNumber, address, gender, isActive, isSenior, isCompetitive, isCoach);
+        return database.createNewUser(fullName, birthDate, email, phoneNumber, address, gender, isActive, isSenior, isCompetitive, isCoach);
     }
 
 
