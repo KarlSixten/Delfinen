@@ -62,8 +62,8 @@ public ArrayList<Member> getArrayList (){
     public String getMemberName(Member member){
         return member.getFullName();
     }
-    public boolean deleteMember(int userSelection){
-database.deleteMember(userSelection);
-        return false;
+    public void deleteMember(Member member){
+database.deleteMember(member);
+
     }
 }

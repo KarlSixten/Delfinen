@@ -81,23 +81,19 @@ public class UserInterface {
 
     private void accountantSelection() {
         System.out.println("""
-                Vælg den funktion du vil tilgå:
-                1. Kasser menuer
-                2.
-                3.
-                4.
-                8. Skift rolle.
-                9. Afslut program.
-                """);
+                    Vælg den funktion du vil tilgå:
+                    1. Kasser menuer
+                    2.
+                    3.
+                    4.
+                    8. Skift rolle.
+                    9. Afslut program.
+                    """);
         switch (takeIntUserInput()) {
-            case 1 -> {
-            }
-            case 2 -> {
-            }
-            case 3 -> {
-            }
-            case 4 -> {
-            }
+            case 1 -> {}
+            case 2 -> {}
+            case 3 -> {}
+            case 4 -> {}
             case 8 -> selectUserRole();
             case 9 -> exitProgram();
             default -> System.out.println("Ugyldigt valg! Prøv igen:\n");
@@ -106,23 +102,19 @@ public class UserInterface {
 
     private void coachSelection() {
         System.out.println("""
-                Vælg den funktion du vil tilgå:
-                1. Træner menuer
-                2.
-                3.
-                4.
-                8. Skift rolle.
-                9. Afslut program.
-                """);
+                    Vælg den funktion du vil tilgå:
+                    1. Træner menuer
+                    2.
+                    3.
+                    4.
+                    8. Skift rolle.
+                    9. Afslut program.
+                    """);
         switch (takeIntUserInput()) {
-            case 1 -> {
-            }
-            case 2 -> {
-            }
-            case 3 -> {
-            }
-            case 4 -> {
-            }
+            case 1 -> {}
+            case 2 -> {}
+            case 3 -> {}
+            case 4 -> {}
             case 8 -> selectUserRole();
             case 9 -> exitProgram();
             default -> System.out.println("Ugyldigt valg! Prøv igen:\n");
@@ -144,16 +136,16 @@ public class UserInterface {
 
 
     private void deleteMember() {
-        System.out.println("Please search for the member you would like to delete:");
+        System.out.println("Søg venligst på det medlem du gerne vil slette:");
         String search = scanner.nextLine();
         ArrayList<Member> foundMembers = controller.findMembers(search);
 
         if (foundMembers.isEmpty()) {
-            System.out.println("No members have been found");
+            System.out.println("Ingen medlemmer fundet");
             return;
         }
 
-        System.out.println("Select a member to delete");
+        System.out.println("Vælg et medlem du gerne vil slette");
         int index = 1;
         for (Member member : foundMembers) {
             System.out.println(index + ". " + controller.getMemberName(member));
@@ -164,22 +156,23 @@ public class UserInterface {
         scanner.nextLine();
 
         if (choice < 1 || choice > foundMembers.size()) {
-            System.out.println("Invalid selection. Please select a valid member");
+            System.out.println("Ugyldigt valg, prøv igen din tåbe");
             return;
         }
 
         Member selectedMember = foundMembers.get(choice - 1);
         System.out.println(selectedMember);
-        System.out.println("Enter 'yes' to confirm");
+        System.out.println("Skriv ja");
 
         String confirmation = scanner.nextLine().toLowerCase();
 
-        if (confirmation.equals("yes")) {
-            controller.deleteMember(choice);
-            System.out.println("Member deleted");
-            controller.saveData();
+        if (confirmation.equals("ja")) {
+                controller.deleteMember(selectedMember);
+                System.out.println("Medlem slettet");
+                controller.saveData();
 
-        } else System.out.println("Cancelled trying to delete a member");
+        }
+        else System.out.println("Kunne ikke slette medlemmet.");
     }
 
 
@@ -188,7 +181,7 @@ public class UserInterface {
         String search = scanner.nextLine();
         ArrayList<Member> foundMembers = controller.findMembers(search);
         int index = 1;
-        for (Member member : foundMembers) {
+        for (Member member: foundMembers) {
             System.out.println(index + ". " + controller.getMemberName(member));
             index += 1;
         }
@@ -338,36 +331,35 @@ public class UserInterface {
         System.out.println("Exiting...");
         uiIsRunning = false;
     }
-
-    public void editMember() {
+    public void editMember(){
         System.out.println("Search by Name, user-ID or phone number");
         String search = scanner.nextLine();
-        controller.findMembers(search);
+        ArrayList<Member> foundMembers = controller.findMembers(search);
         int index = 1;
-        for (Member member : controller.findMembers(search)) {
+        for (Member member: foundMembers) {
             System.out.println(index + ". " + controller.getMemberName(member));
             index += 1;
         }
         System.out.println("This is your search result. Please choose a member by their number");
         int choice = scanner.nextInt();
-        Member selectedMember = controller.getMemberFromIndex(choice, controller.findMembers(search));
+        Member selectedMember = controller.getMemberFromIndex(choice, foundMembers);
         System.out.println("This is your selected member:");
         System.out.println(selectedMember);
-        if (selectedMember != null) {
+        if (selectedMember != null){
             System.out.println("""
-                    What do you want to edit?
-                    1. Fullname:
-                    2. Email:
-                    3. Tlf.Number:
-                    4. Address:
-                    5. Active/Passive:
-                    6. Senior/Junior:
-                    7. Competitive/non competitive:
-                    8. Is member a coach
-                    """);
+                        What do you want to edit?
+                        1. Fullname:
+                        2. Email:
+                        3. Tlf.Number:
+                        4. Address:
+                        5. Active/Passive:
+                        6. Senior/Junior:
+                        7. Competitive/non competitive:
+                        8. Is member a coach
+                        """);
             int switchChoice = scanner.nextInt();
-            switch (switchChoice) {
-                case 1 -> {
+            switch (switchChoice){
+                case 1->{
                     System.out.println("Enter the new Fullname");
                     scanner.nextLine();
                     String newName = scanner.nextLine();
@@ -375,7 +367,7 @@ public class UserInterface {
                     System.out.println("Fullname is now updated to: " + newName);
                     controller.saveData();
                 }
-                case 2 -> {
+                case 2->{
                     System.out.println("Enter the new Email");
                     scanner.nextLine();
                     String newEmail = scanner.nextLine();
@@ -383,7 +375,7 @@ public class UserInterface {
                     System.out.println("Email is now updated to: " + newEmail);
                     controller.saveData();
                 }
-                case 3 -> {
+                case 3->{
                     System.out.println("Enter the new Tlf.Number");
                     scanner.nextInt();
                     int newNumber = scanner.nextInt();
@@ -399,7 +391,7 @@ public class UserInterface {
                     System.out.println("Address is now updated to: " + newAddress);
                     controller.saveData();
                 }
-                case 5 -> {
+                case 5 ->{
                     boolean validInput = false;
                     while (!validInput) {
                         System.out.print("is member active? [y/n]: ");
@@ -418,7 +410,7 @@ public class UserInterface {
                     System.out.println("Member status is now updated: ");
                     controller.saveData();
                 }
-                case 6 -> {
+                case 6 ->{
                     boolean validInput = false;
                     while (!validInput) {
                         System.out.print("is member a senior? [y/n]: ");
@@ -435,8 +427,7 @@ public class UserInterface {
                     }
                     System.out.println("Member status is now updated: ");
                     controller.saveData();
-                }
-                case 7 -> {
+                }case 7 ->{
                     boolean validInput = false;
                     while (!validInput) {
                         System.out.print("is member competitive? [y/n]: ");
@@ -453,8 +444,7 @@ public class UserInterface {
                     }
                     System.out.println("Member status is now updated: ");
                     controller.saveData();
-                }
-                case 8 -> {
+                }case 8 ->{
                     boolean validInput = false;
                     while (!validInput) {
                         System.out.print("is member a coach? [y/n]: ");
@@ -476,11 +466,13 @@ public class UserInterface {
             }
 
 
+
+            }
         }
-    }
 
 
-}
+
+        }
 
 
 
