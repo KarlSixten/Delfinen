@@ -15,6 +15,7 @@ class DatabaseTest {
 Database database;
 Member member1;
 Member member2;
+Member member3;
     @BeforeEach
     void setUp() throws IOException {
 database = new Database();
@@ -24,14 +25,16 @@ database = new Database();
     void tearDown() {
         database = null;
     }
+    @Test
+    void addMember(){
 
+    }
     @Test
     void deleteMember() {
         int expectedSize = database.getMembersArrayList().size();
         member1 = new Member("Aleksander", "Alek0617", LocalDate.of(1993,10,7), "aleks@gmail.com", 42755293, "Kanalvej 15","male", new Membership(true,true,true,true));
         database.getMembersArrayList().add(member1);
-        database.getMembersArrayList().remove(member1);
-
+database.deleteMember(member1);
         int actualSize = database.getMembersArrayList().size();
 
         assertEquals(expectedSize,actualSize);
