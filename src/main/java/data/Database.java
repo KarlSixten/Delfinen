@@ -1,8 +1,6 @@
 package data;
 
-import domain.CompetitionSwimmer;
-import domain.Member;
-import domain.Membership;
+import domain.*;
 import domain.comparator.*;
 
 import java.io.IOException;
