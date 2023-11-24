@@ -29,7 +29,20 @@ public ArrayList<Member> getArrayList (){
                               boolean isCoach) {
         return database.createNewUser(fullName, birthDate, email, phoneNumber, address, gender, isActive, isSenior, isCompetitive, isCoach);
     }
+    public String listOfCoaches(){
+        return database.listOfCoaches();
+    }
 
+    public Member findfirstMember(String fullName, String address){
+        return database.findfirstMember(fullName, address);
+    }
+
+    public void setCoachToMember(Member competitionSwimmer, Member coach){
+        database.setCoachToMember(competitionSwimmer,coach);
+    }
+    public Member getIndexInListOfCoaches(int index){
+        return database.getCoachInListByIndex(index);
+    }
 
     public String getAllMemberNames() {
         return database.getAllMemberNames();
