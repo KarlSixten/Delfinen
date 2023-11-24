@@ -49,8 +49,8 @@ public ArrayList<Member> getArrayList (){
     public String getMemberName(Member member){
         return member.getFullName();
     }
-    public boolean deleteMember(Member member){
+    public void deleteMember(Member member){
 database.deleteMember(member);
-        return false;
+
     }
 }
