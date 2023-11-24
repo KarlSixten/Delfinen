@@ -1,10 +1,15 @@
 package data;
 
-import domain.*;
+import domain.CompetitionSwimmer;
+import domain.Member;
+import domain.Membership;
+import domain.comparator.*;
 
 import java.io.IOException;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Random;
 
 public class Database {
@@ -138,4 +143,101 @@ public class Database {
         int index = membersArrayList.indexOf(member);
         membersArrayList.remove(index);
     }
-}
+    public void sortMembers(int choice) {
+        Comparator comparator = null;
+
+        switch (choice) {
+
+            case 1 -> comparator = new FullNameComparator();
+
+            case 2 -> comparator = new UserIDComparator();
+
+            case 3 -> comparator = new BirthDateComparator();
+
+            case 4 -> comparator = new EmailComparator();
+
+            case 5 -> comparator = new PhoneNumberComparator();
+
+            case 6 -> comparator = new AddressComparator();
+
+            case 7 -> comparator = new GenderComparator();
+
+            case 8 -> comparator = new IsActiveComparator();
+
+            case 9 -> comparator = new IsSeniorComparator();
+
+            case 10 -> comparator = new IsCompetetiveComparator();
+
+            case 11 -> comparator = new IsCoachComparator();
+            default -> {
+                System.out.println("hej");
+            }
+        }
+        Collections.sort(membersArrayList, comparator);
+
+    }
+    public void sortMembersPrimaryandSec(int choice,int choice2){
+
+        Comparator comparator2 = null;
+        Comparator comparator1 = null;
+
+        switch (choice) {
+            case 1 -> comparator1 = new FullNameComparator();
+
+            case 2 -> comparator1 = new UserIDComparator();
+
+            case 3 -> comparator1 = new BirthDateComparator();
+
+            case 4 -> comparator1 = new EmailComparator();
+
+            case 5 -> comparator1 = new PhoneNumberComparator();
+
+            case 6 -> comparator1 = new AddressComparator();
+
+            case 7 -> comparator1 = new GenderComparator();
+
+            case 8 -> comparator1 = new IsActiveComparator();
+
+            case 9 -> comparator1 = new IsSeniorComparator();
+
+            case 10 -> comparator1 = new IsCompetetiveComparator();
+
+            case 11 -> comparator1 = new IsCoachComparator();
+
+            default -> {
+                System.out.println("Hej");
+            }
+        }
+        switch (choice2) {
+            case 1 -> comparator2 = new FullNameComparator();
+
+            case 2 -> comparator2 = new UserIDComparator();
+
+            case 3 -> comparator2 = new BirthDateComparator();
+
+            case 4 -> comparator2 = new EmailComparator();
+
+            case 5 -> comparator2 = new PhoneNumberComparator();
+
+            case 6 -> comparator2 = new AddressComparator();
+
+            case 7 -> comparator2 = new GenderComparator();
+
+            case 8 -> comparator2 = new IsActiveComparator();
+
+            case 9 -> comparator2 = new IsSeniorComparator();
+
+            case 10 -> comparator2 = new IsCompetetiveComparator();
+
+            case 11 -> comparator2 = new IsCoachComparator();
+
+            default -> {
+                System.out.println("hej");
+            }
+        }
+        Collections.sort(membersArrayList, comparator1.thenComparing(comparator2));
+    }
+
+    }
+
+
