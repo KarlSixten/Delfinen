@@ -53,4 +53,10 @@ public ArrayList<Member> getArrayList (){
 database.deleteMember(userSelection);
         return false;
     }
+    public void sortMember(int choice){
+        database.sortMembers(choice);
+    }
+    public void sortMemberPrimaryandSecundary(int choice, int choice2){
+        database.sortMembersPrimaryandSec(choice, choice2);
+    }
 }

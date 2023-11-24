@@ -192,7 +192,31 @@ public class UserInterface {
     }
 
     private void showAllMembers() {
+        System.out.println("Skal der sorteres i medlemerne" +
+                " Vælg den funktion du vil tilgå:\n" +
+                "        1. Sortering med en primær\n" +
+                "        2. Sortering med primær og sekundær");
         System.out.println(controller.getAllMemberNames());
+        int userchoice = scanner.nextInt();
+        scanner.nextLine();
+        if (userchoice == 1){
+            sortLines();
+            int choice = scanner.nextInt();
+        controller.sortMember(choice);
+            System.out.println("List sorted");
+            controller.saveData();
+        }
+        else if (userchoice == 2){
+            sortLines();
+            int choice = scanner.nextInt();
+           sortLines();
+            int choice2 = scanner.nextInt();
+            controller.sortMemberPrimaryandSecundary(choice,choice2);
+            System.out.println("List sorted");
+            controller.saveData();
+
+        }
+
     }
 
     private void createMember() {
@@ -454,6 +478,22 @@ public class UserInterface {
 
 
             }
+        }
+        private void sortLines(){
+            System.out.println("""
+                What primary attribute do you want to sort the database by?
+                        1. Fullname:
+                        2. UserID:
+                        3. BirthDate:
+                        4. Email:
+                        5. PhoneNumber:
+                        6. Adress: 
+                        7. Gender:
+                        8. Is member active: 
+                        9. Is member a senior
+                        10. Is member competetive
+                        11. Coach                           
+                """);
         }
 
 
