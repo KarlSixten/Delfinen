@@ -27,4 +27,27 @@ public class CompetitionSwimmer extends Member {
     public void setTeam(String team) {
         this.team = team;
     }
+
+    public ArrayList<Performance> viewPerfomances(){
+        return performances;
+    }
+    public String toPerformanceCSVString(){
+        String output = "";
+        for (Performance performance: performances) {
+            output = getFullName() + ";" + getAddress() + ";" + performance.performanceCSV() + "\n";
+        }
+        return output;
+    }
+    public String toPerformanceCSVString2() {
+        StringBuilder output = new StringBuilder();
+        for (Performance performance : performances) {
+            output.append(getFullName()).append(";").append(getAddress()).append(";").append(performance.performanceCSV()).append("\n");
+        }
+        return output.toString();
+    }
+
+    public ArrayList<Performance> getPerformances(){
+        return performances;
+    }
+
 }
