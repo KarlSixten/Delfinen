@@ -51,15 +51,14 @@ public class Member {
 
     @Override
     public String toString() {
-        return "Member{" +
+        return "Member: " +
                 "fullName='" + fullName + '\'' +
                 ", userID='" + userID + '\'' +
                 ", birthDate=" + birthDate +
                 ", email='" + email + '\'' +
                 ", phoneNumber=" + phoneNumber +
                 ", address='" + address + '\'' +
-                ", gender='" + gender + '\'' +
-                '}';
+                ", gender='" + gender + '\'';
     }
     public String toCSVString(){
         return fullName + ";" + userID + ";"  + birthDate + ";" + email + ";" + phoneNumber + ";" + address + ";" + gender + ";" + membership.toCSVString();
