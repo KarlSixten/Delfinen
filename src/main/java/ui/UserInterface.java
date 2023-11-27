@@ -193,6 +193,7 @@ public class UserInterface {
         }
         System.out.println("This is your search result. Please choose a member by their number");
         int choice = scanner.nextInt();
+        scanner.nextLine();
         Member selectedMember = controller.getMemberFromIndex(choice, foundMembers);
         System.out.println("This is your selected member:");
         System.out.println(selectedMember);
