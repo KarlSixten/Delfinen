@@ -64,7 +64,7 @@ database = new Database();
         //Act
         String actualName = member1.getFullName();
 
-        //
+        //Assert
         assertEquals(expectedName,actualName);
     }
 }
