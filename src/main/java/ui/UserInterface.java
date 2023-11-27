@@ -134,6 +134,7 @@ public class UserInterface {
         try {
             inputInt = Integer.parseInt(input);
         } catch (NumberFormatException e) {
+            e.printStackTrace();
             System.out.println("Ugyldigt input! Prøv igen:");
             inputInt = takeIntUserInput();
         }
@@ -208,6 +209,7 @@ public class UserInterface {
         if (userchoice == 1) {
             sortLines();
             int choice = scanner.nextInt();
+            scanner.nextLine();
             controller.sortMember(choice);
             System.out.println("List sorted");
             controller.saveData();
@@ -216,6 +218,7 @@ public class UserInterface {
             int choice = scanner.nextInt();
             sortLines();
             int choice2 = scanner.nextInt();
+            scanner.nextLine();
             controller.sortMemberPrimaryandSecundary(choice, choice2);
             System.out.println("List sorted");
             controller.saveData();
