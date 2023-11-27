@@ -252,7 +252,12 @@ public class UserInterface {
             }
             case COACH -> System.out.println("Du har oprettet en træner");
             case MEMBER -> System.out.println("Du har oprettet et medlem");
-            case FAILED_CREATE -> System.out.println("En træner kan ikke være konkurrencesvømmer og træner. Prøv igen");
+            case FAILED_CREATE -> System.out.println("""
+                    Der er sket en fejl.
+                    Fornavn og efternavn skal have mindst to bogstaver i sig.
+                    Det kan være du har prøvet at oprette en træner der også er konkurrencesvømmer. Det kan man ikke!
+                    prøv igen:
+                    """);
             default -> {}
         }
         controller.saveData();

@@ -37,6 +37,10 @@ public class Database {
                                         boolean isSenior,
                                         boolean isCompetitive,
                                         boolean isCoach) {
+        String[] names = fullName.split("\\s+");
+        if (names.length != 2 || names[0].length() < 2 || names[1].length() < 2) {
+            return MembershipType.FAILED_CREATE;
+        }
         String userID = createUserID(fullName);
         Membership membership = new Membership(isActive, isSenior, isCompetitive, isCoach);
         if (!membership.isCoach()) {
@@ -50,8 +54,8 @@ public class Database {
             if (!membership.isCompetetive()){
             membersArrayList.add(new Coach(fullName, userID, birthDate, email, phoneNumber, address, gender, isActive, isSenior));
             return MembershipType.COACH;}
-            else return MembershipType.FAILED_CREATE;
         }
+       return MembershipType.FAILED_CREATE;
 
     }
 
