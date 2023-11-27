@@ -134,7 +134,6 @@ public class UserInterface {
         try {
             inputInt = Integer.parseInt(input);
         } catch (NumberFormatException e) {
-            e.printStackTrace();
             System.out.println("Ugyldigt input! Prøv igen:");
             inputInt = takeIntUserInput();
         }
