@@ -12,7 +12,7 @@ import java.util.Random;
 
 public class Database {
     Filehandler filehandler = new Filehandler();
-
+    private CompetitionSwimmer competitionSwimmer;
     public ArrayList<Member> getMembersArrayList() {
         return membersArrayList;
     }
@@ -241,7 +241,27 @@ public class Database {
         }
         Collections.sort(membersArrayList, comparator1.thenComparing(comparator2));
     }
+public Member findCompetitionSwimmer(String fullName, String addresse){
+    for (Member member:membersArrayList) {
+        if (member.getMembership().isCompetetive()){
+            if (fullName.toLowerCase().contains(member.getFullName().toLowerCase()) && member.getAddress().toLowerCase().contains(addresse.toLowerCase())){
+                return member;
+            }
+        }
+    }
+  return null;
+}
 
+public void registerPerformance(Member member, String category, double performanceTime, boolean timeMadeInCompetition, int year, int month, int dayOfMonth ){
+    ((CompetitionSwimmer) member).registerPerformance(category,performanceTime,timeMadeInCompetition,year,month,dayOfMonth);
+}
+
+public ArrayList<Performance> viewPerformances(Member member){
+        return ((CompetitionSwimmer) member).viewPerfomances();
+}
+public void savePerformances(){
+        filehandler.savePerformance(membersArrayList);
+}
     }
 
 
