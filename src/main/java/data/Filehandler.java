@@ -79,8 +79,25 @@ public class Filehandler {
             e.printStackTrace();
         }
     }
+    public void savePerformance(ArrayList<Member> performanceDatabase){
+        ArrayList<Member> competitionSwimmers = performanceDatabase;
+        PrintStream output;
+        try {
+            output = new PrintStream(performanceList);
+            for (Member member: competitionSwimmers){
+                if (member instanceof CompetitionSwimmer){
+                    if (((CompetitionSwimmer) member).getPerformances().size()>0) {
+                        output.println(((CompetitionSwimmer) member).toPerformanceCSVString2());
+                    }
+                }
+                }output.close();
+        } catch (IOException e){
+            e.printStackTrace();
+        }
+            }
 
-    public void loadMembers (ArrayList<Member> database){
+
+    /*public void loadMembers (ArrayList<Member> database){
     Scanner scanner;
     try {
         scanner = new Scanner(memberFileList);

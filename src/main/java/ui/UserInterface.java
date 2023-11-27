@@ -105,8 +105,8 @@ public class UserInterface {
     private void coachSelection() {
         System.out.println("""
                 Vælg den funktion du vil tilgå:
-                1. Træner menuer
-                2.
+                1. Register performance
+                2. Se performance
                 3.
                 4.
                 8. Skift rolle.
@@ -114,6 +114,8 @@ public class UserInterface {
                 """);
         switch (takeIntUserInput()) {
             case 1 -> {
+                registerPerformance();
+
             }
             case 2 -> {
             }
@@ -386,7 +388,7 @@ public class UserInterface {
             userSelection = takeIntUserInput();
         }
         return userSelection == 1;
-        }
+    }
 
     private void exitProgram() {
         System.out.println("Exiting...");
@@ -454,9 +456,8 @@ public class UserInterface {
     }
 
 
-
-        private void sortLines(){
-            System.out.println("""
+    private void sortLines() {
+        System.out.println("""
                 What primary attribute do you want to sort the database by?
                         1. Fullname:
                         2. UserID:
@@ -470,12 +471,47 @@ public class UserInterface {
                         10. Is member competetive
                         11. Coach                           
                 """);
-        }
+    }
 
+    private void registerPerformance() {
+        System.out.println("Navnet på svømmeren du vil registrere en tid til");
+        String fullName = scanner.nextLine();
+        System.out.println("Skriv addressen på svømmeren");
+        String addresse = scanner.nextLine();
+        System.out.println("Hvilken disciplin er tiden sat i");
+        String category = scanner.nextLine();
+        System.out.println("Hvad er tiden i sekunder med 2 decimaler");
+        double performanceTime = scanner.nextDouble();
+        scanner.nextLine(); // Forbrug det efterladte linjeskift
+        System.out.println("Er tiden lavet i konkurrence (ja/nej)");
+        boolean timeMadeInCompetition = false;
+        String input = "";
+        do {
+            input = scanner.nextLine().toLowerCase();
+                if (input.equals("ja")) {
+                    timeMadeInCompetition = true;
+                } else if (input.equals("nej")) {
+                    timeMadeInCompetition = false;
+                } else {
+                System.out.println("Ugyldigt valg, vælg ja eller nej");
+            }
+        } while (!input.equals("ja") && !input.equals("nej"));
 
+        System.out.println("Hvilket år er tiden sat");
+        int year = scanner.nextInt();
+        System.out.println("Hvilken måned er tiden sat");
+        int month = scanner.nextInt();
+        System.out.println("Hvilken dag er tiden sat ");
+        int dayOfMonth = scanner.nextInt();
+        scanner.nextLine();
+        controller.registerPerformance(controller.findCompetitionSwimmer(fullName, addresse),
+                category, performanceTime, timeMadeInCompetition, year, month, dayOfMonth);
 
+        System.out.println(controller.viewPerformances(controller.findCompetitionSwimmer(fullName, addresse)));
+        controller.savePerformance();
 
-        }
+    }
+}
 
 
 

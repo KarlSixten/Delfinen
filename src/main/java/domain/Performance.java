@@ -10,6 +10,8 @@ public class Performance {
 
     private LocalDate dateTimeIsMade;
 
+
+
     public Performance(String category, double performanceTime, boolean timeMadeInCompetition, LocalDate dateTimeIsMade){
         this.category = category;
         this.performanceTime = performanceTime;
@@ -17,4 +19,18 @@ public class Performance {
         this.dateTimeIsMade = dateTimeIsMade;
 
     }
+    @Override
+    public String toString() {
+        return "Performance{" +
+                "category='" + category + '\'' +
+                ", performanceTime=" + performanceTime +
+                ", timeMadeInCompetition=" + timeMadeInCompetition +
+                ", dateTimeIsMade=" + dateTimeIsMade +
+                '}' + "\n";
+    }
+
+    public String performanceCSV(){
+        return category + ";" + performanceTime + ";" + timeMadeInCompetition + ";" + dateTimeIsMade;
+    }
+
 }

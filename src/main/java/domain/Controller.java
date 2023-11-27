@@ -72,4 +72,17 @@ database.deleteMember(member);
     public void sortMemberPrimaryandSecundary(int choice, int choice2){
         database.sortMembersPrimaryandSec(choice, choice2);
     }
+    public Member findCompetitionSwimmer(String fullName, String addresse){
+        return database.findCompetitionSwimmer(fullName,addresse);
+    }
+    public void registerPerformance(Member member, String category, double performanceTime, boolean timeMadeInCompetition, int year, int month, int dayOfMonth){
+        database.registerPerformance(member,category,performanceTime,timeMadeInCompetition,year,month,dayOfMonth);
+    }
+
+    public ArrayList<Performance> viewPerformances(Member member){
+        return database.viewPerformances(member);
+    }
+    public void savePerformance(){
+        database.savePerformances();
+    }
 }
