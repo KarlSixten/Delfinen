@@ -20,8 +20,8 @@ public class CompetitionSwimmer extends Member {
         this.coach = coach;
     }
 
-    public void registerPerformance(String category, double performanceTime, boolean timeMadeInCompetition, int year, int month, int dayOfMonth ){
-            performances.add(new Performance(category, performanceTime, timeMadeInCompetition, LocalDate.of(year, month, dayOfMonth)));
+    public void registerPerformance(String category, double performanceTime, boolean performedInCompetition, int year, int month, int dayOfMonth ){
+            performances.add(new Performance(category, performanceTime, performedInCompetition, LocalDate.of(year, month, dayOfMonth)));
     }
 
     public void setTeam(String team) {

@@ -47,8 +47,10 @@ public class Database {
                 membersArrayList.add(new CompetitionSwimmer(fullName, userID, birthDate, email, phoneNumber, address, gender, isActive, isSenior, isCompetitive, isCoach));
             return MembershipType.COMPETITIVE;
         } else {
+            if (!membership.isCompetetive()){
             membersArrayList.add(new Coach(fullName, userID, birthDate, email, phoneNumber, address, gender, isActive, isSenior));
-            return MembershipType.COACH;
+            return MembershipType.COACH;}
+            else return MembershipType.FAILED_CREATE;
         }
 
     }

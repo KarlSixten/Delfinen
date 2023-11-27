@@ -237,16 +237,20 @@ public class UserInterface {
         boolean isCoach = checkIfCoach();
 
         MembershipType membershipType = controller.createNewUser(fullName, birthDate, email, phoneNumber, address, gender, isActive, isSenior, isCompetitive, isCoach);
-        if (membershipType == MembershipType.COMPETITIVE) {
-            System.out.println("Du har lavet en konkurrencesvømmer og skal derfor vælge en coach og et hold");
-            System.out.println("Her er en liste over coaches du kan vælge:");
-            System.out.println(controller.listOfCoaches());
-            System.out.println("Vælg en træner ved at skrive deres tal til venstre");
-            int index = scanner.nextInt();
-            controller.setCoachToMember(controller.findfirstMember(fullName, address), controller.getIndexInListOfCoaches(index));
-            System.out.println("Du har tilføjet en træner");
-        } else if (membershipType == MembershipType.COACH) {
-            System.out.println("Du har lavet en træner");
+        switch (membershipType){
+            case COMPETITIVE -> {
+                System.out.println("Du har lavet en konkurrencesvømmer og skal derfor vælge en coach og et hold");
+                System.out.println("Her er en liste over coaches du kan vælge:");
+                System.out.println(controller.listOfCoaches());
+                System.out.println("Vælg en træner ved at skrive deres tal til venstre");
+                int index = scanner.nextInt();
+                controller.setCoachToMember(controller.findfirstMember(fullName, address), controller.getIndexInListOfCoaches(index));
+                System.out.println("Du har tilføjet en træner");
+            }
+            case COACH -> System.out.println("Du har oprettet en træner");
+            case MEMBER -> System.out.println("Du har oprettet et medlem");
+            case FAILED_CREATE -> System.out.println("En træner kan ikke være konkurrencesvømmer og træner. Prøv igen");
+            default -> {}
         }
         controller.saveData();
     }
