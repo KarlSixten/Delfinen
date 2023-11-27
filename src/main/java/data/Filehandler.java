@@ -14,6 +14,7 @@ import java.util.Scanner;
 
 public class Filehandler {
     private File memberFileList = new File("Datasheet.csv");
+    private File performanceList = new File ("PerformanceList.csv");
 
     public ArrayList<Member> loadData() throws  IOException{
         ArrayList<Member> memberFileList = new ArrayList<>();
@@ -129,5 +130,6 @@ public class Filehandler {
         e.printStackTrace();
     }
 
-}
+}*/
+
 }
