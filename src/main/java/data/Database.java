@@ -91,7 +91,7 @@ public class Database {
 
     public Member findfirstMember(String fullName, String address){
         for (Member member: membersArrayList) {
-            if (member.getFullName().equals(fullName) && member.getUserID().equals(address)){
+            if (member.getFullName().equals(fullName) && member.getAddress().equals(address)){
                 return member;
             }
         }
@@ -112,6 +112,10 @@ public class Database {
             }
         }
         return userID;
+    }
+
+    public void loadPerformances(){
+        filehandler.loadPerformances(membersArrayList);
     }
 
     public String getAllMemberNames() {
@@ -241,19 +245,25 @@ public class Database {
         }
         Collections.sort(membersArrayList, comparator1.thenComparing(comparator2));
     }
-public Member findCompetitionSwimmer(String fullName, String addresse){
-    for (Member member:membersArrayList) {
-        if (member.getMembership().isCompetetive()){
-            if (fullName.toLowerCase().contains(member.getFullName().toLowerCase()) && member.getAddress().toLowerCase().contains(addresse.toLowerCase())){
-                return member;
+
+    public Member registerPerformanceForCompetetionswimmer(String fullName, String address, String category, double performanceTime, boolean timeMadeInCompetition, int year, int month, int dayOfMonth) {
+        for (Member member : membersArrayList) {
+            if (member != null && member.getMembership() != null && member.getAddress() != null) {
+                if (member.getMembership().isCompetetive() &&
+                        fullName.toLowerCase().contains(member.getFullName().toLowerCase()) &&
+                        member.getAddress().toLowerCase().contains(address.toLowerCase())) {
+                    ((CompetitionSwimmer)member).registerPerformance(category,performanceTime,timeMadeInCompetition,year,month,dayOfMonth);
+                    return member;
+                }
             }
         }
+        return null;
     }
-  return null;
-}
 
-public void registerPerformance(Member member, String category, double performanceTime, boolean timeMadeInCompetition, int year, int month, int dayOfMonth ){
-    ((CompetitionSwimmer) member).registerPerformance(category,performanceTime,timeMadeInCompetition,year,month,dayOfMonth);
+
+    public void registerPerformance(Member member, String category, double performanceTime, boolean timeMadeInCompetition,int year, int month, int dayOfMonth){
+
+        ((CompetitionSwimmer) member).registerPerformance(category,performanceTime,timeMadeInCompetition,year,month,dayOfMonth);
 }
 
 public ArrayList<Performance> viewPerformances(Member member){
@@ -262,6 +272,30 @@ public ArrayList<Performance> viewPerformances(Member member){
 public void savePerformances(){
         filehandler.savePerformance(membersArrayList);
 }
+
+    public String listOfCompetetionsSwimmersByName(String name) {
+
+        StringBuilder stringBuilder = new StringBuilder();
+        int index = 1;
+        for (Member member : membersArrayList) {
+            if (member instanceof CompetitionSwimmer && member.getFullName().toLowerCase().trim().contains(name.toLowerCase().trim())) {
+                stringBuilder.append(index).append(" ").append(member).append("\n");
+                index += 1;
+            }
+        }
+
+        return  stringBuilder.toString();
+    }
+
+    public Member getCompetetionSwimmerInListByIndex(int index, String name){
+        ArrayList<Member> competitionSwimmers = new ArrayList<>();
+        for (Member member : membersArrayList) {
+            if (member instanceof CompetitionSwimmer && member.getFullName().toLowerCase().trim().contains(name.toLowerCase().trim())){
+                competitionSwimmers.add(member);
+            }
+        }
+        return competitionSwimmers.get(index-1);
+    }
     }
 
 

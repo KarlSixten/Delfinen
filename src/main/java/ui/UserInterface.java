@@ -1,9 +1,6 @@
 package ui;
 
-import domain.Controller;
-import domain.Member;
-import domain.Membership;
-import domain.MembershipType;
+import domain.*;
 
 import java.time.*;
 import java.util.ArrayList;
@@ -112,6 +109,7 @@ public class UserInterface {
                 8. Skift rolle.
                 9. Afslut program.
                 """);
+        //controller.loadPerformances();
         switch (takeIntUserInput()) {
             case 1 -> {
                 registerPerformance();
@@ -485,8 +483,11 @@ public class UserInterface {
     private void registerPerformance() {
         System.out.println("Navnet på svømmeren du vil registrere en tid til");
         String fullName = scanner.nextLine();
-        System.out.println("Skriv addressen på svømmeren");
-        String addresse = scanner.nextLine();
+        System.out.println(controller.listOfCompetetionsSwimmersByName(fullName));
+        System.out.println("Skriv tallet på den competitionssvømmer du vil vælge");
+        int choice = scanner.nextInt();
+        Member selectedMember = controller.getCompetetionSwimmerInListByIndex(choice,fullName);
+scanner.nextLine();
         System.out.println("Hvilken disciplin er tiden sat i");
         String category = scanner.nextLine();
         System.out.println("Hvad er tiden i sekunder med 2 decimaler");
@@ -513,12 +514,9 @@ public class UserInterface {
         System.out.println("Hvilken dag er tiden sat ");
         int dayOfMonth = scanner.nextInt();
         scanner.nextLine();
-        controller.registerPerformance(controller.findCompetitionSwimmer(fullName, addresse),
-                category, performanceTime, timeMadeInCompetition, year, month, dayOfMonth);
+        controller.registerPerformance(selectedMember,category,performanceTime,timeMadeInCompetition,year,month,dayOfMonth);
 
-        System.out.println(controller.viewPerformances(controller.findCompetitionSwimmer(fullName, addresse)));
         controller.savePerformance();
-
     }
 }
 
