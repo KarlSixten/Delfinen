@@ -109,7 +109,7 @@ public class UserInterface {
                 8. Skift rolle.
                 9. Afslut program.
                 """);
-        //controller.loadPerformances();
+        controller.loadPerformances();
         switch (takeIntUserInput()) {
             case 1 -> {
                 registerPerformance();
