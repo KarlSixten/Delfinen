@@ -104,8 +104,8 @@ public class UserInterface {
                 Vælg den funktion du vil tilgå:
                 1. Register performance
                 2. Se performance
-                3.
-                4.
+                3. Sorter svømmere
+                4. Se top 5 svømmere
                 8. Skift rolle.
                 9. Afslut program.
                 """);
@@ -113,13 +113,12 @@ public class UserInterface {
         switch (takeIntUserInput()) {
             case 1 -> {
                 registerPerformance();
-
             }
             case 2 -> {
             }
-            case 3 -> {
+            case 3 -> { sortPerformance();
             }
-            case 4 -> {
+            case 4 -> {top5Swimmers();
             }
             case 8 -> selectUserRole();
             case 9 -> exitProgram();
@@ -541,7 +540,47 @@ public class UserInterface {
             return getswimDiscipline();
         }
     }
+    private void sortPerformance(){
+        System.out.println("""
+                Hvilket køn vil du sortere efter
+                1. Mand
+                2. Kvinde
+                """);
 
+        int choice = scanner.nextInt();
+        System.out.println("""
+                Hvilken kategori vil du se resultater for
+                1. Butterfly
+                2. Crawl
+                3. Rygcrawl
+                4. Bryst
+                """);
+        int choice2 = scanner.nextInt();
+        scanner.nextLine();
+
+        System.out.println(controller.sortPerformance(choice,choice2));
+    }
+
+    private void top5Swimmers(){
+        System.out.println("""
+                Hvilket køn vil du sortere efter
+                1. Mand
+                2. Kvinde
+                """);
+
+        int choice = scanner.nextInt();
+        System.out.println("""
+                Hvilken kategori vil du se resultater for
+                1. Butterfly
+                2. Crawl
+                3. Rygcrawl
+                4. Bryst
+                """);
+        int choice2 = scanner.nextInt();
+        scanner.nextLine();
+
+        System.out.println(controller.getTop5Swimmers(choice, choice2));
+    }
 }
 
 

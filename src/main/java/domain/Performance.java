@@ -18,14 +18,16 @@ public class Performance {
         this.dateTimeIsMade = dateTimeIsMade;
 
     }
+
     @Override
     public String toString() {
-        return "Performance{" +
-                "category='" + category + '\'' +
-                ", performanceTime=" + performanceTime +
-                ", timeMadeInCompetition=" + timeMadeInCompetition +
-                ", dateTimeIsMade=" + dateTimeIsMade +
-                '}' + "\n";
+        return
+                        " Navn: " + madeBy +
+                        ", Kategori: " + category + '\'' +
+                        ", Tid: " + performanceTime +
+                        ", Lavet i konkurrence: " + timeMadeInCompetition +
+                        ", Dato: " + dateTimeIsMade +
+                        ", Køn: " + gender + "\n";
     }
 
     public String performanceCSV(){

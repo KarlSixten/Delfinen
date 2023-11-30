@@ -1,12 +1,13 @@
 package domain.comparator;
 
 import domain.CompetitionSwimmer;
+import domain.Performance;
 
 import java.util.Comparator;
 
-public class PerformanceTimeComparator implements Comparator<CompetitionSwimmer> {
-    public int compare (CompetitionSwimmer c1, CompetitionSwimmer c2){
-return Double.compare((c1.getPerformance().getPerformanceTime()), c2.getPerformance().getPerformanceTime());
+public class PerformanceTimeComparator implements Comparator<Performance> {
+    public int compare (Performance p1, Performance p2){
+return Double.compare((p1.getPerformanceTime()), p2.getPerformanceTime());
     }
 }
 
