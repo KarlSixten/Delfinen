@@ -487,12 +487,12 @@ public class UserInterface {
         System.out.println("Skriv tallet på den competitionssvømmer du vil vælge");
         int choice = scanner.nextInt();
         Member selectedMember = controller.getCompetetionSwimmerInListByIndex(choice,fullName);
-        SwimDiscipline chosenDiscipline = getswimDiscipline();
         System.out.println("Hvilken disciplin er tiden sat i \n" +
                 "1. Butterfly \n" +
-                "2. Crawl \n " +
+                "2. Crawl \n" +
                 "3. Rygcrawl \n" +
                 "4. Bryst \n");
+        SwimDiscipline chosenDiscipline = getswimDiscipline();
         scanner.nextLine();
         System.out.println("Hvad er tiden i sekunder med 2 decimaler");
         double performanceTime = scanner.nextDouble();
@@ -519,23 +519,28 @@ public class UserInterface {
         int dayOfMonth = scanner.nextInt();
         scanner.nextLine();
         controller.registerPerformance(selectedMember, String.valueOf(chosenDiscipline),performanceTime,timeMadeInCompetition,year,month,dayOfMonth);
-
         controller.savePerformance();
     }
     private SwimDiscipline getswimDiscipline (){
-        switch (takeIntUserInput()) {
-            case 1 -> {
+        int choice = scanner.nextInt();
+        switch (choice) {
+            case 1:
                 return SwimDiscipline.BUTTERFLY;
-            }
-            case 2 -> {
+
+            case 2:
                 return SwimDiscipline.CRAWL;
-            }
-            case 3 -> {
+
+            case 3:
                 return SwimDiscipline.RYGCRAWL;
-            }
+
+            case 4:
+                return SwimDiscipline.BRYST;
+
+            default: System.out.println("Ugyldigt input, vælg venligst mellem 1-4");
+            return getswimDiscipline();
         }
-        return getswimDiscipline();
     }
+
 }
 
 
