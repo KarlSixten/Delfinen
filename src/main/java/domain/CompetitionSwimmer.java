@@ -9,6 +9,12 @@ public class CompetitionSwimmer extends Member {
     private Coach coach;
     private ArrayList<Performance> performances = new ArrayList<>();
 
+    public Performance getPerformance() {
+        return performance;
+    }
+
+    private Performance performance;
+
     private String team;
     public CompetitionSwimmer(String fullName, String userID, LocalDate birthDate, String email,
                               int phoneNumber, String address, String gender,boolean isActive, boolean isSenior, boolean isCompetitive, boolean isCoach) {
@@ -53,5 +59,6 @@ public class CompetitionSwimmer extends Member {
     public ArrayList<Performance> getPerformances(){
         return performances;
     }
+
 
 }
