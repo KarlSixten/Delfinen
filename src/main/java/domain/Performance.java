@@ -8,7 +8,8 @@ public class Performance {
     private double performanceTime;
     private boolean timeMadeInCompetition;
     private LocalDate dateTimeIsMade;
-
+    private String madeBy;
+    private String gender;
 
 
     public Performance(String category, double performanceTime, boolean timeMadeInCompetition, LocalDate dateTimeIsMade){
@@ -48,5 +49,18 @@ public class Performance {
 
     public LocalDate getDateTimeIsMade() {
         return dateTimeIsMade;
+    }
+
+    public String getMadeBy(){
+        return madeBy;
+    }
+    public String getGender(){
+        return gender;
+    }
+    public void setMadeBy(String madeBy){
+        this.madeBy = madeBy;
+    }
+    public void setGender(String gender){
+        this.gender = gender;
     }
 }
