@@ -7,7 +7,6 @@ public class Performance {
     private String category;
     private double performanceTime;
     private boolean timeMadeInCompetition;
-
     private LocalDate dateTimeIsMade;
 
 
@@ -33,4 +32,19 @@ public class Performance {
         return category + ";" + performanceTime + ";" + timeMadeInCompetition + ";" + dateTimeIsMade;
     }
 
+    public String getCategory() {
+        return category;
+    }
+
+    public double getPerformanceTime() {
+        return performanceTime;
+    }
+
+    public boolean getIsTimeMadeInCompetition() {
+        return timeMadeInCompetition;
+    }
+
+    public LocalDate getDateTimeIsMade() {
+        return dateTimeIsMade;
+    }
 }
