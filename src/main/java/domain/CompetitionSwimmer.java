@@ -44,9 +44,15 @@ public class CompetitionSwimmer extends Member {
     }
     public String toPerformanceCSVString2() {
         StringBuilder output = new StringBuilder();
+        int iterator = 1;
         for (Performance performance : performances) {
-            output.append(getFullName()).append(";").append(getAddress()).append(";").append(performance.performanceCSV()).append("\n");
+            if (performances.size()>(iterator)) {
+                output.append(getFullName()).append(";").append(getAddress()).append(";").append(performance.performanceCSV()).append("\n");
+                iterator += 1;
+            }
+            else output.append(getFullName()).append(";").append(getAddress()).append(";").append(performance.performanceCSV());
         }
+
         return output.toString();
     }
 

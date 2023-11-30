@@ -481,6 +481,7 @@ public class UserInterface {
     }
 
     private void registerPerformance() {
+        controller.loadPerformances();
         System.out.println("Navnet på svømmeren du vil registrere en tid til");
         String fullName = scanner.nextLine();
         System.out.println(controller.listOfCompetetionsSwimmersByName(fullName));
