@@ -487,11 +487,6 @@ public class UserInterface {
         System.out.println("Skriv tallet på den competitionssvømmer du vil vælge");
         int choice = scanner.nextInt();
         Member selectedMember = controller.getCompetetionSwimmerInListByIndex(choice,fullName);
-        System.out.println("Hvilken disciplin er tiden sat i \n" +
-                "1. Butterfly \n" +
-                "2. Crawl \n" +
-                "3. Rygcrawl \n" +
-                "4. Bryst \n");
         SwimDiscipline chosenDiscipline = getswimDiscipline();
         scanner.nextLine();
         System.out.println("Hvad er tiden i sekunder med 2 decimaler");
@@ -522,6 +517,12 @@ public class UserInterface {
         controller.savePerformance();
     }
     private SwimDiscipline getswimDiscipline (){
+        System.out.println("Hvilken disciplin er tiden sat i \n" +
+                "1. Butterfly \n" +
+                "2. Crawl \n" +
+                "3. Rygcrawl \n" +
+                "4. Bryst \n");
+
         int choice = scanner.nextInt();
         switch (choice) {
             case 1:
