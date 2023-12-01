@@ -294,6 +294,9 @@ public void savePerformances(){
                 competitionSwimmers.add(member);
             }
         }
+        if (membersArrayList.size()<index){
+            return null;
+        }
         return competitionSwimmers.get(index-1);
     }
 

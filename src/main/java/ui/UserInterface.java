@@ -5,6 +5,7 @@ import domain.*;
 import java.time.*;
 import java.util.ArrayList;
 
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class UserInterface {
@@ -157,7 +158,7 @@ public class UserInterface {
             index++;
         }
 
-        int choice = scanner.nextInt();
+        int choice = takeIntUserInput();
         scanner.nextLine();
 
         if (choice < 1 || choice > foundMembers.size()) {
@@ -245,7 +246,7 @@ public class UserInterface {
                 System.out.println("Her er en liste over coaches du kan vælge:");
                 System.out.println(controller.listOfCoaches());
                 System.out.println("Vælg en træner ved at skrive deres tal til venstre");
-                int index = scanner.nextInt();
+                int index = takeIntUserInput();
                 controller.setCoachToMember(controller.findfirstMember(fullName, address), controller.getIndexInListOfCoaches(index));
                 System.out.println("Du har tilføjet en træner");
             }
@@ -481,17 +482,37 @@ public class UserInterface {
 
     private void registerPerformance() {
         controller.loadPerformances();
-        System.out.println("Navnet på svømmeren du vil registrere en tid til");
-        String fullName = scanner.nextLine();
-        System.out.println(controller.listOfCompetetionsSwimmersByName(fullName));
-        System.out.println("Skriv tallet på den competitionssvømmer du vil vælge");
-        int choice = scanner.nextInt();
-        Member selectedMember = controller.getCompetetionSwimmerInListByIndex(choice,fullName);
+        Member selectedMember = null;
+        do {
+            System.out.println("Navnet på svømmeren du vil registrere en tid til");
+            String fullName = scanner.nextLine();
+            System.out.println(controller.listOfCompetetionsSwimmersByName(fullName));
+            System.out.println("Skriv tallet på den competitionssvømmer du vil vælge");
+            int index = takeIntUserInput();
+            try {
+
+                selectedMember = controller.getCompetetionSwimmerInListByIndex(index, fullName);
+            } catch (IndexOutOfBoundsException e){
+                System.out.println("Der blev ikke fundet et medlem");
+            }
+            if (selectedMember == null) {
+                System.out.println("Prøv igen. Medlem ikke fundet");
+            }
+        } while(selectedMember == null);
         SwimDiscipline chosenDiscipline = getswimDiscipline();
         scanner.nextLine();
         System.out.println("Hvad er tiden i sekunder med 2 decimaler");
-        double performanceTime = scanner.nextDouble();
-        scanner.nextLine(); // Forbrug det efterladte linjeskift
+        double performanceTime = 0;
+        while(true) {
+            try {
+                performanceTime = scanner.nextDouble();
+                scanner.nextLine();
+                break;
+            } catch (InputMismatchException e) {
+                System.out.println("Du skal skrive et tal");
+                scanner.nextLine();
+            }
+        }
         System.out.println("Er tiden lavet i konkurrence (ja/nej)");
         boolean timeMadeInCompetition = false;
         String input = "";
@@ -505,13 +526,13 @@ public class UserInterface {
                 System.out.println("Ugyldigt valg, vælg ja eller nej");
             }
         } while (!input.equals("ja") && !input.equals("nej"));
-
+        //TODO SPØRG KARL OM HAN KAN GØRE KODEN ROBUST MED HANS LOCALDATEKODE
         System.out.println("Hvilket år er tiden sat");
-        int year = scanner.nextInt();
+        int year = takeIntUserInput();
         System.out.println("Hvilken måned er tiden sat");
-        int month = scanner.nextInt();
+        int month = takeIntUserInput();
         System.out.println("Hvilken dag er tiden sat ");
-        int dayOfMonth = scanner.nextInt();
+        int dayOfMonth = takeIntUserInput();
         scanner.nextLine();
         controller.registerPerformance(selectedMember, String.valueOf(chosenDiscipline),performanceTime,timeMadeInCompetition,year,month,dayOfMonth);
         controller.savePerformance();
@@ -522,8 +543,16 @@ public class UserInterface {
                 "2. Crawl \n" +
                 "3. Rygcrawl \n" +
                 "4. Bryst \n");
-
-        int choice = scanner.nextInt();
+        int choice = 0;
+        while(true) {
+            try {
+                choice = scanner.nextInt();
+                break;
+            } catch (InputMismatchException e) {
+                System.out.println("Du skal skrive et tal");
+                scanner.nextLine();
+            }
+        }
         switch (choice) {
             case 1:
                 return SwimDiscipline.BUTTERFLY;
@@ -547,8 +576,17 @@ public class UserInterface {
                 1. Mand
                 2. Kvinde
                 """);
+        int choice = takeIntUserInput();
+        while (true){
 
-        int choice = scanner.nextInt();
+            if (choice == 1 || choice == 2){
+                break;
+            }
+            else {
+                System.out.println("Prøv igen. Skriv 1 eller 2");
+                choice = takeIntUserInput();
+            }
+        }
         System.out.println("""
                 Hvilken kategori vil du se resultater for
                 1. Butterfly
@@ -556,9 +594,17 @@ public class UserInterface {
                 3. Rygcrawl
                 4. Bryst
                 """);
-        int choice2 = scanner.nextInt();
-        scanner.nextLine();
+        int choice2 = takeIntUserInput();
+        while (true){
 
+            if (choice2 == 1 || choice2 == 2 || choice2 == 3 || choice2 == 4){
+                break;
+            }
+            else {
+                System.out.println("Prøv igen. Skriv 1,2,3 eller 4");
+                choice2 = takeIntUserInput();
+            }
+        }
         System.out.println(controller.sortPerformance(choice,choice2));
     }
 
@@ -568,8 +614,17 @@ public class UserInterface {
                 1. Mand
                 2. Kvinde
                 """);
+        int choice = takeIntUserInput();
+        while (true){
 
-        int choice = scanner.nextInt();
+            if (choice == 1 || choice == 2){
+                break;
+            }
+            else {
+                System.out.println("Prøv igen. Skriv 1 eller 2");
+                choice = takeIntUserInput();
+            }
+        }
         System.out.println("""
                 Hvilken kategori vil du se resultater for
                 1. Butterfly
@@ -577,9 +632,17 @@ public class UserInterface {
                 3. Rygcrawl
                 4. Bryst
                 """);
-        int choice2 = scanner.nextInt();
-        scanner.nextLine();
+        int choice2 = takeIntUserInput();
+        while (true){
 
+            if (choice2 == 1 || choice2 == 2 || choice2 == 3 || choice2 == 4){
+                break;
+            }
+            else {
+                System.out.println("Prøv igen. Skriv 1,2,3 eller 4");
+                choice2 = takeIntUserInput();
+            }
+        }
         System.out.println(controller.getTop5Swimmers(choice, choice2));
     }
 }
