@@ -104,8 +104,8 @@ public class UserInterface {
                 Vælg den funktion du vil tilgå:
                 1. Register performance
                 2. Se performance
-                3.
-                4.
+                3. Sorter svømmere
+                4. Se top 5 svømmere
                 8. Skift rolle.
                 9. Afslut program.
                 """);
@@ -113,13 +113,12 @@ public class UserInterface {
         switch (takeIntUserInput()) {
             case 1 -> {
                 registerPerformance();
-
             }
             case 2 -> {
             }
-            case 3 -> {
+            case 3 -> { sortPerformance();
             }
-            case 4 -> {
+            case 4 -> {top5Swimmers();
             }
             case 8 -> selectUserRole();
             case 9 -> exitProgram();
@@ -489,11 +488,6 @@ public class UserInterface {
         int choice = scanner.nextInt();
         Member selectedMember = controller.getCompetetionSwimmerInListByIndex(choice,fullName);
         SwimDiscipline chosenDiscipline = getswimDiscipline();
-        System.out.println("Hvilken disciplin er tiden sat i \n" +
-                "1. Butterfly \n" +
-                "2. Crawl \n " +
-                "3. Rygcrawl \n" +
-                "4. Bryst \n");
         scanner.nextLine();
         System.out.println("Hvad er tiden i sekunder med 2 decimaler");
         double performanceTime = scanner.nextDouble();
@@ -520,22 +514,73 @@ public class UserInterface {
         int dayOfMonth = scanner.nextInt();
         scanner.nextLine();
         controller.registerPerformance(selectedMember, String.valueOf(chosenDiscipline),performanceTime,timeMadeInCompetition,year,month,dayOfMonth);
-
         controller.savePerformance();
     }
     private SwimDiscipline getswimDiscipline (){
-        switch (takeIntUserInput()) {
-            case 1 -> {
+        System.out.println("Hvilken disciplin er tiden sat i \n" +
+                "1. Butterfly \n" +
+                "2. Crawl \n" +
+                "3. Rygcrawl \n" +
+                "4. Bryst \n");
+
+        int choice = scanner.nextInt();
+        switch (choice) {
+            case 1:
                 return SwimDiscipline.BUTTERFLY;
-            }
-            case 2 -> {
+
+            case 2:
                 return SwimDiscipline.CRAWL;
-            }
-            case 3 -> {
+
+            case 3:
                 return SwimDiscipline.RYGCRAWL;
-            }
+
+            case 4:
+                return SwimDiscipline.BRYST;
+
+            default: System.out.println("Ugyldigt input, vælg venligst mellem 1-4");
+            return getswimDiscipline();
         }
-        return getswimDiscipline();
+    }
+    private void sortPerformance(){
+        System.out.println("""
+                Hvilket køn vil du sortere efter
+                1. Mand
+                2. Kvinde
+                """);
+
+        int choice = scanner.nextInt();
+        System.out.println("""
+                Hvilken kategori vil du se resultater for
+                1. Butterfly
+                2. Crawl
+                3. Rygcrawl
+                4. Bryst
+                """);
+        int choice2 = scanner.nextInt();
+        scanner.nextLine();
+
+        System.out.println(controller.sortPerformance(choice,choice2));
+    }
+
+    private void top5Swimmers(){
+        System.out.println("""
+                Hvilket køn vil du sortere efter
+                1. Mand
+                2. Kvinde
+                """);
+
+        int choice = scanner.nextInt();
+        System.out.println("""
+                Hvilken kategori vil du se resultater for
+                1. Butterfly
+                2. Crawl
+                3. Rygcrawl
+                4. Bryst
+                """);
+        int choice2 = scanner.nextInt();
+        scanner.nextLine();
+
+        System.out.println(controller.getTop5Swimmers(choice, choice2));
     }
 }
 

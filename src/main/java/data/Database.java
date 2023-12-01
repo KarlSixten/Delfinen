@@ -296,6 +296,66 @@ public void savePerformances(){
         }
         return competitionSwimmers.get(index-1);
     }
+
+    public ArrayList<Performance> sortPerformance(int choice, int choice2) {
+        ArrayList<Performance> performances = new ArrayList<>();
+        Comparator comparator = null;
+
+        switch (choice) {
+            case 1:
+                comparator = new GenderComparator();
+                break;
+            case 2:
+                comparator = new GenderComparator().reversed();
+                break;
+        }
+
+        switch (choice2) {
+            case 1, 2, 3, 4:
+                String targetCategory = getCategoryBasedOnChoice(choice2);
+
+                for (Member member : membersArrayList) {
+                    if (member instanceof CompetitionSwimmer) {
+                        for (Performance performance : ((CompetitionSwimmer) member).getPerformances()) {
+                            if (performance.getCategory().equalsIgnoreCase(targetCategory)) {
+                                performance.setMadeBy(member.getFullName());
+                                performance.setGender(member.getGender());
+                                performances.add(performance);
+                            }
+                        }
+                    }
+                }
+        }
+
+        Collections.sort(performances, comparator.thenComparing(new PerformanceTimeComparator()));
+        return performances;
     }
+    private String getCategoryBasedOnChoice(int choice2) {
+        switch (choice2) {
+            case 1: return "butterfly";
+            case 2: return "crawl";
+            case 3: return "rygcrawl";
+            case 4: return "bryst";
+            default: return "";
+        }
+    }
+
+
+    public ArrayList<Performance> getTop5Swimmers(int choice1, int choice2) {
+        ArrayList<Performance> top5Performance = new ArrayList<>();
+        ArrayList<String> addedSwimmerIDs = new ArrayList<>();
+
+        for (Performance performance : sortPerformance(choice1, choice2)) {
+            String swimmerID = performance.getMadeBy();
+
+            if (top5Performance.size() < 5 && !addedSwimmerIDs.contains(swimmerID)) {
+                top5Performance.add(performance);
+                addedSwimmerIDs.add(swimmerID);
+            }
+        }
+        return top5Performance;
+    }
+
+}
 
 

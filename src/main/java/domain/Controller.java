@@ -91,4 +91,11 @@ database.deleteMember(member);
     public void savePerformance(){
         database.savePerformances();
     }
+    public ArrayList<Performance> sortPerformance(int choice1, int choice2){
+        return database.sortPerformance(choice1,choice2);
+    }
+
+    public ArrayList<Performance> getTop5Swimmers(int  choice1, int choice2){
+        return database.getTop5Swimmers(choice1,choice2);
+    }
 }
