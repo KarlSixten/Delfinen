@@ -191,7 +191,7 @@ public class UserInterface {
             index += 1;
         }
         System.out.println("This is your search result. Please choose a member by their number");
-        int choice = scanner.nextInt();
+        int choice = takeIntUserInput();
         scanner.nextLine();
         Member selectedMember = controller.getMemberFromIndex(choice, foundMembers);
         System.out.println("This is your selected member:");
@@ -204,20 +204,20 @@ public class UserInterface {
                 "        1. Sortering med en primær\n" +
                 "        2. Sortering med primær og sekundær");
         System.out.println(controller.getAllMemberNames());
-        int userchoice = scanner.nextInt();
+        int userchoice = takeIntUserInput();
         scanner.nextLine();
         if (userchoice == 1) {
             sortLines();
-            int choice = scanner.nextInt();
+            int choice = takeIntUserInput();
             scanner.nextLine();
             controller.sortMember(choice);
             System.out.println("List sorted");
             controller.saveData();
         } else if (userchoice == 2) {
             sortLines();
-            int choice = scanner.nextInt();
+            int choice = takeIntUserInput();
             sortLines();
-            int choice2 = scanner.nextInt();
+            int choice2 = takeIntUserInput();
             scanner.nextLine();
             controller.sortMemberPrimaryandSecundary(choice, choice2);
             System.out.println("List sorted");
