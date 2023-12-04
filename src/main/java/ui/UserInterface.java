@@ -475,7 +475,7 @@ public class UserInterface {
                         8. Is member active:
                         9. Is member a senior
                         10. Is member competetive
-                        11. Coach                           
+                        11. Coach                         
                 """);
     }
 
