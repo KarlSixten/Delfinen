@@ -78,7 +78,7 @@ public class UserInterface {
     private void accountantSelection() {
         System.out.println("""
                 Vælg den funktion du vil tilgå:
-                1. Kasser menuer
+                1. Beregn årlig indkomst
                 2.
                 3.
                 4.
@@ -86,8 +86,7 @@ public class UserInterface {
                 9. Afslut program.
                 """);
         switch (takeIntUserInput()) {
-            case 1 -> {
-            }
+            case 1 -> getTotalSubscriptionIncome();
             case 2 -> {
             }
             case 3 -> {
@@ -471,9 +470,9 @@ public class UserInterface {
                         3. BirthDate:
                         4. Email:
                         5. PhoneNumber:
-                        6. Adress: 
+                        6. Adress:
                         7. Gender:
-                        8. Is member active: 
+                        8. Is member active:
                         9. Is member a senior
                         10. Is member competetive
                         11. Coach                           
@@ -644,6 +643,10 @@ public class UserInterface {
             }
         }
         System.out.println(controller.getTop5Swimmers(choice, choice2));
+    }
+
+    private void getTotalSubscriptionIncome() {
+        System.out.println("Den totale årlige indkomst fra kontingent er: " + controller.getTotalSubscriptionIncome() + ",- kr.");
     }
 }
 

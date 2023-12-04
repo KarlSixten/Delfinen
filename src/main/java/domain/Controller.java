@@ -98,4 +98,8 @@ database.deleteMember(member);
     public ArrayList<Performance> getTop5Swimmers(int  choice1, int choice2){
         return database.getTop5Swimmers(choice1,choice2);
     }
+
+    public int getTotalSubscriptionIncome() {
+        return database.getTotalSubscriptionIncome();
+    }
 }

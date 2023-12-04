@@ -359,6 +359,13 @@ public void savePerformances(){
         return top5Performance;
     }
 
+    public int getTotalSubscriptionIncome() {
+        int totalIncome = 0;
+        for (Member member : membersArrayList) {
+            totalIncome += member.calculateSubscriptionPrice();
+        }
+        return totalIncome;
+    }
 }
 
 
