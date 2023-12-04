@@ -564,7 +564,7 @@ public class UserInterface {
         return getswimDiscipline();
     }
 
-    public void getSpecificMembersPerformanceInDisclipin(){
+    private void getSpecificMembersPerformanceInDisclipin(){
 
         Member selectedMember = null;
         do {
@@ -587,44 +587,16 @@ public class UserInterface {
         System.out.println(controller.getOneSwimmersPerformances(selectedMember, chosenDiscipline));
     }
     private void sortPerformance(){
-        System.out.println("""
-                Hvilket køn vil du sortere efter
-                1. Mand
-                2. Kvinde
-                """);
-        int choice = takeIntUserInput();
-        while (true){
-
-            if (choice == 1 || choice == 2){
-                break;
-            }
-            else {
-                System.out.println("Prøv igen. Skriv 1 eller 2");
-                choice = takeIntUserInput();
-            }
-        }
-        System.out.println("""
-                Hvilken kategori vil du se resultater for
-                1. Butterfly
-                2. Crawl
-                3. Rygcrawl
-                4. Bryst
-                """);
-        int choice2 = takeIntUserInput();
-        while (true){
-
-            if (choice2 == 1 || choice2 == 2 || choice2 == 3 || choice2 == 4){
-                break;
-            }
-            else {
-                System.out.println("Prøv igen. Skriv 1,2,3 eller 4");
-                choice2 = takeIntUserInput();
-            }
-        }
+        int choice = genderChoice();
+        int choice2 = categoryChoice();
         System.out.println(controller.sortPerformance(choice,choice2));
     }
-
     private void top5Swimmers(){
+        int choice = genderChoice();
+        int choice2 = categoryChoice();
+        System.out.println(controller.getTop5Swimmers(choice, choice2));
+    }
+    private int genderChoice(){
         System.out.println("""
                 Hvilket køn vil du sortere efter
                 1. Mand
@@ -641,6 +613,9 @@ public class UserInterface {
                 choice = takeIntUserInput();
             }
         }
+        return choice;
+    }
+    private int categoryChoice(){
         System.out.println("""
                 Hvilken kategori vil du se resultater for
                 1. Butterfly
@@ -659,7 +634,7 @@ public class UserInterface {
                 choice2 = takeIntUserInput();
             }
         }
-        System.out.println(controller.getTop5Swimmers(choice, choice2));
+        return choice2;
     }
 
     private void getTotalSubscriptionIncome() {

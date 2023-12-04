@@ -152,45 +152,11 @@ public class Database {
         int index = membersArrayList.indexOf(member);
         membersArrayList.remove(index);
     }
-    public void sortMembers(int choice) {
-        Comparator comparator = null;
-
-        switch (choice) {
-
-            case 1 -> comparator = new FullNameComparator();
-
-            case 2 -> comparator = new UserIDComparator();
-
-            case 3 -> comparator = new BirthDateComparator();
-
-            case 4 -> comparator = new EmailComparator();
-
-            case 5 -> comparator = new PhoneNumberComparator();
-
-            case 6 -> comparator = new AddressComparator();
-
-            case 7 -> comparator = new GenderComparator();
-
-            case 8 -> comparator = new IsActiveComparator();
-
-            case 9 -> comparator = new IsSeniorComparator();
-
-            case 10 -> comparator = new IsCompetetiveComparator();
-
-            case 11 -> comparator = new IsCoachComparator();
-            default -> {
-                System.out.println("hej");
-            }
-        }
-        Collections.sort(membersArrayList, comparator);
-
-    }
-    public void sortMembersPrimaryandSec(int choice,int choice2){
-
-        Comparator comparator2 = null;
+    public void sortMembers(int choice) {Collections.sort(membersArrayList, createComparator(choice));}
+    public void sortMembersPrimaryandSec(int choice,int choice2){Collections.sort(membersArrayList, createComparator(choice).thenComparing(createComparator(choice2)));}
+    public Comparator createComparator(int selection){
         Comparator comparator1 = null;
-
-        switch (choice) {
+        switch (selection) {
             case 1 -> comparator1 = new FullNameComparator();
 
             case 2 -> comparator1 = new UserIDComparator();
@@ -213,38 +179,9 @@ public class Database {
 
             case 11 -> comparator1 = new IsCoachComparator();
 
-            default -> {
-                System.out.println("Hej");
-            }
+            default -> {}
         }
-        switch (choice2) {
-            case 1 -> comparator2 = new FullNameComparator();
-
-            case 2 -> comparator2 = new UserIDComparator();
-
-            case 3 -> comparator2 = new BirthDateComparator();
-
-            case 4 -> comparator2 = new EmailComparator();
-
-            case 5 -> comparator2 = new PhoneNumberComparator();
-
-            case 6 -> comparator2 = new AddressComparator();
-
-            case 7 -> comparator2 = new GenderComparator();
-
-            case 8 -> comparator2 = new IsActiveComparator();
-
-            case 9 -> comparator2 = new IsSeniorComparator();
-
-            case 10 -> comparator2 = new IsCompetetiveComparator();
-
-            case 11 -> comparator2 = new IsCoachComparator();
-
-            default -> {
-                System.out.println("hej");
-            }
-        }
-        Collections.sort(membersArrayList, comparator1.thenComparing(comparator2));
+        return comparator1;
     }
 
     public Member registerPerformanceForCompetetionswimmer(String fullName, String address, String category, double performanceTime, boolean timeMadeInCompetition, int year, int month, int dayOfMonth) {
@@ -263,7 +200,6 @@ public class Database {
 
 
     public void registerPerformance(Member member, String category, double performanceTime, boolean timeMadeInCompetition,int year, int month, int dayOfMonth){
-
         ((CompetitionSwimmer) member).registerPerformance(category,performanceTime,timeMadeInCompetition,year,month,dayOfMonth);
 }
 

@@ -1,15 +1,10 @@
 package domain;
-
-import java.io.File;
 import java.time.LocalDate;
 import java.time.Month;
 import java.time.Period;
 import java.util.Random;
 
 public class Member {
-
-
-
     private String fullName;
     private String userID;
     private LocalDate birthDate;
