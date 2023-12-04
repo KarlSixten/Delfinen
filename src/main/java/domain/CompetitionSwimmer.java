@@ -24,7 +24,7 @@ public class CompetitionSwimmer extends Member {
             performances.add(new Performance(category, performanceTime, performedInCompetition, LocalDate.of(year, month, dayOfMonth)));
     }
 
-    public void registerPerformance2(String category, double performanceTime, boolean performedInCompetition,LocalDate localDate){
+    public void registerPerformance(String category, double performanceTime, boolean performedInCompetition,LocalDate localDate){
         performances.add(new Performance(category, performanceTime, performedInCompetition, localDate));
     }
 

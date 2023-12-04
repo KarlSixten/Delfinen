@@ -24,7 +24,7 @@ public class Performance {
     public String toString() {
         return
                         " Navn: " + madeBy +
-                        ", Kategori: " + category + '\'' +
+                        ", Kategori: " + category +
                         ", Tid: " + performanceTime +
                         ", Lavet i konkurrence: " + timeMadeInCompetition +
                         ", Dato: " + dateTimeIsMade +
