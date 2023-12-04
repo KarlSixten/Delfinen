@@ -333,6 +333,28 @@ public void savePerformances(){
         Collections.sort(performances, comparator.thenComparing(new PerformanceTimeComparator()));
         return performances;
     }
+
+    public ArrayList<Performance> getOneSwimmersPerformances(Member member, SwimDiscipline swimDiscipline) {
+        ArrayList<Performance> performances = new ArrayList<>();
+        if (member instanceof CompetitionSwimmer) {
+            switch (swimDiscipline) {
+                case CRAWL, RYGCRAWL, BRYST, BUTTERFLY -> {
+                    String targetCategory = swimDiscipline.toString();
+                    if (member instanceof CompetitionSwimmer) {
+                        for (Performance performance : ((CompetitionSwimmer) member).getPerformances()) {
+                            if (performance.getCategory().equalsIgnoreCase(targetCategory)) {
+                                performance.setGender(member.getGender());
+                                performance.setMadeBy(member.getFullName());
+                                performances.add(performance);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        return performances;
+    }
+
     private String getCategoryBasedOnChoice(int choice2) {
         switch (choice2) {
             case 1: return "butterfly";

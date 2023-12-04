@@ -107,6 +107,7 @@ public class UserInterface {
                 2. Se performance
                 3. Sorter svømmere
                 4. Se top 5 svømmere
+                5. Se en specifik svømmers resultater inden for disciplin.
                 8. Skift rolle.
                 9. Afslut program.
                 """);
@@ -121,6 +122,7 @@ public class UserInterface {
             }
             case 4 -> {top5Swimmers();
             }
+            case 5 -> getSpecificMembersPerformanceInDisclipin();
             case 8 -> selectUserRole();
             case 9 -> exitProgram();
             default -> System.out.println("Ugyldigt valg! Prøv igen:\n");
@@ -481,7 +483,6 @@ public class UserInterface {
     }
 
     private void registerPerformance() {
-        controller.loadPerformances();
         Member selectedMember = null;
         do {
             System.out.println("Navnet på svømmeren du vil registrere en tid til");
@@ -569,6 +570,29 @@ public class UserInterface {
             default: System.out.println("Ugyldigt input, vælg venligst mellem 1-4");
             return getswimDiscipline();
         }
+    }
+
+    public void getSpecificMembersPerformanceInDisclipin(){
+
+        Member selectedMember = null;
+        do {
+            System.out.println("Navnet på svømmeren du vil registrere en tid til");
+            String fullName = scanner.nextLine();
+            System.out.println(controller.listOfCompetetionsSwimmersByName(fullName));
+            System.out.println("Skriv tallet på den competitionssvømmer du vil vælge");
+            int index = takeIntUserInput();
+            try {
+
+                selectedMember = controller.getCompetetionSwimmerInListByIndex(index, fullName);
+            } catch (IndexOutOfBoundsException e){
+                System.out.println("Der blev ikke fundet et medlem");
+            }
+            if (selectedMember == null) {
+                System.out.println("Prøv igen. Medlem ikke fundet");
+            }
+        } while(selectedMember == null);
+        SwimDiscipline chosenDiscipline = getswimDiscipline();
+        System.out.println(controller.getOneSwimmersPerformances(selectedMember, chosenDiscipline));
     }
     private void sortPerformance(){
         System.out.println("""
