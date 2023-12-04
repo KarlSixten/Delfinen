@@ -102,4 +102,8 @@ database.deleteMember(member);
     public ArrayList<Performance> getOneSwimmersPerformances(Member member, SwimDiscipline swimDiscipline){
         return database.getOneSwimmersPerformances(member,swimDiscipline);
     }
+
+    public int getTotalSubscriptionIncome() {
+        return database.getTotalSubscriptionIncome();
+    }
 }
