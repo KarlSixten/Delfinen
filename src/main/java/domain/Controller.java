@@ -10,8 +10,8 @@ import java.time.LocalDate;
 public class Controller {
     private final Database database;
 
-    public Controller() throws IOException {
-        this.database =  new Database();
+    public Controller(String filename) throws IOException {
+        this.database =  new Database(filename);
     }
 public ArrayList<Member> getArrayList (){
         return database.getMembersArrayList();
@@ -74,6 +74,10 @@ database.deleteMember(member);
     }
     public void registerPerformance(Member member, String category, double performanceTime, boolean timeMadeInCompetition,int year, int month, int dayOfMonth){
         database.registerPerformance(member, category,performanceTime,timeMadeInCompetition,year,month,dayOfMonth);
+    }
+
+    public void registerPerformance(Member member, String category, double performanceTime, boolean timeMadeInCompetition, LocalDate dateForPerformance){
+        database.registerPerformance(member, category,performanceTime,timeMadeInCompetition,dateForPerformance);
     }
 
     public String listOfCompetetionsSwimmersByName(String name){

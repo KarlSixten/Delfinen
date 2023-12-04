@@ -19,7 +19,7 @@ Member member2;
 Member member3;
     @BeforeEach
     void setUp() throws IOException {
-database = new Database();
+database = new Database("Test.csv");
     }
 
     @AfterEach
@@ -66,5 +66,13 @@ database = new Database();
 
         //Assert
         assertEquals(expectedName,actualName);
+    }
+
+    @Test
+    void calculateTotalSubscriptions() {
+        int actualResult = database.getTotalSubscriptionIncome();
+        int expectedResult = 15500;
+
+        assertEquals(actualResult, expectedResult);
     }
 }
