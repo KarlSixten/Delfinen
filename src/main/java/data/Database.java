@@ -199,7 +199,6 @@ public class Database {
 
 
     public void registerPerformance(Member member, String category, double performanceTime, boolean timeMadeInCompetition,int year, int month, int dayOfMonth){
-
         ((CompetitionSwimmer) member).registerPerformance(category,performanceTime,timeMadeInCompetition,year,month,dayOfMonth);
 }
 
