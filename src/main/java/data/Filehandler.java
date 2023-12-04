@@ -104,7 +104,7 @@ public class Filehandler {
             for (Member member : memberArrayList) {
                 if (member.getMembership().isCompetetive()){
                     if (member.getFullName().equals(values[0]) && member.getAddress().equals(values[1])){
-                        ((CompetitionSwimmer)member).registerPerformance2(values[2],Double.parseDouble(values[3]),Boolean.parseBoolean(values[4]),LocalDate.parse(values[5]));
+                        ((CompetitionSwimmer)member).registerPerformance(values[2],Double.parseDouble(values[3]),Boolean.parseBoolean(values[4]),LocalDate.parse(values[5]));
                     }
                 }
             }
