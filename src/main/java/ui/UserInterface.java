@@ -78,7 +78,7 @@ public class UserInterface {
     private void accountantSelection() {
         System.out.println("""
                 Vælg den funktion du vil tilgå:
-                1. Kasser menuer
+                1. Beregn årlig indkomst
                 2.
                 3.
                 4.
@@ -86,8 +86,7 @@ public class UserInterface {
                 9. Afslut program.
                 """);
         switch (takeIntUserInput()) {
-            case 1 -> {
-            }
+            case 1 -> getTotalSubscriptionIncome();
             case 2 -> {
             }
             case 3 -> {
@@ -276,31 +275,36 @@ public class UserInterface {
     }
 
     private LocalDate createBirthdate() {
-        int birthYear;
-        int birthMonth;
-        int birthDay;
+        System.out.println("Indtast fødselsdato:");
+        return createLocalDate();
+    }
 
-        System.out.println("Indtast fødselsår:");
-        birthYear = takeIntUserInput();
-        while (!(birthYear >= 1920 && birthYear <= Year.now().getValue())) {
+    private LocalDate createLocalDate() {
+        int year;
+        int month;
+        int day;
+
+        System.out.println("Indtast årstal:");
+        year = takeIntUserInput();
+        while (!(year >= 1920 && year <= Year.now().getValue())) {
             System.out.println("Ugyldigt valg! Prøv igen:");
-            birthYear = takeIntUserInput();
+            year = takeIntUserInput();
         }
 
-        System.out.println("Indtast fødselsmåned:");
-        birthMonth = takeIntUserInput();
-        while (!(birthMonth >= 1 && birthMonth <= 12)) {
+        System.out.println("Indtast måned:");
+        month = takeIntUserInput();
+        while (!(month >= 1 && month <= 12)) {
             System.out.println("Ugyldigt valg! Prøv igen:");
-            birthMonth = takeIntUserInput();
+            month = takeIntUserInput();
         }
 
-        System.out.println("Indtast fødselsdag:");
-        birthDay = takeIntUserInput();
-        while (!(birthDay >= 1 && birthDay <= YearMonth.of(birthYear, birthMonth).lengthOfMonth())) {
+        System.out.println("Indtast dag:");
+        day = takeIntUserInput();
+        while (!(day >= 1 && day <= YearMonth.of(year, month).lengthOfMonth())) {
             System.out.println("Ugyldigt valg! Prøv igen:");
-            birthDay = takeIntUserInput();
+            day = takeIntUserInput();
         }
-        return LocalDate.of(birthYear, birthMonth, birthDay);
+        return LocalDate.of(year, month, day);
     }
 
     private String createEmail() {
@@ -473,12 +477,12 @@ public class UserInterface {
                         3. BirthDate:
                         4. Email:
                         5. PhoneNumber:
-                        6. Adress: 
+                        6. Adress:
                         7. Gender:
-                        8. Is member active: 
+                        8. Is member active:
                         9. Is member a senior
                         10. Is member competetive
-                        11. Coach                           
+                        11. Coach                         
                 """);
     }
 
@@ -527,15 +531,9 @@ public class UserInterface {
                 System.out.println("Ugyldigt valg, vælg ja eller nej");
             }
         } while (!input.equals("ja") && !input.equals("nej"));
-        //TODO SPØRG KARL OM HAN KAN GØRE KODEN ROBUST MED HANS LOCALDATEKODE
-        System.out.println("Hvilket år er tiden sat");
-        int year = takeIntUserInput();
-        System.out.println("Hvilken måned er tiden sat");
-        int month = takeIntUserInput();
-        System.out.println("Hvilken dag er tiden sat ");
-        int dayOfMonth = takeIntUserInput();
-        scanner.nextLine();
-        controller.registerPerformance(selectedMember, String.valueOf(chosenDiscipline),performanceTime,timeMadeInCompetition,year,month,dayOfMonth);
+        System.out.println("Indtast dato for hvornår tiden er sat:");
+        LocalDate dateForPerformance = createLocalDate();
+        controller.registerPerformance(selectedMember, String.valueOf(chosenDiscipline),performanceTime,timeMadeInCompetition,dateForPerformance);
         controller.savePerformance();
     }
     private SwimDiscipline getswimDiscipline (){
@@ -545,15 +543,11 @@ public class UserInterface {
                 "3. Rygcrawl \n" +
                 "4. Bryst \n");
         int choice = 0;
-        while(true) {
-            try {
-                choice = scanner.nextInt();
-                break;
-            } catch (InputMismatchException e) {
-                System.out.println("Du skal skrive et tal");
-                scanner.nextLine();
+        choice = takeIntUserInput();
+        while(!(choice >= 1 && choice <= 4)) {
+            System.out.println("Ugyldigt valg! Prøv igen:");
+            choice = takeIntUserInput();
             }
-        }
         switch (choice) {
             case 1:
                 return SwimDiscipline.BUTTERFLY;
@@ -566,10 +560,8 @@ public class UserInterface {
 
             case 4:
                 return SwimDiscipline.BRYST;
-
-            default: System.out.println("Ugyldigt input, vælg venligst mellem 1-4");
-            return getswimDiscipline();
         }
+        return getswimDiscipline();
     }
 
     private void getSpecificMembersPerformanceInDisclipin(){
@@ -643,6 +635,10 @@ public class UserInterface {
             }
         }
         return choice2;
+    }
+
+    private void getTotalSubscriptionIncome() {
+        System.out.println("Den totale årlige indkomst fra kontingent er: " + controller.getTotalSubscriptionIncome() + ",- kr.");
     }
 }
 

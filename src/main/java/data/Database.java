@@ -11,7 +11,7 @@ import java.util.Comparator;
 import java.util.Random;
 
 public class Database {
-    Filehandler filehandler = new Filehandler();
+    Filehandler filehandler;
     private CompetitionSwimmer competitionSwimmer;
     public ArrayList<Member> getMembersArrayList() {
         return membersArrayList;
@@ -19,7 +19,8 @@ public class Database {
 
     private ArrayList<Member> membersArrayList = new ArrayList<>();
 
-    public Database() throws IOException {
+    public Database(String filename) throws IOException {
+        this.filehandler = new Filehandler(filename);
         setMembersArrayList(filehandler.loadData());
     }
 
@@ -202,6 +203,11 @@ public class Database {
         ((CompetitionSwimmer) member).registerPerformance(category,performanceTime,timeMadeInCompetition,year,month,dayOfMonth);
 }
 
+    public void registerPerformance(Member member, String category, double performanceTime, boolean timeMadeInCompetition,LocalDate dateForPerformance){
+
+        ((CompetitionSwimmer) member).registerPerformance(category,performanceTime,timeMadeInCompetition,dateForPerformance);
+    }
+
 public ArrayList<Performance> viewPerformances(Member member){
         return ((CompetitionSwimmer) member).viewPerfomances();
 }
@@ -317,6 +323,13 @@ public void savePerformances(){
         return top5Performance;
     }
 
+    public int getTotalSubscriptionIncome() {
+        int totalIncome = 0;
+        for (Member member : membersArrayList) {
+            totalIncome += member.calculateSubscriptionPrice();
+        }
+        return totalIncome;
+    }
 }
 
 

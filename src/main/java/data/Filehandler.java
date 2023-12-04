@@ -4,20 +4,28 @@ import domain.*;
 
 import java.io.*;
 import java.time.LocalDate;
+import java.time.Period;
 import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Filehandler {
-    private File memberFileList = new File("Datasheet.csv");
+    private File memberFileList;
     private File performanceList = new File ("PerformanceList.csv");
+
+    public Filehandler(String filename) {
+        this.memberFileList = new File(filename);
+    }
 
     public ArrayList<Member> loadData() throws  IOException{
         ArrayList<Member> memberFileList = new ArrayList<>();
-        Scanner scanner = new Scanner(new File("Datasheet.csv"));
+        Scanner scanner = new Scanner(this.memberFileList);
 
         while (scanner.hasNextLine()) {
             String line = scanner.nextLine();
             String[] values = line.split(";");
+            if ((Boolean.parseBoolean(values[8]) == false) && (Period.between(LocalDate.parse(values[2]), LocalDate.now()).getYears() >= 18)) {
+                values[8] = "true";
+            }
             if (values[10].equals("true")) {
                 {
                     memberFileList.add(new Coach(values[0],
