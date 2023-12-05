@@ -1,8 +1,6 @@
 package domain;
 import java.time.LocalDate;
-import java.time.Month;
 import java.time.Period;
-import java.util.Random;
 
 public class Member {
     private String fullName;
@@ -106,4 +104,3 @@ public class Member {
         return price;
     }
 
-    }

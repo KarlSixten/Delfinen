@@ -343,9 +343,9 @@ public class UserInterface {
 
         int userSelection = takeIntUserInput(1, 2);
         if (userSelection == 1) {
-            return "Woman";
+            return "Kvinde";
         } else {
-            return "Male";
+            return "Mand";
         }
     }
 
@@ -587,6 +587,7 @@ public class UserInterface {
 
     private void getTotalSubscriptionIncome() {
         System.out.println("Den totale årlige indkomst fra kontingent er: " + controller.getTotalSubscriptionIncome() + ",- kr.");
+        controller.saveAccountantList();
     }
 
     private void getSubscriptionPriceSingleUser() {
