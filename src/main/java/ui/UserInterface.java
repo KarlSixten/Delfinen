@@ -77,6 +77,7 @@ public class UserInterface {
     }
 
     private void accountantSelection() {
+        controller.loadAccountantList();
         System.out.println("""
                 Vælg den funktion du vil tilgå:
                 1. Beregn samlet årlig indkomst
@@ -394,6 +395,7 @@ public class UserInterface {
         System.out.println("Afslutter...");
         uiIsRunning = false;
     }
+
 
     public void editMember() {
         System.out.println("Søg efter navn, bruger ID eller telefonnummer:");
