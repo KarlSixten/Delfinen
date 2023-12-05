@@ -248,10 +248,10 @@ public void savePerformances(){
 
         switch (choice) {
             case 1:
-                comparator = new GenderComparator();
+                comparator = new GenderComparator().reversed();
                 break;
             case 2:
-                comparator = new GenderComparator().reversed();
+                comparator = new GenderComparator();
                 break;
         }
 

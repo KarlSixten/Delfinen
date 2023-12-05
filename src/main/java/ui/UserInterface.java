@@ -5,7 +5,6 @@ import domain.*;
 import java.time.*;
 import java.util.ArrayList;
 
-import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class UserInterface {
@@ -33,11 +32,13 @@ public class UserInterface {
                 Vælg din rolle i Delfinen:
                 1. Formand
                 2. Kasser.
-                3. Træner""");
+                3. Træner
+                9. Afslut program.""");
         switch (takeIntUserInput()) {
             case 1 -> userRole = "Chairman";
             case 2 -> userRole = "Accountant";
             case 3 -> userRole = "Coach";
+            case 9 -> exitProgram();
             default -> System.out.println("Ugyldigt valg! Prøv igen:");
         }
     }
@@ -68,7 +69,7 @@ public class UserInterface {
             case 3 -> findMembers();
             case 4 -> deleteMember();
             case 5 -> editMember();
-            case 6 -> controller.saveData();
+            case 6 -> saveData();
             case 8 -> selectUserRole();
             case 9 -> exitProgram();
             default -> System.out.println("Ugyldigt valg! Prøv igen:\n");
@@ -78,21 +79,18 @@ public class UserInterface {
     private void accountantSelection() {
         System.out.println("""
                 Vælg den funktion du vil tilgå:
-                1. Beregn årlig indkomst
-                2.
-                3.
-                4.
+                1. Beregn samlet årlig indkomst
+                2. Beregn årlig indkomst for enkelt person
+                3. Se medlemmer i restance.
+                4. Ændr betalingsstatus for et medlem
                 8. Skift rolle.
                 9. Afslut program.
                 """);
         switch (takeIntUserInput()) {
             case 1 -> getTotalSubscriptionIncome();
-            case 2 -> {
-            }
-            case 3 -> {
-            }
-            case 4 -> {
-            }
+            case 2 -> getSubscriptionPriceSingleUser();
+            case 3 -> seeMembersInArrears();
+            case 4 -> changeHasPaid();
             case 8 -> selectUserRole();
             case 9 -> exitProgram();
             default -> System.out.println("Ugyldigt valg! Prøv igen:\n");
@@ -103,25 +101,18 @@ public class UserInterface {
         System.out.println("""
                 Vælg den funktion du vil tilgå:
                 1. Register performance
-                2. Se performance
-                3. Sorter svømmere
-                4. Se top 5 svømmere
-                5. Se en specifik svømmers resultater inden for disciplin.
+                2. Sorter svømmere
+                3. Se top 5 svømmere
+                4. Se en specifik svømmers resultater inden for disciplin.
                 8. Skift rolle.
                 9. Afslut program.
                 """);
         controller.loadPerformances();
         switch (takeIntUserInput()) {
-            case 1 -> {
-                registerPerformance();
-            }
-            case 2 -> {
-            }
-            case 3 -> { sortPerformance();
-            }
-            case 4 -> {top5Swimmers();
-            }
-            case 5 -> getSpecificMembersPerformanceInDisclipin();
+            case 1 -> registerPerformance();
+            case 2 -> sortPerformance();
+            case 3 -> top5Swimmers();
+            case 4 -> getSpecificMembersPerformanceInDisclipin();
             case 8 -> selectUserRole();
             case 9 -> exitProgram();
             default -> System.out.println("Ugyldigt valg! Prøv igen:\n");
@@ -139,6 +130,38 @@ public class UserInterface {
             inputInt = takeIntUserInput();
         }
         return inputInt;
+    }
+
+    private int takeIntUserInput(int minimumValue, int maximumValue) {
+        String input = scanner.nextLine();
+        int inputInt;
+
+        try {
+            inputInt = Integer.parseInt(input);
+        } catch (NumberFormatException e) {
+            System.out.println("Ugyldigt input! Prøv igen:");
+            inputInt = takeIntUserInput(minimumValue, maximumValue);
+        }
+
+        while (!(inputInt >= minimumValue && inputInt <= maximumValue)) {
+            System.out.println("Ugyldigt valg! Prøv igen:");
+            inputInt = takeIntUserInput(minimumValue, maximumValue);
+        }
+
+        return inputInt;
+    }
+
+    private double takeDoubleUserInput() {
+        String input = scanner.nextLine();
+        double inputDouble;
+
+        try {
+            inputDouble = Double.parseDouble(input);
+        } catch (NumberFormatException e) {
+            System.out.println("Ugyldigt input! Prøv igen:");
+            inputDouble = takeDoubleUserInput();
+        }
+        return inputDouble;
     }
 
 
@@ -183,7 +206,7 @@ public class UserInterface {
 
 
     private void findMembers() {
-        System.out.println("Search by Name, user-ID or phone number");
+        System.out.println("Søg efter navn, bruger ID eller telefonnummer");
         String search = scanner.nextLine();
         ArrayList<Member> foundMembers = controller.findMembers(search);
         int index = 1;
@@ -191,40 +214,36 @@ public class UserInterface {
             System.out.println(index + ". " + controller.getMemberName(member));
             index += 1;
         }
-        System.out.println("This is your search result. Please choose a member by their number");
+        System.out.println("Dette er dit søgeresultat. Vælg venligst et medlem:");
         int choice = takeIntUserInput();
         scanner.nextLine();
         Member selectedMember = controller.getMemberFromIndex(choice, foundMembers);
-        System.out.println("This is your selected member:");
+        System.out.println("Dette er dit valgte medlem:");
         System.out.println(selectedMember);
     }
 
     private void showAllMembers() {
-        System.out.println("Skal der sorteres i medlemerne" +
-                " Vælg den funktion du vil tilgå:\n" +
-                "        1. Sortering med en primær\n" +
-                "        2. Sortering med primær og sekundær");
+        System.out.println("""
+                Skal der sorteres i medlemerne Vælg den funktion du vil tilgå:
+                        1. Sortering med en primær
+                        2. Sortering med primær og sekundær""");
         System.out.println(controller.getAllMemberNames());
-        int userchoice = takeIntUserInput();
-        scanner.nextLine();
-        if (userchoice == 1) {
-            sortLines();
-            int choice = takeIntUserInput();
-            scanner.nextLine();
-            controller.sortMember(choice);
-            System.out.println("List sorted");
-            controller.saveData();
-        } else if (userchoice == 2) {
-            sortLines();
-            int choice = takeIntUserInput();
-            sortLines();
-            int choice2 = takeIntUserInput();
-            scanner.nextLine();
-            controller.sortMemberPrimaryandSecundary(choice, choice2);
-            System.out.println("List sorted");
-            controller.saveData();
+        int userChoice = takeIntUserInput(1, 2);
 
+        if (userChoice == 1) {
+            sortLines();
+            int choice = takeIntUserInput(1, 11);
+            controller.sortMember(choice);
+        } else if (userChoice == 2) {
+            sortLines();
+            int choice = takeIntUserInput(1, 11);
+            sortLines();
+            int choice2 = takeIntUserInput(1, 11);
+            controller.sortMemberPrimaryandSecundary(choice, choice2);
         }
+        System.out.println("Liste sorteret!");
+
+        System.out.println(controller.getAllMemberNames());
 
     }
 
@@ -275,7 +294,7 @@ public class UserInterface {
     }
 
     private LocalDate createBirthdate() {
-        System.out.println("Indtast fødselsdato:");
+        System.out.println("Indtast medlemmets fødselsdato.");
         return createLocalDate();
     }
 
@@ -285,25 +304,13 @@ public class UserInterface {
         int day;
 
         System.out.println("Indtast årstal:");
-        year = takeIntUserInput();
-        while (!(year >= 1920 && year <= Year.now().getValue())) {
-            System.out.println("Ugyldigt valg! Prøv igen:");
-            year = takeIntUserInput();
-        }
+        year = takeIntUserInput(1920, Year.now().getValue());
 
         System.out.println("Indtast måned:");
-        month = takeIntUserInput();
-        while (!(month >= 1 && month <= 12)) {
-            System.out.println("Ugyldigt valg! Prøv igen:");
-            month = takeIntUserInput();
-        }
+        month = takeIntUserInput(1, 12);
 
         System.out.println("Indtast dag:");
-        day = takeIntUserInput();
-        while (!(day >= 1 && day <= YearMonth.of(year, month).lengthOfMonth())) {
-            System.out.println("Ugyldigt valg! Prøv igen:");
-            day = takeIntUserInput();
-        }
+        day = takeIntUserInput(1, YearMonth.of(year, month).lengthOfMonth());
         return LocalDate.of(year, month, day);
     }
 
@@ -319,11 +326,7 @@ public class UserInterface {
 
     private int createPhoneNumber() {
         System.out.println("Indtast tlf. nr.:");
-        int phoneNumber = takeIntUserInput();
-        while (!(phoneNumber >= 10000000 && phoneNumber <= 99999999)) {
-            System.out.println("Ugyldigt telefonnummer! Prøv igen:");
-            phoneNumber = takeIntUserInput();
-        }
+        int phoneNumber = takeIntUserInput(10000000, 99999999);
         return phoneNumber;
     }
 
@@ -338,11 +341,7 @@ public class UserInterface {
                 1. Kvinde
                 2. Mand""");
 
-        int userSelection = takeIntUserInput();
-        while (userSelection != 1 && userSelection != 2) {
-            System.out.println("Ugyldigt valg! Prøv igen:");
-            userSelection = takeIntUserInput();
-        }
+        int userSelection = takeIntUserInput(1, 2);
         if (userSelection == 1) {
             return "Woman";
         } else {
@@ -368,11 +367,7 @@ public class UserInterface {
                 1. Ja
                 2. Nej""");
 
-        int userSelection = takeIntUserInput();
-        while (userSelection != 1 && userSelection != 2) {
-            System.out.println("Ugyldigt valg! Prøv igen:");
-            userSelection = takeIntUserInput();
-        }
+        int userSelection = takeIntUserInput(1, 2);
         return userSelection == 1;
     }
 
@@ -382,11 +377,7 @@ public class UserInterface {
                 1. Ja
                 2. Nej""");
 
-        int userSelection = takeIntUserInput();
-        while (userSelection != 1 && userSelection != 2) {
-            System.out.println("Ugyldigt valg! Prøv igen:");
-            userSelection = takeIntUserInput();
-        }
+        int userSelection = takeIntUserInput(1, 2);
         return userSelection == 1;
     }
 
@@ -395,21 +386,17 @@ public class UserInterface {
                 Er medlemmet aktivt?
                 1. Ja
                 2. Nej""");
-        int userSelection = takeIntUserInput();
-        while (userSelection != 1 && userSelection != 2) {
-            System.out.println("Ugyldigt valg! Prøv igen:");
-            userSelection = takeIntUserInput();
-        }
+        int userSelection = takeIntUserInput(1, 2);
         return userSelection == 1;
     }
 
     private void exitProgram() {
-        System.out.println("Exiting...");
+        System.out.println("Afslutter...");
         uiIsRunning = false;
     }
 
     public void editMember() {
-        System.out.println("Search by Name, user-ID or phone number");
+        System.out.println("Søg efter navn, bruger ID eller telefonnummer:");
         String search = scanner.nextLine();
         ArrayList<Member> foundMembers = controller.findMembers(search);
         int index = 1;
@@ -417,21 +404,21 @@ public class UserInterface {
             System.out.println(index + ". " + controller.getMemberName(member));
             index += 1;
         }
-        System.out.println("This is your search result. Please choose a member by their number");
+        System.out.println("Dette er dit søgeresultat. Vælg venligst et medlem:");
         int choice = takeIntUserInput();
         Member selectedMember = controller.getMemberFromIndex(choice, foundMembers);
-        System.out.println("This is your selected member:");
+        System.out.println("Dette er dit valgte medlem:");
         System.out.println(selectedMember);
         if (selectedMember != null) {
             System.out.println("""
-                    What do you want to edit?
-                    1. Full name:
-                    2. Email:
-                    3. Tlf.Number:
-                    4. Address:
-                    5. Active/Passive:
-                    6. Competitive/non competitive:
-                    7. Is member a coach
+                    Hvad vil du gerne redigere?
+                    1. Fulde navn.
+                    2. Email.
+                    3. Telefonnummer.
+                    4. Addresse.
+                    5. Aktiv/passiv.
+                    6. Konkurrencesvømmer/ikke konkurrencesvømmer.
+                    7. Træner/ikke træner.
                     """);
             switch (takeIntUserInput()) {
                 case 1 -> {
@@ -440,15 +427,15 @@ public class UserInterface {
                 }
                 case 2 -> {
                     selectedMember.setEmail(createEmail());
-                    System.out.println("Email is now updated to: " + selectedMember.getEmail());
+                    System.out.println("Email er blevet opdateret til: " + selectedMember.getEmail());
                 }
                 case 3 -> {
                     selectedMember.setPhoneNumber(createPhoneNumber());
-                    System.out.println("Tlf.number is now updated to: " + selectedMember.getPhoneNumber());
+                    System.out.println("Telefonnummer er blevet opdateret til: " + selectedMember.getPhoneNumber());
                 }
                 case 4 -> {
                     selectedMember.setAddress(createAddress());
-                    System.out.println("Address is now updated to: " + selectedMember.getAddress());
+                    System.out.println("Addresse er blevet opdateret til: " + selectedMember.getAddress());
                 }
                 case 5 -> {
                     selectedMember.getMembership().setActive(checkIfActive());
@@ -468,21 +455,26 @@ public class UserInterface {
         }
     }
 
+    private void saveData() {
+        controller.saveData();
+        System.out.println("Al data er blevet gemt.");
+    }
+
 
     private void sortLines() {
         System.out.println("""
-                What primary attribute do you want to sort the database by?
-                        1. Fullname:
-                        2. UserID:
-                        3. BirthDate:
+                Hvilken attribut vil du gerne sortere efter?
+                        1. Fulde navn.
+                        2. Bruger ID.
+                        3. Fødselsdato.
                         4. Email:
-                        5. PhoneNumber:
-                        6. Adress:
-                        7. Gender:
-                        8. Is member active:
-                        9. Is member a senior
-                        10. Is member competetive
-                        11. Coach                         
+                        5. Telefonnummer.
+                        6. Adresse.
+                        7. Køn.
+                        8. Aktiv status.
+                        9. Senior status.
+                        10. Konkurrencesvømmer status.
+                        11. Træner status.
                 """);
     }
 
@@ -505,61 +497,36 @@ public class UserInterface {
             }
         } while(selectedMember == null);
         SwimDiscipline chosenDiscipline = getswimDiscipline();
-        scanner.nextLine();
         System.out.println("Hvad er tiden i sekunder med 2 decimaler");
-        double performanceTime = 0;
-        while(true) {
-            try {
-                performanceTime = scanner.nextDouble();
-                scanner.nextLine();
-                break;
-            } catch (InputMismatchException e) {
-                System.out.println("Du skal skrive et tal");
-                scanner.nextLine();
-            }
-        }
-        System.out.println("Er tiden lavet i konkurrence (ja/nej)");
-        boolean timeMadeInCompetition = false;
-        String input = "";
-        do {
-            input = scanner.nextLine().toLowerCase();
-                if (input.equals("ja")) {
-                    timeMadeInCompetition = true;
-                } else if (input.equals("nej")) {
-                    timeMadeInCompetition = false;
-                } else {
-                System.out.println("Ugyldigt valg, vælg ja eller nej");
-            }
-        } while (!input.equals("ja") && !input.equals("nej"));
+        double performanceTime = takeDoubleUserInput();
+        System.out.println("""
+                Er tiden lavet i konkurrence?
+                1. Ja
+                2. Nej""");
+
+        int userSelection = takeIntUserInput(1, 2);
+        boolean timeMadeInCompetition = userSelection == 1;
+
         System.out.println("Indtast dato for hvornår tiden er sat:");
         LocalDate dateForPerformance = createLocalDate();
         controller.registerPerformance(selectedMember, String.valueOf(chosenDiscipline),performanceTime,timeMadeInCompetition,dateForPerformance);
         controller.savePerformance();
     }
     private SwimDiscipline getswimDiscipline (){
-        System.out.println("Hvilken disciplin er tiden sat i \n" +
-                "1. Butterfly \n" +
-                "2. Crawl \n" +
-                "3. Rygcrawl \n" +
-                "4. Bryst \n");
-        int choice = 0;
-        choice = takeIntUserInput();
-        while(!(choice >= 1 && choice <= 4)) {
-            System.out.println("Ugyldigt valg! Prøv igen:");
-            choice = takeIntUserInput();
-            }
+        System.out.println("""
+                Hvilken disciplin er tiden sat i?
+                1. Butterfly.
+                2. Crawl.
+                3. Rygcrawl.
+                4. Bryst.
+                """);
+        int choice;
+        choice = takeIntUserInput(1, 4);
         switch (choice) {
-            case 1:
-                return SwimDiscipline.BUTTERFLY;
-
-            case 2:
-                return SwimDiscipline.CRAWL;
-
-            case 3:
-                return SwimDiscipline.RYGCRAWL;
-
-            case 4:
-                return SwimDiscipline.BRYST;
+            case 1 -> {return SwimDiscipline.BUTTERFLY;}
+            case 2 -> {return SwimDiscipline.CRAWL;}
+            case 3 -> {return SwimDiscipline.RYGCRAWL;}
+            case 4 -> {return SwimDiscipline.BRYST;}
         }
         return getswimDiscipline();
     }
@@ -571,7 +538,7 @@ public class UserInterface {
             System.out.println("Navnet på svømmeren du vil registrere en tid til");
             String fullName = scanner.nextLine();
             System.out.println(controller.listOfCompetetionsSwimmersByName(fullName));
-            System.out.println("Skriv tallet på den competitionssvømmer du vil vælge");
+            System.out.println("Skriv tallet på den konkurrencesvømmer du vil vælge");
             int index = takeIntUserInput();
             try {
 
@@ -599,55 +566,79 @@ public class UserInterface {
     private int genderChoice(){
         System.out.println("""
                 Hvilket køn vil du sortere efter
-                1. Mand
-                2. Kvinde
+                1. Mand.
+                2. Kvinde.
                 """);
-        int choice = takeIntUserInput();
-        while (true){
-
-            if (choice == 1 || choice == 2){
-                break;
-            }
-            else {
-                System.out.println("Prøv igen. Skriv 1 eller 2");
-                choice = takeIntUserInput();
-            }
-        }
+        int choice = takeIntUserInput(1, 2);
         return choice;
     }
+
     private int categoryChoice(){
         System.out.println("""
                 Hvilken kategori vil du se resultater for
-                1. Butterfly
-                2. Crawl
-                3. Rygcrawl
-                4. Bryst
+                1. Butterfly.
+                2. Crawl.
+                3. Rygcrawl.
+                4. Bryst.
                 """);
-        int choice2 = takeIntUserInput();
-        while (true){
-
-            if (choice2 == 1 || choice2 == 2 || choice2 == 3 || choice2 == 4){
-                break;
-            }
-            else {
-                System.out.println("Prøv igen. Skriv 1,2,3 eller 4");
-                choice2 = takeIntUserInput();
-            }
-        }
-        return choice2;
+        int choice = takeIntUserInput(1, 4);
+        return choice;
     }
 
     private void getTotalSubscriptionIncome() {
         System.out.println("Den totale årlige indkomst fra kontingent er: " + controller.getTotalSubscriptionIncome() + ",- kr.");
     }
+
+    private void getSubscriptionPriceSingleUser() {
+        System.out.println("Søg venligst på det medlem du gerne vil slette:");
+        String search = scanner.nextLine();
+        ArrayList<Member> foundMembers = controller.findMembers(search);
+        int index = 1;
+        for (Member member : foundMembers) {
+            System.out.println(index + ". " + controller.getMemberName(member));
+            index += 1;
+        }
+        System.out.println("Dette er dit søgeresultat. Vælg venligst et medlem:");
+        int choice = takeIntUserInput(1, foundMembers.size());
+        Member selectedMember = controller.getMemberFromIndex(choice, foundMembers);
+
+        System.out.println("Den årlige abonnementspris for dette medlem er: " + selectedMember.calculateSubscriptionPrice() + ",- kr.");
+    }
+
+    private void changeHasPaid(){
+
+        System.out.println("Søg på navn, user-ID eller telefonnummer");
+        String search = scanner.nextLine();
+
+        ArrayList<Member> foundMembers = controller.findMembers(search);
+        int index = 1;
+        for (Member member : foundMembers) {
+            System.out.println(index + ". " + controller.getMemberName(member));
+            index += 1;
+        }
+        System.out.println("Det her er dit søgeresultat. Vælg venligst et medlem ved at skrive deres nummer ude til venstre");
+        int choice = takeIntUserInput();
+
+        Member selectedMember = controller.getMemberFromIndex(choice, foundMembers);
+        System.out.println("Det her er dit valgte medlem:");
+        System.out.println(selectedMember);
+
+        System.out.println("Har vedkommende betalt? Skriv ja eller nej");
+        while (true) {
+            String choice2 = scanner.nextLine();
+            if (choice2.equalsIgnoreCase("ja")) {
+                controller.setHasPaidForMember(selectedMember,true);
+                break;
+            } else if (choice2.equalsIgnoreCase("nej")){
+                controller.setHasPaidForMember(selectedMember, false);
+                break;
+            }
+            else System.out.println("Prøv igen. Skriv ja eller nej");
+        }
+        System.out.println("Medlemmets betalingsstatus er nu opdateret");
+        controller.saveAccountantList();
+    }
+    private void seeMembersInArrears(){
+        System.out.println(controller.arrearsList());
+    }
 }
-
-
-
-
-
-
-
-
-
-
