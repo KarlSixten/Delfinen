@@ -213,10 +213,10 @@ public class Database {
         ((CompetitionSwimmer) member).registerPerformance(category,performanceTime,timeMadeInCompetition,dateForPerformance);
     }
 
-public ArrayList<Performance> viewPerformances(Member member){
+    public ArrayList<Performance> viewPerformances(Member member){
         return ((CompetitionSwimmer) member).viewPerfomances();
 }
-public void savePerformances(){
+    public void savePerformances(){
         filehandler.savePerformance(membersArrayList);
 }
 
@@ -353,7 +353,7 @@ public void savePerformances(){
         return printList(nonPayingMembers);
     }
 
-    public String printList(ArrayList<Member> arrayList){
+    private String printList(ArrayList<Member> arrayList){
         StringBuilder stringBuilder = new StringBuilder();
 
         for (Member member: arrayList) {
