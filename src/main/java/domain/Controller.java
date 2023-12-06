@@ -33,6 +33,10 @@ public ArrayList<Member> getArrayList (){
         return database.listOfCoaches();
     }
 
+    public void saveAccountantList(){
+        database.saveAccountantList();
+    }
+
     public Member findfirstMember(String fullName, String address){
         return database.findfirstMember(fullName, address);
     }
@@ -57,6 +61,14 @@ public ArrayList<Member> getArrayList (){
     }
     public void saveData(){
         database.saveMembers();
+    }
+
+    public void loadAccountantList(){
+        database.loadAccountantList();
+    }
+
+    public void setHasPaidForMember(Member member, boolean choice){
+        database.setHasPaidForMember(member,choice);
     }
 
     public String getMemberName(Member member){
@@ -109,5 +121,9 @@ database.deleteMember(member);
 
     public int getTotalSubscriptionIncome() {
         return database.getTotalSubscriptionIncome();
+    }
+
+    public String arrearsList(){
+        return database.arrearsList();
     }
 }

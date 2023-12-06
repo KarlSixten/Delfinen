@@ -22,6 +22,7 @@ public class Database {
     public Database(String filename) throws IOException {
         this.filehandler = new Filehandler(filename);
         setMembersArrayList(filehandler.loadData());
+        filehandler.loadAccountantFile(membersArrayList);
     }
 
     public void setMembersArrayList(ArrayList<Member> liste) {
@@ -58,6 +59,10 @@ public class Database {
         }
        return MembershipType.FAILED_CREATE;
 
+    }
+
+    public void saveAccountantList(){
+        filehandler.saveToAccountantFile(membersArrayList);
     }
 
     public String listOfCoaches() {
@@ -329,6 +334,35 @@ public void savePerformances(){
             totalIncome += member.calculateSubscriptionPrice();
         }
         return totalIncome;
+    }
+
+    public void loadAccountantList(){
+        filehandler.loadAccountantFile(membersArrayList);
+    }
+
+    public void setHasPaidForMember(Member member, boolean choice){
+        member.setHasPaid(choice);
+    }
+    public String arrearsList(){
+        ArrayList<Member> nonPayingMembers = new ArrayList<>();
+        for (Member member : membersArrayList){
+            if (!member.getHasPaid()){
+                nonPayingMembers.add(member);
+            }
+        }
+        return printList(nonPayingMembers);
+    }
+
+    public String printList(ArrayList<Member> arrayList){
+        StringBuilder stringBuilder = new StringBuilder();
+
+        for (Member member: arrayList) {
+            stringBuilder.append(member.getFullName()).append(", ").
+                    append(member.getUserID()).append(", ").
+                    append(member.getPhoneNumber()).append(", ").
+                    append(member.getEmail()).append(".").append("\n");
+        }
+        return stringBuilder.toString();
     }
 }
 

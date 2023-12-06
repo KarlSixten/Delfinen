@@ -1,8 +1,6 @@
 package domain;
 import java.time.LocalDate;
-import java.time.Month;
 import java.time.Period;
-import java.util.Random;
 
 public class Member {
     private String fullName;
@@ -12,6 +10,7 @@ public class Member {
     private int phoneNumber;
     private String address;
     private String gender;
+    private boolean hasPaid;
 
     public Membership getMembership() {
         return membership;
@@ -28,6 +27,7 @@ public class Member {
         this.address = address;
         this.gender = gender;
         this.membership = membership;
+        this.hasPaid = true;
     }
 
     public String getFullName() {
@@ -106,4 +106,19 @@ public class Member {
         return price;
     }
 
+    public void setHasPaid(boolean hasPaid){
+        this.hasPaid = hasPaid;
     }
+
+    public String toAccountantCSVString(){
+        return  userID+
+                ";" + email+
+                ";" +phoneNumber +
+                ";" + address+
+                ";" + hasPaid;
+    }
+    public boolean getHasPaid(){
+        return hasPaid;
+    }
+}
+

@@ -11,6 +11,7 @@ import java.util.Scanner;
 public class Filehandler {
     private File memberFileList;
     private File performanceList = new File ("PerformanceList.csv");
+    private File accountantList = new File("AccountantList.csv");
 
     public Filehandler(String filename) {
         this.memberFileList = new File(filename);
@@ -117,7 +118,42 @@ public class Filehandler {
                 }
             }
         }
+    }
 
+    public void loadAccountantFile(ArrayList<Member> memberArrayList){
+        Scanner scanner = null;
+        try {
+            scanner = new Scanner(new File("AccountantList.csv"));
+        } catch (FileNotFoundException e){
+            throw new RuntimeException(e);
+        }
+    while(scanner.hasNextLine()){
+        String line = scanner.nextLine();
+        String[] values = line.split(";");
+        for (Member member: memberArrayList) {
+        if (member.getUserID().equals(values[0]) &&
+                member.getEmail().equals(values[1]) &&
+                member.getPhoneNumber() == Integer.parseInt(values[2]) &&
+                member.getAddress().equals(values[3])) {
+                member.setHasPaid(Boolean.parseBoolean(values[4]));
             }
+        }
+
+    }
+    }
+
+
+       public void saveToAccountantFile(ArrayList<Member> memberArrayList){
+        PrintStream output;
+        try {
+            output = new PrintStream(accountantList);
+            for (Member member: memberArrayList) {
+                output.println(member.toAccountantCSVString());
+            }
+            output.close();
+        }catch (IOException e){
+            e.printStackTrace();
+        }
+       }
 
 }
