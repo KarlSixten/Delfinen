@@ -31,7 +31,7 @@ public class UserInterface {
         System.out.println("""
                 Vælg din rolle i Delfinen:
                 1. Formand
-                2. Kasser.
+                2. Kassér.
                 3. Træner
                 9. Afslut program.""");
         switch (takeIntUserInput()) {
@@ -398,19 +398,7 @@ public class UserInterface {
 
 
     public void editMember() {
-        System.out.println("Søg efter navn, bruger ID eller telefonnummer:");
-        String search = scanner.nextLine();
-        ArrayList<Member> foundMembers = controller.findMembers(search);
-        int index = 1;
-        for (Member member : foundMembers) {
-            System.out.println(index + ". " + controller.getMemberName(member));
-            index += 1;
-        }
-        System.out.println("Dette er dit søgeresultat. Vælg venligst et medlem:");
-        int choice = takeIntUserInput();
-        Member selectedMember = controller.getMemberFromIndex(choice, foundMembers);
-        System.out.println("Dette er dit valgte medlem:");
-        System.out.println(selectedMember);
+        Member selectedMember = findMember();
         if (selectedMember != null) {
             System.out.println("""
                     Hvad vil du gerne redigere?
@@ -593,39 +581,39 @@ public class UserInterface {
     }
 
     private void getSubscriptionPriceSingleUser() {
-        System.out.println("Søg venligst på det medlem du gerne vil slette:");
-        String search = scanner.nextLine();
-        ArrayList<Member> foundMembers = controller.findMembers(search);
-        int index = 1;
-        for (Member member : foundMembers) {
-            System.out.println(index + ". " + controller.getMemberName(member));
-            index += 1;
-        }
-        System.out.println("Dette er dit søgeresultat. Vælg venligst et medlem:");
-        int choice = takeIntUserInput(1, foundMembers.size());
-        Member selectedMember = controller.getMemberFromIndex(choice, foundMembers);
-
+        Member selectedMember = findMember();
         System.out.println("Den årlige abonnementspris for dette medlem er: " + selectedMember.calculateSubscriptionPrice() + ",- kr.");
     }
 
-    private void changeHasPaid(){
-
+    private Member findMember(){
         System.out.println("Søg på navn, user-ID eller telefonnummer");
-        String search = scanner.nextLine();
+        Member selectedMember = null;
+        ArrayList<Member> foundMembers = new ArrayList<>();
+        while(foundMembers.isEmpty()) {
+            String search = scanner.nextLine();
+            foundMembers = controller.findMembers(search);
+            if (!foundMembers.isEmpty()) {
+                int index = 1;
+                for (Member member : foundMembers) {
+                    System.out.println(index + ". " + controller.getMemberName(member));
+                    index += 1;
+                }
+            } else {
 
-        ArrayList<Member> foundMembers = controller.findMembers(search);
-        int index = 1;
-        for (Member member : foundMembers) {
-            System.out.println(index + ". " + controller.getMemberName(member));
-            index += 1;
+                System.out.println("Din søgning gav ingen resultater. Prøv igen:");
+            }
         }
         System.out.println("Det her er dit søgeresultat. Vælg venligst et medlem ved at skrive deres nummer ude til venstre");
         int choice = takeIntUserInput();
 
-        Member selectedMember = controller.getMemberFromIndex(choice, foundMembers);
+        selectedMember = controller.getMemberFromIndex(choice, foundMembers);
         System.out.println("Det her er dit valgte medlem:");
         System.out.println(selectedMember);
+        return selectedMember;
+    }
 
+    private void changeHasPaid(){
+      Member selectedMember = findMember();
         System.out.println("Har vedkommende betalt? Skriv ja eller nej");
         while (true) {
             String choice2 = scanner.nextLine();
