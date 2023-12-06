@@ -1,7 +1,6 @@
 package domain;
 
 public class Membership {
-    public static Membership parse;
     private boolean isActive;
 private boolean isSenior;
 private boolean isCompetetive;
@@ -15,9 +14,6 @@ private boolean isCoach;
     this.isCoach = isCoach;
 
 }
-
-    public static Membership parse(String value) {
-   return parse; }
 
 
 
@@ -47,10 +43,6 @@ private boolean isCoach;
 
     public void setActive(boolean active) {
         isActive = active;
-    }
-
-    public void setSenior(boolean senior) {
-        isSenior = senior;
     }
 
     public void setCompetetive(boolean competetive) {

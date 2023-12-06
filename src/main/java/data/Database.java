@@ -200,25 +200,6 @@ public class Database {
         return comparator1;
     }
 
-    public Member registerPerformanceForCompetetionswimmer(String fullName, String address, String category, double performanceTime, boolean timeMadeInCompetition, int year, int month, int dayOfMonth) {
-        for (Member member : membersArrayList) {
-            if (member != null && member.getMembership() != null && member.getAddress() != null) {
-                if (member.getMembership().isCompetetive() &&
-                        fullName.toLowerCase().contains(member.getFullName().toLowerCase()) &&
-                        member.getAddress().toLowerCase().contains(address.toLowerCase())) {
-                    ((CompetitionSwimmer) member).registerPerformance(category, performanceTime, timeMadeInCompetition, year, month, dayOfMonth);
-                    return member;
-                }
-            }
-        }
-        return null;
-    }
-
-
-    public void registerPerformance(Member member, String category, double performanceTime, boolean timeMadeInCompetition, int year, int month, int dayOfMonth) {
-        ((CompetitionSwimmer) member).registerPerformance(category, performanceTime, timeMadeInCompetition, year, month, dayOfMonth);
-    }
-
     public void registerPerformance(Member member, String category, double performanceTime, boolean timeMadeInCompetition, LocalDate dateForPerformance) {
 
         ((CompetitionSwimmer) member).registerPerformance(category, performanceTime, timeMadeInCompetition, dateForPerformance);
@@ -314,8 +295,8 @@ public class Database {
         return performances;
     }
 
-    private String getCategoryBasedOnChoice(int choice2) {
-        switch (choice2) {
+    private String getCategoryBasedOnChoice(int choice) {
+        switch (choice) {
             case 1:
                 return "butterfly";
             case 2:

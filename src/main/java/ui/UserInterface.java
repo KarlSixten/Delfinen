@@ -169,7 +169,7 @@ public class UserInterface {
     private void deleteMember() {
         System.out.println("Søg venligst på det medlem du gerne vil slette:");
         String search = scanner.nextLine();
-        ArrayList<Member> foundMembers = controller.findMembers(search);
+        ArrayList<Member> foundMembers = controller.findMember(search);
 
         if (foundMembers.isEmpty()) {
             System.out.println("Ingen medlemmer fundet");
@@ -209,7 +209,7 @@ public class UserInterface {
     private void findMember() {
         System.out.println("Søg efter navn, bruger ID eller telefonnummer");
         String search = scanner.nextLine();
-        ArrayList<Member> foundMembers = controller.findMembers(search);
+        ArrayList<Member> foundMembers = controller.findMember(search);
         int index = 1;
         for (Member member : foundMembers) {
             System.out.println(index + ". " + controller.getMemberName(member));
@@ -400,7 +400,7 @@ public class UserInterface {
     public void editMember() {
         System.out.println("Søg efter navn, bruger ID eller telefonnummer:");
         String search = scanner.nextLine();
-        ArrayList<Member> foundMembers = controller.findMembers(search);
+        ArrayList<Member> foundMembers = controller.findMember(search);
         int index = 1;
         for (Member member : foundMembers) {
             System.out.println(index + ". " + controller.getMemberName(member));
@@ -596,7 +596,7 @@ public class UserInterface {
     private void getSubscriptionPriceSingleUser() {
         System.out.println("Søg venligst på det medlem du gerne vil slette:");
         String search = scanner.nextLine();
-        ArrayList<Member> foundMembers = controller.findMembers(search);
+        ArrayList<Member> foundMembers = controller.findMember(search);
         int index = 1;
         for (Member member : foundMembers) {
             System.out.println(index + ". " + controller.getMemberName(member));
@@ -614,7 +614,7 @@ public class UserInterface {
         System.out.println("Søg på navn, user-ID eller telefonnummer");
         String search = scanner.nextLine();
 
-        ArrayList<Member> foundMembers = controller.findMembers(search);
+        ArrayList<Member> foundMembers = controller.findMember(search);
         int index = 1;
         for (Member member : foundMembers) {
             System.out.println(index + ". " + controller.getMemberName(member));

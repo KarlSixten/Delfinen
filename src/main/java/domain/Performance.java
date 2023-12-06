@@ -43,9 +43,6 @@ public class Performance {
         return performanceTime;
     }
 
-    public boolean getIsTimeMadeInCompetition() {
-        return timeMadeInCompetition;
-    }
 
     public LocalDate getDateTimeIsMade() {
         return dateTimeIsMade;
