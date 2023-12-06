@@ -52,7 +52,7 @@ public ArrayList<Member> getArrayList (){
         return database.getAllMemberNames();
     }
 
-    public ArrayList<Member> findMember(String search){
+    public ArrayList<Member> findMembers(String search){
        return database.findMembers(search);
     }
 
