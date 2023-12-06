@@ -66,7 +66,7 @@ public class UserInterface {
         switch (takeIntUserInput()) {
             case 1 -> createMember();
             case 2 -> showAllMembers();
-            case 3 -> findMembers();
+            case 3 -> findMember();
             case 4 -> deleteMember();
             case 5 -> editMember();
             case 6 -> saveData();
@@ -206,7 +206,7 @@ public class UserInterface {
     }
 
 
-    private void findMembers() {
+    private void findMember() {
         System.out.println("Søg efter navn, bruger ID eller telefonnummer");
         String search = scanner.nextLine();
         ArrayList<Member> foundMembers = controller.findMembers(search);
@@ -479,7 +479,7 @@ public class UserInterface {
                         11. Træner status.
                 """);
     }
-
+//TODO: Refaktorering
     private void registerPerformance() {
         Member selectedMember = null;
         do {
@@ -564,6 +564,7 @@ public class UserInterface {
         int choice = genderChoice();
         int choice2 = categoryChoice();
         System.out.println(controller.getTop5Swimmers(choice, choice2));
+        System.out.println("He");
     }
     private int genderChoice(){
         System.out.println("""
