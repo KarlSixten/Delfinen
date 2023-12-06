@@ -1,7 +1,4 @@
 package domain;
-
-import domain.Member;
-
 import java.time.LocalDate;
 
 public class Coach extends Member {

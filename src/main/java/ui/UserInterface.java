@@ -467,7 +467,7 @@ public class UserInterface {
                         11. Træner status.
                 """);
     }
-
+//TODO: Refaktorering
     private void registerPerformance() {
         Member selectedMember = null;
         do {

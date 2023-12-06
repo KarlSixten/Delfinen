@@ -52,7 +52,7 @@ public ArrayList<Member> getArrayList (){
         return database.getAllMemberNames();
     }
 
-    public ArrayList<Member> findMembers(String search){
+    public ArrayList<Member> findMember(String search){
        return database.findMembers(search);
     }
 
@@ -84,9 +84,6 @@ database.deleteMember(member);
     public void sortMemberPrimaryandSecundary(int choice, int choice2){
         database.sortMembersPrimaryandSec(choice, choice2);
     }
-    public void registerPerformance(Member member, String category, double performanceTime, boolean timeMadeInCompetition,int year, int month, int dayOfMonth){
-        database.registerPerformance(member, category,performanceTime,timeMadeInCompetition,year,month,dayOfMonth);
-    }
 
     public void registerPerformance(Member member, String category, double performanceTime, boolean timeMadeInCompetition, LocalDate dateForPerformance){
         database.registerPerformance(member, category,performanceTime,timeMadeInCompetition,dateForPerformance);
@@ -101,9 +98,6 @@ database.deleteMember(member);
         database.loadPerformances();
     }
 
-    public ArrayList<Performance> viewPerformances(Member member){
-        return database.viewPerformances(member);
-    }
     public void savePerformance(){
         database.savePerformances();
     }

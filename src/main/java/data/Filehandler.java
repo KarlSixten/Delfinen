@@ -92,7 +92,7 @@ public class Filehandler {
             for (Member member: competitionSwimmers){
                 if (member instanceof CompetitionSwimmer){
                     if (((CompetitionSwimmer) member).getPerformances().size()>0) {
-                        output.println(((CompetitionSwimmer) member).toPerformanceCSVString2());
+                        output.println(((CompetitionSwimmer) member).toPerformanceCSVString());
                     }
                 }
                 }output.close();
