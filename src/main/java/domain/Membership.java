@@ -1,7 +1,5 @@
 package domain;
 
-import java.time.LocalDate;
-
 public class Membership {
     public static Membership parse;
     private boolean isActive;

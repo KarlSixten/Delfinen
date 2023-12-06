@@ -12,7 +12,7 @@ import java.util.Random;
 
 public class Database {
     Filehandler filehandler;
-    private CompetitionSwimmer competitionSwimmer;
+
     public ArrayList<Member> getMembersArrayList() {
         return membersArrayList;
     }
@@ -53,15 +53,16 @@ public class Database {
                 membersArrayList.add(new CompetitionSwimmer(fullName, userID, birthDate, email, phoneNumber, address, gender, isActive, isSenior, isCompetitive, isCoach));
             return MembershipType.COMPETITIVE;
         } else {
-            if (!membership.isCompetetive()){
-            membersArrayList.add(new Coach(fullName, userID, birthDate, email, phoneNumber, address, gender, isActive, isSenior));
-            return MembershipType.COACH;}
+            if (!membership.isCompetetive()) {
+                membersArrayList.add(new Coach(fullName, userID, birthDate, email, phoneNumber, address, gender, isActive, isSenior));
+                return MembershipType.COACH;
+            }
         }
-       return MembershipType.FAILED_CREATE;
+        return MembershipType.FAILED_CREATE;
 
     }
 
-    public void saveAccountantList(){
+    public void saveAccountantList() {
         filehandler.saveToAccountantFile(membersArrayList);
     }
 
@@ -76,28 +77,29 @@ public class Database {
             }
         }
 
-        return  stringBuilder.toString();
+        return stringBuilder.toString();
     }
 
-    public Member getCoachInListByIndex(int index){
+    public Member getCoachInListByIndex(int index) {
         ArrayList<Member> coaches = new ArrayList<>();
         for (Member member : membersArrayList) {
-            if (member instanceof Coach){
+            if (member instanceof Coach) {
                 coaches.add(member);
             }
         }
-        return coaches.get(index-1);
+        return coaches.get(index - 1);
     }
 
-    public void setCoachToMember(Member competitionswimmer, Member coach){
-        if (competitionswimmer instanceof CompetitionSwimmer){
+    public void setCoachToMember(Member competitionswimmer, Member coach) {
+        if (competitionswimmer instanceof CompetitionSwimmer) {
             ((CompetitionSwimmer) competitionswimmer).setCoach((Coach) coach);
 
-        }    }
+        }
+    }
 
-    public Member findfirstMember(String fullName, String address){
-        for (Member member: membersArrayList) {
-            if (member.getFullName().equals(fullName) && member.getAddress().equals(address)){
+    public Member findfirstMember(String fullName, String address) {
+        for (Member member : membersArrayList) {
+            if (member.getFullName().equals(fullName) && member.getAddress().equals(address)) {
                 return member;
             }
         }
@@ -120,7 +122,7 @@ public class Database {
         return userID;
     }
 
-    public void loadPerformances(){
+    public void loadPerformances() {
         filehandler.loadPerformances(membersArrayList);
     }
 
@@ -153,13 +155,21 @@ public class Database {
     public void saveMembers() {
         filehandler.saveMembers(membersArrayList);
     }
-    public void deleteMember(Member member){
+
+    public void deleteMember(Member member) {
         int index = membersArrayList.indexOf(member);
         membersArrayList.remove(index);
     }
-    public void sortMembers(int choice) {Collections.sort(membersArrayList, createComparator(choice));}
-    public void sortMembersPrimaryandSec(int choice,int choice2){Collections.sort(membersArrayList, createComparator(choice).thenComparing(createComparator(choice2)));}
-    public Comparator createComparator(int selection){
+
+    public void sortMembers(int choice) {
+        Collections.sort(membersArrayList, createComparator(choice));
+    }
+
+    public void sortMembersPrimaryandSec(int choice, int choice2) {
+        Collections.sort(membersArrayList, createComparator(choice).thenComparing(createComparator(choice2)));
+    }
+
+    public Comparator createComparator(int selection) {
         Comparator comparator1 = null;
         switch (selection) {
             case 1 -> comparator1 = new FullNameComparator();
@@ -184,7 +194,8 @@ public class Database {
 
             case 11 -> comparator1 = new IsCoachComparator();
 
-            default -> {}
+            default -> {
+            }
         }
         return comparator1;
     }
@@ -195,7 +206,7 @@ public class Database {
                 if (member.getMembership().isCompetetive() &&
                         fullName.toLowerCase().contains(member.getFullName().toLowerCase()) &&
                         member.getAddress().toLowerCase().contains(address.toLowerCase())) {
-                    ((CompetitionSwimmer)member).registerPerformance(category,performanceTime,timeMadeInCompetition,year,month,dayOfMonth);
+                    ((CompetitionSwimmer) member).registerPerformance(category, performanceTime, timeMadeInCompetition, year, month, dayOfMonth);
                     return member;
                 }
             }
@@ -204,21 +215,22 @@ public class Database {
     }
 
 
-    public void registerPerformance(Member member, String category, double performanceTime, boolean timeMadeInCompetition,int year, int month, int dayOfMonth){
-        ((CompetitionSwimmer) member).registerPerformance(category,performanceTime,timeMadeInCompetition,year,month,dayOfMonth);
-}
-
-    public void registerPerformance(Member member, String category, double performanceTime, boolean timeMadeInCompetition,LocalDate dateForPerformance){
-
-        ((CompetitionSwimmer) member).registerPerformance(category,performanceTime,timeMadeInCompetition,dateForPerformance);
+    public void registerPerformance(Member member, String category, double performanceTime, boolean timeMadeInCompetition, int year, int month, int dayOfMonth) {
+        ((CompetitionSwimmer) member).registerPerformance(category, performanceTime, timeMadeInCompetition, year, month, dayOfMonth);
     }
 
-public ArrayList<Performance> viewPerformances(Member member){
+    public void registerPerformance(Member member, String category, double performanceTime, boolean timeMadeInCompetition, LocalDate dateForPerformance) {
+
+        ((CompetitionSwimmer) member).registerPerformance(category, performanceTime, timeMadeInCompetition, dateForPerformance);
+    }
+
+    public ArrayList<Performance> viewPerformances(Member member) {
         return ((CompetitionSwimmer) member).viewPerfomances();
-}
-public void savePerformances(){
+    }
+
+    public void savePerformances() {
         filehandler.savePerformance(membersArrayList);
-}
+    }
 
     public String listOfCompetetionsSwimmersByName(String name) {
 
@@ -231,20 +243,20 @@ public void savePerformances(){
             }
         }
 
-        return  stringBuilder.toString();
+        return stringBuilder.toString();
     }
 
-    public Member getCompetetionSwimmerInListByIndex(int index, String name){
+    public Member getCompetetionSwimmerInListByIndex(int index, String name) {
         ArrayList<Member> competitionSwimmers = new ArrayList<>();
         for (Member member : membersArrayList) {
-            if (member instanceof CompetitionSwimmer && member.getFullName().toLowerCase().trim().contains(name.toLowerCase().trim())){
+            if (member instanceof CompetitionSwimmer && member.getFullName().toLowerCase().trim().contains(name.toLowerCase().trim())) {
                 competitionSwimmers.add(member);
             }
         }
-        if (membersArrayList.size()<index){
+        if (membersArrayList.size() < index) {
             return null;
         }
-        return competitionSwimmers.get(index-1);
+        return competitionSwimmers.get(index - 1);
     }
 
     public ArrayList<Performance> sortPerformance(int choice, int choice2) {
@@ -304,11 +316,16 @@ public void savePerformances(){
 
     private String getCategoryBasedOnChoice(int choice2) {
         switch (choice2) {
-            case 1: return "butterfly";
-            case 2: return "crawl";
-            case 3: return "rygcrawl";
-            case 4: return "bryst";
-            default: return "";
+            case 1:
+                return "butterfly";
+            case 2:
+                return "crawl";
+            case 3:
+                return "rygcrawl";
+            case 4:
+                return "bryst";
+            default:
+                return "";
         }
     }
 
@@ -336,27 +353,28 @@ public void savePerformances(){
         return totalIncome;
     }
 
-    public void loadAccountantList(){
+    public void loadAccountantList() {
         filehandler.loadAccountantFile(membersArrayList);
     }
 
-    public void setHasPaidForMember(Member member, boolean choice){
+    public void setHasPaidForMember(Member member, boolean choice) {
         member.setHasPaid(choice);
     }
-    public String arrearsList(){
+
+    public String arrearsList() {
         ArrayList<Member> nonPayingMembers = new ArrayList<>();
-        for (Member member : membersArrayList){
-            if (!member.getHasPaid()){
+        for (Member member : membersArrayList) {
+            if (!member.getHasPaid()) {
                 nonPayingMembers.add(member);
             }
         }
         return printList(nonPayingMembers);
     }
 
-    public String printList(ArrayList<Member> arrayList){
+    public String printList(ArrayList<Member> arrayList) {
         StringBuilder stringBuilder = new StringBuilder();
 
-        for (Member member: arrayList) {
+        for (Member member : arrayList) {
             stringBuilder.append(member.getFullName()).append(", ").
                     append(member.getUserID()).append(", ").
                     append(member.getPhoneNumber()).append(", ").
@@ -364,6 +382,7 @@ public void savePerformances(){
         }
         return stringBuilder.toString();
     }
+
 }
 
 
