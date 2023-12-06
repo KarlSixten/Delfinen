@@ -397,7 +397,7 @@ public class UserInterface {
     }
 
 
-    public void editMember() {
+    private void editMember() {
         System.out.println("Søg efter navn, bruger ID eller telefonnummer:");
         String search = scanner.nextLine();
         ArrayList<Member> foundMembers = controller.findMembers(search);
