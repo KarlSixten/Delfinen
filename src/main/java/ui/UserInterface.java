@@ -604,7 +604,7 @@ public class UserInterface {
                 System.out.println("Din søgning gav ingen resultater. Prøv igen:");
             }
         }
-        System.out.println("Det her er dit søgeresultat. Vælg venligst et medlem ved at skrive deres nummer ude til venstre");
+        System.out.println("Dette er dit søgeresultat. Vælg venligst et medlem:");
         int choice = takeIntUserInput();
 
         selectedMember = controller.getMemberFromIndex(choice, foundMembers);
