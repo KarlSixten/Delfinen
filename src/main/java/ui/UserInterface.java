@@ -528,17 +528,18 @@ public class UserInterface {
             System.out.println("Navnet på svømmeren du vil registrere en tid til");
             String fullName = scanner.nextLine();
             System.out.println(controller.listOfCompetetionsSwimmersByName(fullName));
-            System.out.println("Skriv tallet på den konkurrencesvømmer du vil vælge");
-            int index = takeIntUserInput();
-            try {
-
-                selectedMember = controller.getCompetetionSwimmerInListByIndex(index, fullName);
-            } catch (IndexOutOfBoundsException e){
-                System.out.println("Der blev ikke fundet et medlem");
-            }
-            if (selectedMember == null) {
-                System.out.println("Prøv igen. Medlem ikke fundet");
-            }
+            if (!controller.listOfCompetetionsSwimmersByName(fullName).isEmpty()) {
+                System.out.println("Skriv tallet på den konkurrencesvømmer du vil vælge");
+                int index = takeIntUserInput();
+                try {
+                    selectedMember = controller.getCompetetionSwimmerInListByIndex(index, fullName);
+                } catch (IndexOutOfBoundsException e) {
+                    System.out.println("Der blev ikke fundet et medlem");
+                }
+                if (selectedMember == null) {
+                    System.out.println("Medlem ikke fundet. Prøv igen");
+                }
+            } else System.out.println("Der blev ikke fundet et medlem. Prøv igen");
         } while(selectedMember == null);
         SwimDiscipline chosenDiscipline = getswimDiscipline();
         System.out.println(controller.getOneSwimmersPerformances(selectedMember, chosenDiscipline));
