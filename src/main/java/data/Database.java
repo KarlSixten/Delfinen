@@ -184,7 +184,7 @@ public class Database {
 
             case 6 -> comparator1 = new AddressComparator();
 
-            case 7 -> comparator1 = new GenderComparator();
+            case 7 -> comparator1 = new GenderComparator2();
 
             case 8 -> comparator1 = new IsActiveComparator();
 
@@ -203,10 +203,6 @@ public class Database {
     public void registerPerformance(Member member, String category, double performanceTime, boolean timeMadeInCompetition, LocalDate dateForPerformance) {
 
         ((CompetitionSwimmer) member).registerPerformance(category, performanceTime, timeMadeInCompetition, dateForPerformance);
-    }
-
-    public ArrayList<Performance> viewPerformances(Member member) {
-        return ((CompetitionSwimmer) member).viewPerfomances();
     }
 
     public void savePerformances() {
