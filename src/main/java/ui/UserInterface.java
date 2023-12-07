@@ -170,7 +170,6 @@ public class UserInterface {
         System.out.println("Søg venligst på det medlem du gerne vil slette:");
         String search = scanner.nextLine();
         ArrayList<Member> foundMembers = controller.findMembers(search);
-
         if (foundMembers.isEmpty()) {
             System.out.println("Ingen medlemmer fundet");
             return;
@@ -184,7 +183,6 @@ public class UserInterface {
         }
 
         int choice = takeIntUserInput();
-        scanner.nextLine();
 
         if (choice < 1 || choice > foundMembers.size()) {
             System.out.println("Ugyldigt valg, prøv igen din tåbe");
@@ -224,11 +222,11 @@ public class UserInterface {
     }
 
     private void showAllMembers() {
+        System.out.println(controller.getAllMemberNames());
         System.out.println("""
                 Skal der sorteres i medlemerne Vælg den funktion du vil tilgå:
                         1. Sortering med en primær
                         2. Sortering med primær og sekundær""");
-        System.out.println(controller.getAllMemberNames());
         int userChoice = takeIntUserInput(1, 2);
 
         if (userChoice == 1) {
@@ -243,8 +241,8 @@ public class UserInterface {
             controller.sortMemberPrimaryandSecundary(choice, choice2);
         }
         System.out.println("Liste sorteret!");
-
         System.out.println(controller.getAllMemberNames());
+
 
     }
 
