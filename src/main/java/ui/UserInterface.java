@@ -59,7 +59,7 @@ public class UserInterface {
                 3. Find et specifikt medlem.
                 4. Slet et medlem.
                 5. Rediger et medlem.
-                6. Gem data.
+              
                 8. Skift rolle.
                 9. Afslut program.
                 """);
@@ -69,7 +69,6 @@ public class UserInterface {
             case 3 -> findMembers();
             case 4 -> deleteMember();
             case 5 -> editMember();
-            case 6 -> saveData();
             case 8 -> selectUserRole();
             case 9 -> exitProgram();
             default -> System.out.println("Ugyldigt valg! Prøv igen:\n");
