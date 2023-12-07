@@ -64,10 +64,6 @@ public class Member {
         this.fullName = fullName;
     }
 
-    public void setUserID(String userID) {
-        this.userID = userID;
-    }
-
     public void setEmail(String email) {
         this.email = email;
     }

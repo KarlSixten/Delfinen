@@ -12,12 +12,11 @@ import java.util.Random;
 
 public class Database {
     Filehandler filehandler;
+    private final ArrayList<Member> membersArrayList = new ArrayList<>();
 
     public ArrayList<Member> getMembersArrayList() {
         return membersArrayList;
     }
-
-    private ArrayList<Member> membersArrayList = new ArrayList<>();
 
     public Database(String filename) throws IOException {
         this.filehandler = new Filehandler(filename);
@@ -157,8 +156,7 @@ public class Database {
     }
 
     public void deleteMember(Member member) {
-        int index = membersArrayList.indexOf(member);
-        membersArrayList.remove(index);
+        membersArrayList.remove(member);
     }
 
     public void sortMembers(int choice) {
@@ -241,12 +239,8 @@ public class Database {
         Comparator comparator = null;
 
         switch (choice) {
-            case 1:
-                comparator = new GenderComparator().reversed();
-                break;
-            case 2:
-                comparator = new GenderComparator();
-                break;
+            case 1 -> comparator = new GenderComparator().reversed();
+            case 2 -> comparator = new GenderComparator();
         }
 
         switch (choice2) {
@@ -292,18 +286,13 @@ public class Database {
     }
 
     private String getCategoryBasedOnChoice(int choice) {
-        switch (choice) {
-            case 1:
-                return "butterfly";
-            case 2:
-                return "crawl";
-            case 3:
-                return "rygcrawl";
-            case 4:
-                return "bryst";
-            default:
-                return "";
-        }
+        return switch (choice) {
+            case 1 -> "butterfly";
+            case 2 -> "crawl";
+            case 3 -> "rygcrawl";
+            case 4 -> "bryst";
+            default -> "";
+        };
     }
 
 

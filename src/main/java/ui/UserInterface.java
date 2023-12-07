@@ -199,11 +199,11 @@ public class UserInterface {
     }
 
     private void showAllMembers() {
+        System.out.println(controller.getAllMemberNames());
         System.out.println("""
                 Skal der sorteres i medlemerne Vælg den funktion du vil tilgå:
                         1. Sortering med en primær
                         2. Sortering med primær og sekundær""");
-        System.out.println(controller.getAllMemberNames());
         int userChoice = takeIntUserInput(1, 2);
 
         if (userChoice == 1) {
@@ -218,8 +218,8 @@ public class UserInterface {
             controller.sortMemberPrimaryandSecundary(choice, choice2);
         }
         System.out.println("Liste sorteret!");
-
         System.out.println(controller.getAllMemberNames());
+
 
     }
 
@@ -563,7 +563,7 @@ public class UserInterface {
 
     private Member findMember(){
         System.out.println("Søg på navn, user-ID eller telefonnummer");
-        Member selectedMember = null;
+        Member selectedMember;
         ArrayList<Member> foundMembers = new ArrayList<>();
         while(foundMembers.isEmpty()) {
             String search = scanner.nextLine();

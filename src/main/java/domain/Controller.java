@@ -13,9 +13,6 @@ public class Controller {
     public Controller(String filename) throws IOException {
         this.database =  new Database(filename);
     }
-public ArrayList<Member> getArrayList (){
-        return database.getMembersArrayList();
-    }
 
     public MembershipType createNewUser(String fullName,
                               LocalDate birthDate,
