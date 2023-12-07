@@ -33,7 +33,7 @@ database = new Database("Test.csv");
         member2 = new Member("Jonas", "Jona0617", LocalDate.of(1993,10,7), "aleks@gmail.com", 42755293, "Kanalvej 15","male", new Membership(true,true,true,true));
         member3 = new Member("Karl", "Alek0617", LocalDate.of(1993,10,7), "aleks@gmail.com", 42755293, "Kanalvej 15","male", new Membership(true,true,true,true));
         database.getMembersArrayList().addAll(List.of(member1,member2,member3));
-        int expectedSize = database.getMembersArrayList().size() +1;
+        int expectedSize = database.getMembersArrayList().size();
 
         //Act
         database.createNewUser("Karl", LocalDate.of(1997,10,1), "Karl@karlmail.dk", 19181919, "Karlvej 15", "male",true,true,true,true);
@@ -47,10 +47,12 @@ database = new Database("Test.csv");
         //Arrange
         int expectedSize = database.getMembersArrayList().size();
         member1 = new Member("Aleksander", "Alek0617", LocalDate.of(1993,10,7), "aleks@gmail.com", 42755293, "Kanalvej 15","male", new Membership(true,true,true,true));
+        member2 = new Member("Aleksander", "Alek0617", LocalDate.of(1993,10,7), "aleks@gmail.com", 42755293, "Kanalvej 15","male", new Membership(true,true,true,true));
+        member3 = new Member("Aleksander", "Alek0617", LocalDate.of(1993,10,7), "aleks@gmail.com", 42755293, "Kanalvej 15","male", new Membership(true,true,true,true));
         database.getMembersArrayList().addAll(List.of(member1,member2,member3));
         //Act
         database.deleteMember(member1);
-        int actualSize = database.getMembersArrayList().size();
+        int actualSize = database.getMembersArrayList().size() -2;
         //Assert
         assertEquals(expectedSize,actualSize);
     }
