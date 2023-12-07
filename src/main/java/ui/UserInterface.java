@@ -75,7 +75,6 @@ public class UserInterface {
     }
 
     private void accountantSelection() {
-        controller.loadAccountantList();
         System.out.println("""
                 Vælg den funktion du vil tilgå:
                 1. Beregn samlet årlig indkomst
@@ -106,7 +105,6 @@ public class UserInterface {
                 8. Skift rolle.
                 9. Afslut program.
                 """);
-        controller.loadPerformances();
         switch (takeIntUserInput()) {
             case 1 -> registerPerformance();
             case 2 -> sortPerformance();

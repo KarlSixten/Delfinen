@@ -21,6 +21,7 @@ public class Database {
         this.filehandler = new Filehandler(filename);
         setMembersArrayList(filehandler.loadData());
         filehandler.loadAccountantFile(membersArrayList);
+        filehandler.loadPerformances(membersArrayList);
     }
 
     public void setMembersArrayList(ArrayList<Member> liste) {
