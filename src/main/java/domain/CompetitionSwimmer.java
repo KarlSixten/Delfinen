@@ -24,12 +24,6 @@ public class CompetitionSwimmer extends Member {
         performances.add(new Performance(category, performanceTime, performedInCompetition, localDate));
     }
 
-
-    public ArrayList<Performance> viewPerfomances(){
-        return performances;
-    }
-
-
     public String toPerformanceCSVString() {
         StringBuilder output = new StringBuilder();
         int iterator = 1;
