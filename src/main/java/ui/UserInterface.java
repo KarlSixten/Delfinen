@@ -585,7 +585,7 @@ public class UserInterface {
 
     private Member findMember(){
         System.out.println("Søg på navn, user-ID eller telefonnummer");
-        Member selectedMember = null;
+        Member selectedMember;
         ArrayList<Member> foundMembers = new ArrayList<>();
         while(foundMembers.isEmpty()) {
             String search = scanner.nextLine();
