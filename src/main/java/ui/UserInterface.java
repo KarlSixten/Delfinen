@@ -515,7 +515,9 @@ public class UserInterface {
             } else System.out.println("Der blev ikke fundet et medlem. Prøv igen");
         } while(selectedMember == null);
         SwimDiscipline chosenDiscipline = getswimDiscipline();
-        System.out.println(controller.getOneSwimmersPerformances(selectedMember, chosenDiscipline));
+        if (!controller.getOneSwimmersPerformances(selectedMember, chosenDiscipline).isEmpty()) {
+            System.out.println(controller.getOneSwimmersPerformances(selectedMember, chosenDiscipline));
+        } else System.out.println("Det her medlem har ingen resultater i den valgte disciplin.");
     }
     private void sortPerformance(){
         int choice = genderChoice();
