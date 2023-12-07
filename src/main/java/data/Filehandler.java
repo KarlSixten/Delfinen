@@ -9,9 +9,9 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Filehandler {
-    private File memberFileList;
-    private File performanceList = new File ("PerformanceList.csv");
-    private File accountantList = new File("AccountantList.csv");
+    private final File memberFileList;
+    private final File performanceList = new File ("PerformanceList.csv");
+    private final File accountantList = new File("AccountantList.csv");
 
     public Filehandler(String filename) {
         this.memberFileList = new File(filename);
@@ -101,7 +101,7 @@ public class Filehandler {
         }
             }
             public void loadPerformances(ArrayList<Member> memberArrayList){
-                Scanner scanner = null;
+                Scanner scanner;
                 try {
                     scanner = new Scanner(new File("PerformanceList.csv"));
                 } catch (FileNotFoundException e) {
@@ -121,7 +121,7 @@ public class Filehandler {
     }
 
     public void loadAccountantFile(ArrayList<Member> memberArrayList){
-        Scanner scanner = null;
+        Scanner scanner;
         try {
             scanner = new Scanner(new File("AccountantList.csv"));
         } catch (FileNotFoundException e){
