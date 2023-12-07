@@ -197,29 +197,31 @@ public class UserInterface {
     }
 
     private void showAllMembers() {
-        System.out.println(controller.getAllMemberNames());
+        printAllNames();
         System.out.println("""
                 Skal der sorteres i medlemerne Vælg den funktion du vil tilgå:
                         1. Sortering med en primær
                         2. Sortering med primær og sekundær""");
         int userChoice = takeIntUserInput(1, 2);
-
+int choice = 0;
+int choice2 = 0;
         if (userChoice == 1) {
             sortLines();
-            int choice = takeIntUserInput(1, 11);
+            choice = takeIntUserInput(1, 11);
             controller.sortMember(choice);
         } else if (userChoice == 2) {
             sortLines();
-            int choice = takeIntUserInput(1, 11);
+            choice = takeIntUserInput(1, 11);
             sortLines();
-            int choice2 = takeIntUserInput(1, 11);
+            choice2 = takeIntUserInput(1, 11);
             controller.sortMemberPrimaryandSecundary(choice, choice2);
         }
         System.out.println("Liste sorteret!");
-        System.out.println(controller.getAllMemberNames());
+        System.out.println(controller.getAllMemberNames(choice, choice2));
 
 
     }
+
 
     private void createMember() {
         String fullName = createName();
@@ -587,5 +589,8 @@ public class UserInterface {
 
     private void seeMembersInArrears(){
         System.out.println(controller.arrearsList());
+    }
+    private void printAllNames(){
+        System.out.println(controller.printAllNames());
     }
 }

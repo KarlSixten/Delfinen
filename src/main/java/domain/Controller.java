@@ -45,8 +45,8 @@ public class Controller {
         return database.getCoachInListByIndex(index);
     }
 
-    public String getAllMemberNames() {
-        return database.getAllMemberNames();
+    public String getAllMemberNames(int choice, int choice2) {
+        return database.getAllMemberNames( choice ,choice2);
     }
 
     public ArrayList<Member> findMembers(String search){
@@ -116,5 +116,8 @@ database.deleteMember(member);
 
     public String arrearsList(){
         return database.arrearsList();
+    }
+    public String printAllNames(){
+        return database.printAllnames();
     }
 }

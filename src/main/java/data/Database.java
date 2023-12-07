@@ -2,7 +2,6 @@ package data;
 
 import domain.*;
 import domain.comparator.*;
-
 import java.io.IOException;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -125,12 +124,62 @@ public class Database {
         filehandler.loadPerformances(membersArrayList);
     }
 
-    public String getAllMemberNames() {
+    public String getAllMemberNames(int choice, int choice2) {
         StringBuilder stringBuilder = new StringBuilder();
-        for (Member member : membersArrayList) {
-            stringBuilder.append(member.getFullName() + "\n");
+        if (choice2 == 0) {
+            for (Member member : membersArrayList) {
+                stringBuilder.append(member.getFullName() + " ").append(outputSort(choice,member) + "\n");
+            }
+        }
+        else {
+            for (Member member : membersArrayList) {
+                stringBuilder.append(member.getFullName() + " ").append(outputSort(choice, member) + " ").append(outputSort(choice2, member) + "\n");
+            }
         }
         return stringBuilder.toString();
+    }
+    private String outputSort(int choice, Member member){
+        switch (choice){
+            case 1 -> {
+                return  member.getFullName();
+            }
+            case 2 -> {
+                return member.getUserID();
+            }
+            case 3 -> {
+                return member.getBirthDate().toString();
+            }
+            case 4 -> {
+                return member.getEmail();
+            }
+            case 5 ->{
+                return Integer.toString(member.getPhoneNumber());
+            }
+            case 6 ->{
+                return member.getAddress();
+            }
+            case 7 ->{
+                return member.getGender();
+            }
+            case 8 ->{
+                if (member.getMembership().isActive()){
+                    return "Aktiv";
+                } else return "Ikke aktiv";
+            }case 9 ->{
+                if (member.getMembership().isSenior()){
+                    return "Senior";
+                } else return "Junior";
+            }case 10 ->{
+                if (member.getMembership().isCompetetive()){
+                    return "Konkurrencesvømmer";
+                } else return "Motionist";
+            }case 11 ->{
+                if (member.getMembership().isCoach()){
+                    return "Træner";
+                } else return "Medlem";
+            }
+        }
+        return null;
     }
 
     public ArrayList<Member> findMembers(String search) {
@@ -345,6 +394,13 @@ public class Database {
                     append(member.getUserID()).append(", ").
                     append(member.getPhoneNumber()).append(", ").
                     append(member.getEmail()).append(".").append("\n");
+        }
+        return stringBuilder.toString();
+    }
+    public String printAllnames() {
+        StringBuilder stringBuilder = new StringBuilder();
+        for (Member member : membersArrayList) {
+            stringBuilder.append(member.getFullName() + "\n");
         }
         return stringBuilder.toString();
     }
