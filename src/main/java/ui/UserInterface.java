@@ -454,9 +454,7 @@ int choice2 = 0;
                 Er tiden lavet i konkurrence?
                 1. Ja
                 2. Nej""");
-
-        int userSelection = takeIntUserInput(1, 2);
-        boolean timeMadeInCompetition = userSelection == 1;
+        boolean timeMadeInCompetition = takeIntUserInput(1, 2) == 1;
 
         System.out.println("Indtast dato for hvornår tiden er sat:");
         LocalDate dateForPerformance = createLocalDate();
@@ -563,7 +561,6 @@ int choice2 = 0;
                     index += 1;
                 }
             } else {
-
                 System.out.println("Din søgning gav ingen resultater. Prøv igen:");
             }
         }
