@@ -300,8 +300,7 @@ public class UserInterface {
 
     private int createPhoneNumber() {
         System.out.println("Indtast tlf. nr.:");
-        int phoneNumber = takeIntUserInput(10000000, 99999999);
-        return phoneNumber;
+        return takeIntUserInput(10000000, 99999999);
     }
 
     private String createAddress() {
@@ -314,9 +313,7 @@ public class UserInterface {
                 Vælg køn:
                 1. Kvinde
                 2. Mand""");
-
-        int userSelection = takeIntUserInput(1, 2);
-        if (userSelection == 1) {
+        if (takeIntUserInput(1, 2) == 1) {
             return "Kvinde";
         } else {
             return "Mand";
@@ -340,9 +337,7 @@ public class UserInterface {
                 Er medlemmet konkurrencesvømmer?
                 1. Ja
                 2. Nej""");
-
-        int userSelection = takeIntUserInput(1, 2);
-        return userSelection == 1;
+        return takeIntUserInput(1, 2) == 1;
     }
 
     private boolean checkIfCoach() {
@@ -350,9 +345,7 @@ public class UserInterface {
                 Er medlemmet træner?
                 1. Ja
                 2. Nej""");
-
-        int userSelection = takeIntUserInput(1, 2);
-        return userSelection == 1;
+        return takeIntUserInput(1, 2) == 1;
     }
 
     private boolean checkIfActive() {
@@ -360,8 +353,7 @@ public class UserInterface {
                 Er medlemmet aktivt?
                 1. Ja
                 2. Nej""");
-        int userSelection = takeIntUserInput(1, 2);
-        return userSelection == 1;
+        return takeIntUserInput(1, 2) == 1;
     }
 
     private void exitProgram() {
@@ -418,12 +410,6 @@ public class UserInterface {
         }
     }
 
-    private void saveData() {
-        controller.saveData();
-        System.out.println("Al data er blevet gemt.");
-    }
-
-
     private void sortLines() {
         System.out.println("""
                 Hvilken attribut vil du gerne sortere efter?
@@ -447,7 +433,7 @@ public class UserInterface {
             System.out.println("Navnet på svømmeren du vil registrere en tid til");
             String fullName = scanner.nextLine();
             System.out.println(controller.listOfCompetetionsSwimmersByName(fullName));
-            System.out.println("Skriv tallet på den competitionssvømmer du vil vælge");
+            System.out.println("Skriv tallet på den konkurrencesvømmer du vil vælge");
             int index = takeIntUserInput();
             try {
 
@@ -463,7 +449,7 @@ public class UserInterface {
         System.out.println("Hvad er tiden i sekunder med 2 decimaler");
         double performanceTime = takeDoubleUserInput();
         System.out.println("""
-                Er tiden lavet i konkurrence? Skriv et for 1 ja og 2 for nej.
+                Er tiden lavet i konkurrence?
                 1. Ja
                 2. Nej""");
 
@@ -588,21 +574,15 @@ public class UserInterface {
 
     private void changeHasPaid(){
       Member selectedMember = findMember();
-        System.out.println("Har vedkommende betalt? Skriv ja eller nej");
-        while (true) {
-            String choice2 = scanner.nextLine();
-            if (choice2.equalsIgnoreCase("ja")) {
-                controller.setHasPaidForMember(selectedMember,true);
-                break;
-            } else if (choice2.equalsIgnoreCase("nej")){
-                controller.setHasPaidForMember(selectedMember, false);
-                break;
-            }
-            else System.out.println("Prøv igen. Skriv ja eller nej");
-        }
+        System.out.println("""
+                Har vedkommende betalt?
+                1. Ja
+                2. Nej""");
+        controller.setHasPaidForMember(selectedMember, takeIntUserInput(1, 2) == 1);
         System.out.println("Medlemmets betalingsstatus er nu opdateret");
         controller.saveAccountantList();
     }
+
     private void seeMembersInArrears(){
         System.out.println(controller.arrearsList());
     }
