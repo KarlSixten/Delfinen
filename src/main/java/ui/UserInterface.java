@@ -167,32 +167,7 @@ public class UserInterface {
 
 
     private void deleteMember() {
-        System.out.println("Søg venligst på det medlem du gerne vil slette:");
-        String search = scanner.nextLine();
-        ArrayList<Member> foundMembers = controller.findMembers(search);
-
-        if (foundMembers.isEmpty()) {
-            System.out.println("Ingen medlemmer fundet");
-            return;
-        }
-
-        System.out.println("Vælg et medlem du gerne vil slette");
-        int index = 1;
-        for (Member member : foundMembers) {
-            System.out.println(index + ". " + controller.getMemberName(member));
-            index++;
-        }
-
-        int choice = takeIntUserInput();
-        scanner.nextLine();
-
-        if (choice < 1 || choice > foundMembers.size()) {
-            System.out.println("Ugyldigt valg, prøv igen din tåbe");
-            return;
-        }
-
-        Member selectedMember = foundMembers.get(choice - 1);
-        System.out.println(selectedMember);
+        Member selectedMember = findMember();
         System.out.println("Skriv ja");
 
         String confirmation = scanner.nextLine().toLowerCase();
@@ -490,7 +465,7 @@ public class UserInterface {
         System.out.println("Hvad er tiden i sekunder med 2 decimaler");
         double performanceTime = takeDoubleUserInput();
         System.out.println("""
-                Er tiden lavet i konkurrence?
+                Er tiden lavet i konkurrence? Skriv et for 1 ja og 2 for nej.
                 1. Ja
                 2. Nej""");
 
